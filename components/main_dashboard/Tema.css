@@ -1,0 +1,28 @@
+.tema_line{
+    display: flex;
+    justify-content: space-between;
+    border: 0.5px solid lightgray;
+    border-radius: 5px;
+    padding-right: 5px;
+}
+.bloque_iz{
+    display: flex;
+    gap: 20px;
+}
+.tema_ico{
+    background-color: #2B4C68;
+}
+
+.boton {
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.boton:hover {
+  background-color: lightgray;
+}
+
+.boton:active {
+  background-color: gray;
+  transform: scale(0.99);
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import RegisterForm from "@/components/RegisterForm";
+import RegisterForm from "@/components/inicio_sesion/RegisterForm";
 
 export default function RegisterPage() {
   const [selectedRole, setSelectedRole] = useState("");

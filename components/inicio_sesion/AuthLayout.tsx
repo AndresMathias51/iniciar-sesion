@@ -1,4 +1,4 @@
-import "@/components/AuthLayout.css"
+import "@/components/inicio_sesion/AuthLayout.css"
 
 type Props = {
   title: string;

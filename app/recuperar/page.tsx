@@ -1,4 +1,4 @@
-import RecuperarContraseña from "@/components/RecuperarContraseña";
+import RecuperarContraseña from "@/components/inicio_sesion/RecuperarContraseña";
 
 export default function LoginPage() {
     return (
