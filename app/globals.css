@@ -1,26 +1,164 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* ==================================================
+     TITULOS
+     ================================================== */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Títulos principales:
+     headers, títulos de materias,
+     categorías y temas */
+  --title-primary: #2F3437;
+
+  /* Títulos secundarios:
+     subtítulos y encabezados menores */
+  --title-secondary: #355C7D;
+
+  /* ==================================================
+     TEXTO
+     ================================================== */
+
+  /* Texto principal de contenido */
+  --text-primary: #3A4045;
+
+  /* Texto sobre fondos oscuros */
+  --text-light: #FAFBFC;
+
+  /* ==================================================
+     TEXTO SECUNDARIO
+     ================================================== */
+
+  /* Descripciones, metadata,
+     fechas y texto auxiliar */
+  --text-secondary: #5E6872;
+
+  /* Texto tenue o deshabilitado */
+  --text-muted: #8A949E;
+
+  /* ==================================================
+     FRAMES PRINCIPALES
+     ================================================== */
+
+  /* Navbar, sidebar principal,
+     botones principales */
+  --frame-primary: #355C7D;
+
+  /* Hover de elementos principales */
+  --frame-primary-hover: #2B4C68;
+
+  /* Fondo suave relacionado al principal */
+  --frame-primary-soft: #D6E4F0;
+
+  /* ==================================================
+     FRAMES SECUNDARIOS
+     ================================================== */
+
+  /* Cards, publicaciones,
+     contenedores y paneles */
+  --frame-secondary: #FAFBFC;
+
+  /* Secciones secundarias
+     o bloques diferenciados */
+  --frame-secondary-alt: #E9EDF1;
+
+  /* Bordes suaves */
+  --frame-border: #D5DDE5;
+
+  /* ==================================================
+     FONDO GENERAL
+     ================================================== */
+
+  /* Fondo general de toda la aplicación */
+  --background-main: #F4F6F8;
+
+  /* Fondo alternativo para zonas diferenciadas */
+  --background-soft: #EEF2F5;
+
+  /* ==================================================
+     COLORES DE APOYO / ESTADOS
+     ================================================== */
+
+  /* Éxito */
+  --success: #4F8A5B;
+
+  /* Advertencia */
+  --warning: #C48A3A;
+
+  /* Error */
+  --error: #B85C5C;
+
+  /* Información */
+  --info: #4B7EA8;
+
+  /* Acentos especiales */
+  --accent: #D99152;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  margin: 0;
+  padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.inputGroup input,
+.inputGroup select {
+  padding: 12px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 8px;
+}
+
+.authButton {
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: black;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.forgotPassword {
+  background: none;
+
+  border: none;
+
+  color: blue;
+
+  cursor: pointer;
+
+  text-align: left;
+}
+
+.roleButtons {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+.errorText {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+.successText {
+  color: green;
+  font-size: 14px;
+  margin-top: -10px;
 }
