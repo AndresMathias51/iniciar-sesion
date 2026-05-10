@@ -1,51 +1,54 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import "@/components/LoginForm.css"
-import InputField from "./InputField";
 import AuthButton from "./AuthButton";
 import AuthLayout from "./AuthLayout";
 
-async function contraseña() {
-    const response = await fetch("/api/auth/forgot-password", {
+const LoginForm = () => {
+  async function login() {
+    const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        correo,
+        password,
       }),
     });
     const data = await response.json();
-    console.log(data)
-}
-
-async function login() {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-    });
-    const data = await response.json();
     console.log(data);
-}
-
-const LoginForm = () => {
+  }
+  const [correo, setCorreo] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <AuthLayout title="Iniciar Sesión">
-      <InputField
-        label="Correo Electrónico"
-        type="email"
-        placeholder="correo@gmail.com"
-      />
-      <InputField
-        label="Contraseña"
-        type="password"
-        placeholder="********"
-      />
-      <button className="forgotPassword" onClick={contraseña}>
+      <div className="inputGroup">
+        <label>Correo Electrónico</label>
+        <input
+          type="email"
+          placeholder="correo@gmail.com"
+          value={correo}
+          onChange={(e)=>setCorreo(e.target.value)}
+        />
+      </div>
+      <div className="inputGroup">
+        <label>Contraseña</label>
+        <input
+          type="password"
+          placeholder="********"
+          value={password}
+          onChange={(e)=>setPassword(e.target.value)}
+        />
+      </div>
+      <Link className="forgotPassword" href="/password">
         Olvidé mi contraseña
-      </button>
+      </Link>
       <AuthButton text="Iniciar Sesión" onClick={login}/>
       <p>
         ¿No tienes cuenta?{" "}
-        <Link href="/register">
+        <Link className="registrarseTexto" href="/register">
           Registrarse
         </Link>
       </p>

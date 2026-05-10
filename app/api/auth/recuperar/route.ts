@@ -1,7 +1,11 @@
 export async function POST(req: Request) {
+
   const body = await req.json();
-  const {correo} = body;
+
+  const { password } = body;
+
   return Response.json({
-    message: `Codigo enviado al correo ${correo}`
+    success: true,
+    message: "Contraseña actualizada",
   });
 }

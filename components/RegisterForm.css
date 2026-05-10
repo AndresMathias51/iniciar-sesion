@@ -1,0 +1,15 @@
+.errorText {
+  color: var(--error);
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+.successText {
+  color: var(--success);
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+.registrarseTexto{
+    color: blue;
+}

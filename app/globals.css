@@ -20,10 +20,10 @@
      ================================================== */
 
   /* Texto principal de contenido */
-  --text-primary: #3A4045;
+  --text-primary: #2B4C68;
 
   /* Texto sobre fondos oscuros */
-  --text-light: #FAFBFC;
+  --text-light: #EEF2F5;
 
   /* ==================================================
      TEXTO SECUNDARIO
@@ -98,10 +98,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
 }
-
-
 
 .inputGroup {
   display: flex;
@@ -119,46 +117,13 @@ body {
   border-radius: 8px;
 }
 
-.authButton {
-  padding: 12px;
 
-  border: none;
 
-  border-radius: 8px;
 
-  background: black;
-
-  color: white;
-
-  cursor: pointer;
-}
-
-.forgotPassword {
-  background: none;
-
-  border: none;
-
-  color: blue;
-
-  cursor: pointer;
-
-  text-align: left;
-}
 
 .roleButtons {
   display: flex;
   flex-direction: column;
 
   gap: 20px;
-}
-.errorText {
-  color: red;
-  font-size: 14px;
-  margin-top: -10px;
-}
-
-.successText {
-  color: green;
-  font-size: 14px;
-  margin-top: -10px;
 }

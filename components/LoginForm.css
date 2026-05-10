@@ -1,0 +1,15 @@
+.forgotPassword {
+  background: none;
+
+  border: none;
+
+  color: blue;
+
+  cursor: pointer;
+
+  text-align: left;
+}
+
+.registrarseTexto{
+    color: blue;
+}

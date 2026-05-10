@@ -1,0 +1,12 @@
+.authButton {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: var(--frame-primary);
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.authButton:hover {
+    background: var(--frame-primary-hover);
+}
