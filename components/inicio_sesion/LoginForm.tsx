@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import "@/components/LoginForm.css"
+import "@/components/inicio_sesion/LoginForm.css"
 import AuthButton from "./AuthButton";
 import AuthLayout from "./AuthLayout";
 

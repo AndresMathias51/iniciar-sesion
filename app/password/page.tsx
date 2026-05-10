@@ -1,4 +1,4 @@
-import PasswordForm from "@/components/PasswordForm";
+import PasswordForm from "@/components/inicio_sesion/PasswordForm";
 
 export default function LoginPage() {
     return (

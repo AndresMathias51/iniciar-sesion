@@ -93,6 +93,23 @@
 
   /* Acentos especiales */
   --accent: #D99152;
+
+  /*
+  ALVARO
+  */
+  --font-main: 'Inter', sans-serif;
+  --item-gradient-start:#94CDFF;
+  --item-gradient-end:#BAD0E3;
+
+  
+
+  --card-bg: #ffffff;
+  --avatar-bg: #fb046f;
+  --item-bg: #94CDFF;
+
+  --btn-primary: #355C7D;
+  --btn-secondary: #355C7D ;
+  --btn-danger: #355C7D ;
 }
 
 body {

@@ -1,4 +1,4 @@
-import "@/components/AuthButton.css"
+import "@/components/inicio_sesion/AuthButton.css"
 
 type Props = {
   text: string;

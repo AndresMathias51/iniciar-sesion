@@ -1,0 +1,8 @@
+.account-card{
+width:380px;
+border-radius:50px;
+padding:25px;
+background:var(--card-bg);
+box-shadow:0 8px 25px rgba(0, 0, 0, 0.15);
+font-family:var(--font-main);
+}
