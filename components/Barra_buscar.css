@@ -1,0 +1,34 @@
+.b_bloque{
+    border-radius: 20px;
+    min-width: 500px;
+    min-height: 40px;
+    background-color: #2B4C68;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding-left: 20px;
+    color: #8A949E;
+
+}
+.boton_search{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #848F9B;
+    min-width: 64px;
+    height: 40px;
+    content: '';
+    border-radius: 0px 20px 20px 0px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.boton_search:hover {
+  background-color: lightgray;
+}
+
+.boton_search:active {
+  background-color: gray;
+  transform: scale(0.99);
+}
