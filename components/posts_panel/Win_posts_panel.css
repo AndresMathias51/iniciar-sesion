@@ -1,0 +1,16 @@
+.contenido_central{
+    display: flex;
+    gap: 0px;
+    justify-content: space-between;
+}
+.contenido_posts{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 65%;
+}
+.dashboard_encabezado{
+    position: sticky;
+    top: 0; 
+    left: 0;
+}
