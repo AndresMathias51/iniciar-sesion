@@ -1,0 +1,28 @@
+.barra_lateral{
+    background-color: #2B4C68;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px; 
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    right: 0px;
+    overflow-y: auto;
+    height: 100vh;
+    width: 30%;
+    position: fixed;
+    height: 100%;
+    overflow-y: scroll;
+     /* 1. Ocultar en Chrome, Safari y nuevas versiones de Edge */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 2. Ocultar en Firefox */
+    scrollbar-width: none;
+
+    /* 3. Ocultar en Internet Explorer y Edge antiguo */
+    -ms-overflow-style: none;
+}

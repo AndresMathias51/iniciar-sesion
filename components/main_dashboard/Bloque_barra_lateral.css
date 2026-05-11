@@ -1,0 +1,17 @@
+.bloque_barra_lateral{
+    width: 90%;
+    height: 350px;
+}
+.encabezado_bloque_lateral{
+   background-color: #848F9B;
+   width: 40%;
+   height: 50px;
+   border-radius: 10px 10px 0px 0px;
+}
+
+.contenido_bloque_lateral{
+    width: 100%;
+    height: 300px;
+    background-color: white;
+    border-radius: 0px 10px 10px 10px;
+}

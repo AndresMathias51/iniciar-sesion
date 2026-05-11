@@ -7,9 +7,7 @@
     background-color: #355C7D;
     height: 70px;
     color: #EEF2F5;
-    position: sticky;
-    top: 0;
-    left: 0;
+    font-size: 1rem;
 }
 .sub_bloque{
     display: flex;

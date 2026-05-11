@@ -19,7 +19,7 @@ export default function Tema() {
                 <Image className='tema_ico' src={dir} alt='ico_tema' width={20} height={20}/>
                 <h3>TITULO</h3>
             </div>
-            <p>Description  description description description description description description description description </p>
+            <p>Description description description description description </p>
         </div>
     </button>
   )

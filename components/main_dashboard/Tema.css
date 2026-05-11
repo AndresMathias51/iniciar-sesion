@@ -4,6 +4,7 @@
     border: 0.5px solid lightgray;
     border-radius: 5px;
     padding-right: 5px;
+    gap: 0px;
 }
 .bloque_iz{
     display: flex;

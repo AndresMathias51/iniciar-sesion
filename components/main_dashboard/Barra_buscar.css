@@ -1,7 +1,7 @@
 .b_bloque{
     border-radius: 20px;
-    min-width: 500px;
-    min-height: 40px;
+    min-width: 40%;
+    min-height: 80%;
     background-color: #2B4C68;
     display: flex;
     justify-content: space-between;

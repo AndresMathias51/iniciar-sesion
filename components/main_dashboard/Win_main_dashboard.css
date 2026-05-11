@@ -1,5 +1,17 @@
-.div_main_dashboard{
-    background-image: url(/dashboard/fondo.png);
-    background-repeat: no-repeat;
-    background-size: cover;
+
+.contenido_central{
+    display: flex;
+    gap: 0px;
+    justify-content: space-between;
+}
+.contenido_categorias{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 65%;
+}
+.dashboard_encabezado{
+    position: sticky;
+    top: 0; 
+    left: 0;
 }
