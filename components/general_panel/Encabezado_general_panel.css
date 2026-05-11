@@ -1,0 +1,33 @@
+.bloque {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    background-color: #355c7d;
+    height: 70px;
+    color: #eef2f5;
+    font-size: 1rem;
+}
+.sub_bloque {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.boton {
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.boton:hover {
+    background-color: lightgray;
+}
+
+.boton:active {
+    background-color: gray;
+    transform: scale(0.99);
+}
