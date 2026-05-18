@@ -1,7 +1,7 @@
 .bloque_des{
-    background-color: #C7E5FF;
+    background-color: #E0E0E0;
     max-width: 1000px;
-    margin-top: 20px;
+    margin-top: 20px;   
     display: flex;
     gap: 20px;
     align-items: center;
@@ -9,8 +9,11 @@
     border-radius: 0px 10px 10px 0px;
 }
 .sujetador_des{
-    background-color: #94CDFF;
+    background-color: #1E1E1E;
     border-radius: 0px 10px 10px 0px;
     width: 60px;
-    align-self: stretch;
+    height: 80%;
+}
+.imagen_2plano{
+    filter: brightness(0) invert(1);
 }

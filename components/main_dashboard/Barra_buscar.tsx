@@ -7,10 +7,10 @@ export default function Barra_buscar () {
     const dir = "/dashboard/search.svg"
   return (
     <div className='b_bloque'>
-        <h2>Buscar</h2>
-        <div className='boton_search'>
+        <input className='input_search' type="text" placeholder="Buscar..." />
+        <button className='boton_search'>
             <Image src={dir} alt='lupa' width={24} height={24}/>
-        </div>
+        </button>
     </div>
   )
 }

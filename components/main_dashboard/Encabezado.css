@@ -4,10 +4,11 @@
     justify-content: space-between;
     padding: 20px;
     align-items: center;
-    background-color: #355C7D;
+    background-color: white;
     height: 70px;
-    color: #EEF2F5;
+    color: black;
     font-size: 1rem;
+    border-bottom: 1px solid black;
 }
 .sub_bloque{
     display: flex;
@@ -15,4 +16,29 @@
     align-items: center;
     gap: 20px;
     position: relative;
+}
+.nombre_materia{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FF5C1C;
+    
+}
+.imagen{
+    filter: brightness(0) saturate(100%) invert(12%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(94%) contrast(88%);
+}
+
+.boton_encabezado{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 50%;
+}
+.boton_encabezado:hover {
+  background-color: lightgray;
+}
+
+.boton_encabezado:active {
+  background-color: gray;
+  transform: scale(0.99);
 }
