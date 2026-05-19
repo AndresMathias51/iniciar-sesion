@@ -16,12 +16,14 @@ export default function Tema() {
         <div className='tema_line'>
 
             <div className='bloque_iz'>
-                <div className='tema_ico'>
-                  <Image  src={dir} alt='ico_tema' width={35} height={35}/>
+                <div className='bloque_ico'>
+                  <Image className='ico_tema' src={dir} alt='ico_tema' width={35} height={35}/>
                 </div>
                 <h3>TITULO</h3>
             </div>
-            <p>Description description description description description </p>
+            <div className='bloque_der'>
+              <p>Description description description description description </p>
+            </div>
         </div>
     </button>
   )

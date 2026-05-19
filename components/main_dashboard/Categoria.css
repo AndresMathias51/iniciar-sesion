@@ -10,7 +10,9 @@
     padding-left: 10px;
     padding-right: 50px;
     color: white;
-    font-size: 22px;
+    font-size: 20px;
+    font-family: var(--font-exo2);
+    font-weight: 200;
 }
 .bloque_temas{
     padding: 10px;
