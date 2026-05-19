@@ -1,0 +1,12 @@
+.content_section{
+    display: flex;
+    gap: 0px;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+.encabezado_general_panel{
+    position: sticky;
+    top: 0; 
+    left: 0;
+}

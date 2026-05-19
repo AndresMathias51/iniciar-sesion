@@ -1,23 +1,44 @@
 .tema_line{
     display: flex;
     justify-content: space-between;
-    border: 0.5px solid lightgray;
-    border-radius: 5px;
     padding-right: 5px;
     gap: 0px;
+
 }
 .bloque_iz{
     display: flex;
     gap: 20px;
+    color: #FFA71D;
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+.bloque_der{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 200;
 }
-.tema_ico{
-    background-color: #2B4C68;
+.bloque_ico{
+    background-color: #848F9B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px 0 0 5px;
+    height: 100%;
+    min-width: 80px;
 }
-
+.ico_tema{
+    filter: brightness(0) invert(1);
+}
 .boton {
-  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  min-height: 35px;
+  border-bottom: 1px solid #E0E0E0;
+
 }
 .boton:hover {
   background-color: lightgray;

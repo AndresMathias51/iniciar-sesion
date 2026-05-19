@@ -17,7 +17,7 @@ export default function Descripcion() {
             description description description 
             description
         </p>
-        <Image src={dir} alt='ico' width={160} height={160}/>
+        <Image className="imagen_2plano" src={dir} alt='ico' width={160} height={160}/>
     </div>
   )
 }

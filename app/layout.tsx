@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Exo_2 } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
 
   variable: "--font-inter",
+});
+const exo = Exo_2({
+  subsets: ["latin"],
+  variable: "--font-exo2",
 });
 
 export const metadata: Metadata = {
@@ -20,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${inter.variable} ${exo.variable}`}>
         {children}
       </body>
     </html>

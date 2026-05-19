@@ -13,15 +13,17 @@ export default function Encabezado() {
   return (
     <div className="bloque">
         <div className="sub_bloque">
-            <Image src={dir} alt="" width={50} height={50} />
-            <h1>TITULO</h1>
+            <button className="boton_encabezado">
+                <Image className="imagen" src={dir} alt="" width={50} height={50} />
+            </button>
+            <h1 className="nombre_materia">NOMBRE MATERIA</h1>
         </div>
         <Barra_buscar/>
         <div className="sub_bloque">
             <h2>Invitado</h2>
-            <Link href='/register'>
-                <Image src={dir2} alt="" width={40} height={40}/>
-            </Link>    
+            <button className="boton_encabezado">
+                <Image className="imagen" src={dir2} alt="" width={40} height={40}/>
+            </button>
         </div>
     </div>  
   );

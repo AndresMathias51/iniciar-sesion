@@ -6,7 +6,7 @@ export default function Categoria() {
   return (
     <div className='categoria'>
         <div className='bloque_categoria'>
-            <h2>CATEGORIA 1</h2>
+            <h2>CATEGORIA N#</h2>
         </div>
         <div className='bloque_temas'>
             <Tema/>

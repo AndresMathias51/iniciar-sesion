@@ -1,0 +1,10 @@
+.preview_card{
+    color: #000000;
+    font-size: 45px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #9DCEF7;
+    width: 100%;
+}

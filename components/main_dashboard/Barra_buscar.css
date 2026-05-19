@@ -2,20 +2,22 @@
     border-radius: 20px;
     min-width: 40%;
     min-height: 80%;
-    background-color: #2B4C68;
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
     padding-left: 20px;
-    color: #8A949E;
+    color: black;
+    border: 1px solid black;
 
 }
 .boton_search{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #848F9B;
+    background-color: white;
+    border-left: 1px solid black;
     min-width: 64px;
     height: 40px;
     content: '';
@@ -31,4 +33,11 @@
 .boton_search:active {
   background-color: gray;
   transform: scale(0.99);
+}
+
+.input_search{
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    width: 100%;
 }
