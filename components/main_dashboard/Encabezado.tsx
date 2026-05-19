@@ -1,6 +1,7 @@
 'use client'
 
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 import Barra_buscar from "./Barra_buscar";
 import "./Encabezado.css"
@@ -18,7 +19,9 @@ export default function Encabezado() {
         <Barra_buscar/>
         <div className="sub_bloque">
             <h2>Invitado</h2>
-            <Image src={dir2} alt="" width={40} height={40}/>
+            <Link href='/register'>
+                <Image src={dir2} alt="" width={40} height={40}/>
+            </Link>    
         </div>
     </div>  
   );
