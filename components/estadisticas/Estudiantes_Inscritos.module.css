@@ -1,0 +1,84 @@
+.card {
+  height: 100%;
+  padding: 24px;
+  border: 1px solid #ddd6c8;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(47, 58, 61, 0.06);
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FF5C1C;
+}
+
+.description {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #7a746a;
+}
+
+.scrollArea {
+  max-height: 340px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.scrollArea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollArea::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background-color: #e0e0e0;
+}
+
+.scrollArea::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background-color: #b7b7b7;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background-color: #f5f5f5;
+}
+
+.studentName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2f3a3d;
+}
+
+.studentEmail {
+  margin-top: 3px;
+  font-size: 13px;
+  color: #7a746a;
+}
+
+.badge {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 999px; 
+  background-color: #ebebeb;
+  font-size: 12px;
+  font-weight: 600;
+  color: #3c4446;
+}
