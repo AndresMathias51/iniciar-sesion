@@ -1,0 +1,55 @@
+.categoriaAdminCard {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--am-border);
+  background: var(--am-surface-2);
+  cursor: pointer;
+}
+
+.isSelected {
+  border-color: rgba(255, 106, 0, .70);
+  box-shadow: 0 0 0 3px var(--am-ring);
+}
+
+.categoriaAdminNombre {
+  margin: 0;
+  font-size: 16px;
+  color: var(--am-text);
+}
+
+.categoriaAdminDesc {
+  margin: 6px 0 0;
+  font-size: 13px;
+  opacity: 0.85;
+  color: var(--am-muted);
+}
+
+.categoriaAdminActions {
+  display: flex;
+  gap: 8px;
+}
+
+.btnSmall {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--am-border);
+  background: var(--am-surface);
+  color: inherit;
+  font-size: 12px;
+}
+
+.btnSmall:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.danger {
+  border-color: rgba(239, 68, 68, .45);
+}
+
+.danger:hover {
+  background: var(--am-danger-soft);
+}

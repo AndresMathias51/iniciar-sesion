@@ -1,0 +1,37 @@
+.formTema {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.formSelect {
+  border-radius: 10px;
+  border: 1px solid var(--frame-border);
+  background: var(--frame-secondary); 
+  color: var(--text-primary);
+  padding: 10px 12px;
+  font-size: 14px;
+}
+.formSelect:hover{
+  background: var(--background-soft);
+}
+
+.formSelect:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(217, 145, 82, 0.22);
+}
+
+.formHintSmall {
+  margin: 6px 0 0;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.disabled {
+  opacity: 0.55;
+}

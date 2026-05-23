@@ -1,0 +1,74 @@
+.formCategoria {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--am-border);
+  background: var(--am-surface);
+  box-shadow: var(--am-shadow);
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formLabel {
+  font-size: 12px;
+  opacity: 0.85;
+  color: var(--am-muted);
+}
+
+.formInput {
+  border-radius: 10px;
+  border: 1px solid var(--am-border);
+  background: var(--am-surface-2);
+  color: var(--am-text);
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: rgba(255, 106, 0, .55);
+  box-shadow: 0 0 0 3px var(--am-ring);
+}
+
+.formActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 106, 0, .45);
+  background: var(--am-accent-soft);
+  color: var(--am-text);
+  font-weight: 600;
+}
+
+.btnPrimary:hover {
+  background: rgba(255, 106, 0, .20);
+}
+
+.btnSecondary {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--am-border);
+  background: var(--am-surface-2);
+  color: var(--am-text);
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.formHint {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.7;
+}

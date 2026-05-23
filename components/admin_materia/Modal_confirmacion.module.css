@@ -1,0 +1,71 @@
+.mcOverlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.35);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  display: grid;
+  place-items: center;
+  z-index: 2000;
+  padding: 16px;
+}
+
+.mcDialog{
+  width: min(520px, 100%);
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 14px;
+  box-shadow: 0 18px 45px rgba(17,24,39,.18);
+  border: 1px solid var(--am-border);
+  padding: 18px 18px 16px;
+}
+
+.mcTitle{
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.mcMessage{
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  line-height: 1.45;
+  opacity: 0.9;
+}
+
+.mcActions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.mcBtn{
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .05s ease, filter .15s ease;
+}
+
+.mcBtn:active{
+  transform: translateY(1px);
+}
+
+.mcBtnSecondary{
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.mcBtnSecondary:hover{
+  filter: brightness(0.97);
+}
+
+.mcBtnDanger{
+  background: var(--am-danger);
+  color: white;
+}
+
+.mcBtnDanger:hover{
+  filter: brightness(0.97);
+}
