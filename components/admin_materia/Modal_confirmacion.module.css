@@ -1,36 +1,52 @@
+/* Modal confirmación - más chico y colores MUY suaves (coherente con tu UI) */
+
 .mcOverlay{
   position: fixed;
   inset: 0;
-  background: rgba(17, 24, 39, 0.35);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  z-index: 4500;
+
   display: grid;
   place-items: center;
-  z-index: 2000;
-  padding: 16px;
+
+  /* oscurecido suave */
+  background: rgba(17, 24, 39, 0.30);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .mcDialog{
-  width: min(520px, 100%);
-  background: #ffffff;
-  color: #0f172a;
-  border-radius: 14px;
-  box-shadow: 0 18px 45px rgba(17,24,39,.18);
-  border: 1px solid var(--am-border);
-  padding: 18px 18px 16px;
+  width: min(520px, calc(100% - 28px));  /* más pequeño */
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(17, 24, 39, 0.10);
+
+  box-shadow:
+    0 18px 45px rgba(17, 24, 39, 0.18),
+    0 2px 10px rgba(17, 24, 39, 0.06);
+
+  padding: 14px 16px;
+
+  animation: mcIn 160ms ease-out;
+}
+
+@keyframes mcIn{
+  from{ opacity: 0; transform: translateY(8px) scale(.99); }
+  to{ opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .mcTitle{
-  margin: 0 0 8px 0;
+  margin: 0 0 6px;
   font-size: 18px;
   font-weight: 800;
+  color: var(--title-primary);
 }
 
-.mcMessage{
-  margin: 0 0 16px 0;
+.mcBody{
+  margin: 0 0 14px;
+  color: var(--text-secondary);
   font-size: 14px;
   line-height: 1.45;
-  opacity: 0.9;
 }
 
 .mcActions{
@@ -39,33 +55,51 @@
   gap: 10px;
 }
 
+/* Botones base (más “pill”, suaves) */
 .mcBtn{
-  border: 0;
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-weight: 700;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 12px;
+
+  font-weight: 800;
+  font-size: 14px;
+
   cursor: pointer;
-  transition: transform .05s ease, filter .15s ease;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+
+  background: rgba(255,255,255,0.7);
+  color: var(--title-primary);
+
+  transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+}
+
+.mcBtn:hover{
+  background: rgba(243, 244, 246, 0.95);
+  border-color: rgba(17, 24, 39, 0.16);
 }
 
 .mcBtn:active{
   transform: translateY(1px);
 }
 
-.mcBtnSecondary{
-  background: #e5e7eb;
-  color: #111827;
+/* Cancelar (igual que base, pero un pelín más neutro) */
+.mcBtnCancel{
+  background: rgba(255,255,255,0.75);
 }
 
-.mcBtnSecondary:hover{
-  filter: brightness(0.97);
-}
-
+/* Confirmar (peligro MUY suave usando tu --error) */
 .mcBtnDanger{
-  background: var(--am-danger);
-  color: white;
+  border-color: rgba(184, 92, 92, 0.22);
+  background: rgba(184, 92, 92, 0.10);
+  color: rgba(120, 45, 45, 0.95);
 }
 
 .mcBtnDanger:hover{
-  filter: brightness(0.97);
+  background: rgba(184, 92, 92, 0.14);
+  border-color: rgba(184, 92, 92, 0.26);
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  .mcDialog{ animation: none; }
 }

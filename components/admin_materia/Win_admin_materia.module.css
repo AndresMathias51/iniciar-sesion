@@ -15,6 +15,10 @@
   gap: 0px;
   justify-content: space-between;
   background-color: #F4F6F8;
+  position: relative;
+
+  /* NUEVO: hace que el fondo gris baje hasta el final de la pantalla */
+  min-height: calc(100vh - 72px); /* ajusta 72px al alto real de tu encabezado */
 }
 
 .contenido_admin{
@@ -24,7 +28,10 @@
   width: 65%;
   padding: 20px;
   box-sizing: border-box;
+
+  /* overlay local */
   position: relative;
+  z-index: 2;
 }
 
 .adminMateriaCentro{
@@ -32,6 +39,10 @@
   display: grid;
   column-gap: 50px;
   row-gap: 20px;
+
+  /* overlay */
+  position: relative;
+  z-index: 2;
 }
 
 .adminMateriaCentro1{
@@ -51,6 +62,11 @@
   border-radius: 12px;
   padding: 16px;
   box-sizing: border-box;
+
+  /* CLAVE para scroll interno en la lista */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .adminMateriaTitle{
@@ -65,37 +81,44 @@
   flex-direction: column;
   gap: 10px;
   margin-top: 12px;
+
+  max-height: 210px;   /* igual que tu ejemplo */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+}
+
+.adminMateriaList::-webkit-scrollbar{
+  width: 8px;
+}
+
+.adminMateriaList::-webkit-scrollbar-track{
+  border-radius: 999px;
+  background-color: #e0e0e0;
+}
+
+.adminMateriaList::-webkit-scrollbar-thumb{
+  border-radius: 999px;
+  background-color: #b7b7b7;
 }
 
 .adminMateriaLateral{
   width: auto;
+  position: relative;
+  z-index: 2;
 }
 
 .adminMateriaEmpty{
   opacity: 0.8;
   font-size: 14px;
 }
-/* Asegurar contenedor relativo */
-.contenido_admin{
-  position: relative;
-}
 
-/* Capa para detectar click afuera */
+/* Capa para detectar click afuera (local, si la usas) */
 .clickOutsideOverlay{
   position: absolute;
   inset: 0;
   z-index: 1;
   background: transparent;
-}
-
-/* Panel por encima del overlay */
-.adminMateriaCentro{
-  position: relative;
-  z-index: 2;
-}
-/* El contenedor central debe ser relativo para el overlay */
-.contenido_central_admin{
-  position: relative;
 }
 
 /* Overlay global: cubre centro + lateral */
@@ -112,6 +135,7 @@
   position: relative;
   z-index: 2;
 }
+
 @media (max-width: 1100px) {
   .contenido_central_admin{
     flex-direction: column;

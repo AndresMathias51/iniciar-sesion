@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Encabezado from "@/components/main_dashboard/Encabezado";
 import Barra_lateral from "@/components/main_dashboard/Barra_lateral";
+import Toast from "./Toast";
 
 import Categoria_admin, { Categoria } from "./Categoria_admin";
 import Tema_admin, { Tema } from "./Tema_admin";
@@ -12,16 +13,8 @@ import Modal_confirmacion from "./Modal_confirmacion";
 
 import styles from "./Win_admin_materia.module.css";
 
-const seedCategorias: Categoria[] = [
-  { id: "cat-1", nombre: "Unidad 1", descripcion: "Introducción a Programación III", imagenUrl: "" },
-  { id: "cat-2", nombre: "Unidad 2", descripcion: "API y buenas prácticas", imagenUrl: "" },
-];
-
-const seedTemas: Tema[] = [
-  { id: "tema-1", categoriaId: "cat-1", titulo: "Bienvenida", descripcion: "Reglas del foro académico y guía general.", imagenUrl: "" },
-  { id: "tema-2", categoriaId: "cat-1", titulo: "Recursos", descripcion: "Links y material de estudio.", imagenUrl: "" },
-  { id: "tema-3", categoriaId: "cat-2", titulo: "Trabajo Práctico 1", descripcion: "Enunciado y dudas.", imagenUrl: "" },
-];
+const seedCategorias: Categoria[] = [];
+const seedTemas: Tema[] = [];
 
 export default function Win_admin_materia() {
   const [categorias, setCategorias] = useState<Categoria[]>(seedCategorias);
@@ -35,10 +28,24 @@ export default function Win_admin_materia() {
   const [confirmMessage, setConfirmMessage] = useState("¿Estás seguro?");
   const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
 
+  // ===== Toast =====
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+  const [toastType, setToastType] = useState<"success" | "info" | "error">("success");
+
+  function showToast(message: string, type: "success" | "info" | "error" = "success") {
+    setToastMsg(message);
+    setToastType(type);
+    setToastOpen(true);
+  }
+
+  // Siempre tener una categoría activa si existe al menos una
+  const activeCategoriaId = categoriaSeleccionadaId || categorias[0]?.id || "";
+
   const temasDeCategoria = useMemo(() => {
-    if (!categoriaSeleccionadaId) return [];
-    return temas.filter((t) => t.categoriaId === categoriaSeleccionadaId);
-  }, [temas, categoriaSeleccionadaId]);
+    if (!activeCategoriaId) return [];
+    return temas.filter((t) => t.categoriaId === activeCategoriaId);
+  }, [temas, activeCategoriaId]);
 
   function openConfirm(opts: { title: string; message: string; action: () => void }) {
     setConfirmTitle(opts.title);
@@ -50,8 +57,12 @@ export default function Win_admin_materia() {
   // ===== Categorías =====
   function handleCreateCategoria(data: Omit<Categoria, "id">) {
     const nueva: Categoria = { id: crypto.randomUUID(), ...data };
-    // Agregar al final (abajo) y NO seleccionar automáticamente
     setCategorias((prev) => [...prev, nueva]);
+
+    // si no había ninguna seleccionada, selecciona la primera disponible
+    setCategoriaSeleccionadaId((prevSelected) => prevSelected || nueva.id);
+
+    showToast(`Categoría creada: ${nueva.nombre}`, "success");
   }
 
   function handleStartEditCategoria(cat: Categoria) {
@@ -65,34 +76,33 @@ export default function Win_admin_materia() {
   function handleUpdateCategoria(id: string, data: Omit<Categoria, "id">) {
     setCategorias((prev) => prev.map((c) => (c.id === id ? { id, ...data } : c)));
     setEditCategoria(null);
+    showToast(`Categoría actualizada: ${data.nombre}`, "info");
   }
 
   function handleDeleteCategoria(id: string) {
     setCategorias((prev) => prev.filter((c) => c.id !== id));
     setTemas((prev) => prev.filter((t) => t.categoriaId !== id));
 
-    if (categoriaSeleccionadaId === id) {
+    // Si borraste la seleccionada, elegir otra (o vacío si no queda ninguna)
+    if (activeCategoriaId === id) {
       const remaining = categorias.filter((c) => c.id !== id);
       setCategoriaSeleccionadaId(remaining[0]?.id ?? "");
     }
+
+    showToast("Categoría eliminada", "info");
   }
 
   // ===== Temas =====
   function handleCreateTema(data: Omit<Tema, "id">) {
     const nuevo: Tema = { id: crypto.randomUUID(), ...data };
     setTemas((prev) => [nuevo, ...prev]);
+    showToast(`Tema creado: ${nuevo.titulo}`, "success");
   }
 
   function handleDeleteTema(id: string) {
     setTemas((prev) => prev.filter((t) => t.id !== id));
+    showToast("Tema eliminado", "info");
   }
-
-  function clearSeleccionCategoria() {
-    setCategoriaSeleccionadaId("");
-    setEditCategoria(null);
-  }
-
-  const twoCols = Boolean(categoriaSeleccionadaId);
 
   return (
     <div className={styles.div_admin_materia}>
@@ -100,22 +110,10 @@ export default function Win_admin_materia() {
         <Encabezado />
       </div>
 
-      {/* IMPORTANTE: overlay global acá para cerrar también desde el lateral */}
       <div className={styles.contenido_central_admin}>
-        {twoCols && (
-          <div
-            className={styles.clickOutsideOverlayGlobal}
-            onClick={clearSeleccionCategoria}
-          />
-        )}
-
         <div className={styles.contenido_admin}>
-          <div
-            className={[
-              styles.adminMateriaCentro,
-              twoCols ? styles.adminMateriaCentro2 : styles.adminMateriaCentro1,
-            ].join(" ")}
-          >
+          {/* 2 columnas siempre */}
+          <div className={[styles.adminMateriaCentro, styles.adminMateriaCentro2].join(" ")}>
             {/* Columna Categorías */}
             <div className={styles.adminMateriaCol}>
               <h2 className={styles.adminMateriaTitle}>Administración de Categorías</h2>
@@ -133,7 +131,7 @@ export default function Win_admin_materia() {
                   <Categoria_admin
                     key={cat.id}
                     categoria={cat}
-                    selected={cat.id === categoriaSeleccionadaId}
+                    selected={cat.id === activeCategoriaId}
                     onSelect={() => setCategoriaSeleccionadaId(cat.id)}
                     onEdit={() => handleStartEditCategoria(cat)}
                     onDelete={() =>
@@ -145,47 +143,45 @@ export default function Win_admin_materia() {
                     }
                   />
                 ))}
+
+                {categorias.length === 0 && (
+                  <p className={styles.adminMateriaEmpty}>No hay categorías creadas.</p>
+                )}
               </div>
             </div>
 
-            {/* Columna Temas: solo aparece si hay categoría seleccionada */}
-            {twoCols && (
-              <div className={styles.adminMateriaCol}>
-                <h2 className={styles.adminMateriaTitle}>Crear / Eliminar Temas</h2>
+            {/* Columna Temas (siempre visible, pero el form se deshabilita si no hay categoría) */}
+            <div className={styles.adminMateriaCol}>
+              <h2 className={styles.adminMateriaTitle}>Crear / Eliminar Temas</h2>
 
-                <Form_tema
-                  categorias={categorias}
-                  categoriaId={categoriaSeleccionadaId}
-                  onChangeCategoriaId={setCategoriaSeleccionadaId}
-                  onCreate={handleCreateTema}
-                />
+              <Form_tema
+                categorias={categorias}
+                categoriaId={activeCategoriaId}
+                onChangeCategoriaId={setCategoriaSeleccionadaId}
+                onCreate={handleCreateTema}
+              />
 
-                <div className={styles.adminMateriaList}>
-                  {temasDeCategoria.map((tema) => (
-                    <Tema_admin
-                      key={tema.id}
-                      tema={tema}
-                      onSelect={() => {
-                      // aquí decides qué pasa al hacer click en el tema
-                      // ejemplo: alert, abrir modal, navegar, etc.
-                        console.log("Tema seleccionado:", tema.id);
-                      }}
-                      onDelete={() =>
-                        openConfirm({
-                          title: "Eliminar tema",
-                          message: "¿Seguro que deseas eliminar este tema?",
-                          action: () => handleDeleteTema(tema.id),
+              <div className={styles.adminMateriaList}>
+                {temasDeCategoria.map((tema) => (
+                  <Tema_admin
+                    key={tema.id}
+                    tema={tema}
+                    onSelect={() => console.log("Tema seleccionado:", tema.id)}
+                    onDelete={() =>
+                      openConfirm({
+                        title: "Eliminar tema",
+                        message: "¿Seguro que deseas eliminar este tema?",
+                        action: () => handleDeleteTema(tema.id),
                       })
                     }
                   />
-                  ))}
+                ))}
 
-                  {temasDeCategoria.length === 0 && (
-                    <p className={styles.adminMateriaEmpty}>No hay temas en esta categoría.</p>
-                  )}
-                </div>
+                {activeCategoriaId && temasDeCategoria.length === 0 && (
+                  <p className={styles.adminMateriaEmpty}>No hay temas en esta categoría.</p>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
 
@@ -193,6 +189,13 @@ export default function Win_admin_materia() {
           <Barra_lateral />
         </div>
       </div>
+
+      <Toast
+        open={toastOpen}
+        message={toastMsg}
+        type={toastType}
+        onClose={() => setToastOpen(false)}
+      />
 
       <Modal_confirmacion
         open={confirmOpen}
