@@ -27,3 +27,9 @@
     /* 3. Ocultar en Internet Explorer y Edge antiguo */
     -ms-overflow-style: none;
 }
+
+@media (max-width: 768px) {
+  .barra_lateral {
+    display: none;
+  }
+}

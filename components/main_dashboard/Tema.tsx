@@ -1,30 +1,36 @@
-import React from 'react'
-import Image from 'next/image'
-import "./Tema.css"
+import React from "react";
+import Image from "next/image";
+import "./Tema.css";
 
 type Props = {
-  text: string;
-  onClick: () => void;
+  id: number;
+  imagen: string;
+  nombre: string;
+  descripcion: string;
 };
 
-export default function Tema() {
-    const dir = '/dashboard/rata.svg'
+export default function Tema({ id, imagen, nombre, descripcion }: Props) {
   return (
-    <button 
-        className='boton'
-    >   
-        <div className='tema_line'>
+    <button className="boton">
+      <div className="tema_line">
+        <div className="bloque_iz">
+          <div className="bloque_ico">
+            <Image
+              className="ico_tema"
+              src={imagen}
+              alt={nombre}
+              width={30}
+              height={30}
+            />
+          </div>
 
-            <div className='bloque_iz'>
-                <div className='bloque_ico'>
-                  <Image className='ico_tema' src={dir} alt='ico_tema' width={35} height={35}/>
-                </div>
-                <h3>TITULO</h3>
-            </div>
-            <div className='bloque_der'>
-              <p>Description description description description description </p>
-            </div>
+          <h3>{nombre}</h3>
         </div>
+
+        <div className="bloque_der">
+          <p className="descripcion_tema">{descripcion}</p>
+        </div>
+      </div>
     </button>
-  )
+  );
 }

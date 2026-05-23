@@ -3,7 +3,7 @@
     display: flex;
     gap: 0px;
     justify-content: space-between;
-    background-color: #F4F6F8;
+    padding-top: 70px;
 }
 .contenido_categorias{
     display: flex;
@@ -12,7 +12,15 @@
     width: 65%;
 }
 .dashboard_encabezado{
-    position: sticky;
-    top: 0; 
+    position: fixed;
+    top: 0;
     left: 0;
+    width: 100%;
+    z-index: 100;    
+}
+
+@media (max-width: 768px) {
+  .contenido_categorias {
+    width: 95%;
+  }
 }
