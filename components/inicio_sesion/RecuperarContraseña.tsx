@@ -1,7 +1,8 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import "@/components/inicio_sesion/LoginForm.css";
+import styles from "@/components/inicio_sesion/RecuperarContraseña.module.css"
 import AuthButton from "./AuthButton";
 import AuthLayout from "./AuthLayout";
 
@@ -10,37 +11,66 @@ const RecuperarContraseña = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const passwordsMatch = password === confirmPassword;
+  const [successMessage, setSuccessMessage] = useState("");
+  const passwordsMatch =
+    password === confirmPassword;
   async function recuperarContraseña() {
-    if (!password || !confirmPassword) {
-      setErrorMessage("Debe llenar todos los campos");
+    if(
+      !password ||
+      !confirmPassword
+    ){
+      setErrorMessage(
+        "Debe llenar todos los campos"
+      );
       return;
     }
-    if (!passwordsMatch) {
-      setErrorMessage("Las contraseñas no coinciden");
+    if(!passwordsMatch){
+      setErrorMessage(
+        "Las contraseñas no coinciden"
+      );
       return;
     }
-    setErrorMessage("");
-    const response = await fetch("/api/auth/recuperar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        password,
-      }),
-    });
-    const data = await response.json();
-    console.log(data);
-    if (data.success) {
+    try {
+      const correo = localStorage.getItem(
+        "correoRecuperacion"
+      );
+      const response = await fetch(
+        "/api/auth/recuperar",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            correo,
+            password,
+          }),
+        }
+      );
+      const data = await response.json();
+      if(!response.ok){
+        setErrorMessage(data.message);
+        return;
+      }
+      setErrorMessage("");
+      setSuccessMessage(data.message);
+      localStorage.removeItem(
+        "correoRecuperacion"
+      );
       router.push("/login");
+    } catch(error){
+      console.log(error);
+      setErrorMessage(
+        "Error interno"
+      );
     }
   }
-
   return (
     <AuthLayout title="Actualizar Contraseña">
-      <div className="inputGroup">
-        <label>Contraseña Nueva</label>
+      <div className={styles.inputGroup}>
+        <label>
+          Contraseña Nueva
+        </label>
         <input
           type="password"
           placeholder="********"
@@ -48,8 +78,10 @@ const RecuperarContraseña = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <div className="inputGroup">
-        <label>Confirmar Contraseña</label>
+      <div className={styles.inputGroup}>
+        <label>
+          Confirmar Contraseña
+        </label>
         <input
           type="password"
           placeholder="********"
@@ -58,24 +90,32 @@ const RecuperarContraseña = () => {
         />
       </div>
       {
-        confirmPassword.length > 0 && !passwordsMatch && (
-          <p className="errorText">
+        confirmPassword.length > 0 &&
+        !passwordsMatch && (
+          <p className={styles.errorText}>
             Las contraseñas no coinciden
           </p>
         )
       }
       {
-        confirmPassword.length > 0 && passwordsMatch && (
-          <p className="successText">
+        confirmPassword.length > 0 &&
+        passwordsMatch && (
+          <p className={styles.successText}>
             Las contraseñas coinciden
           </p>
-
         )
       }
       {
         errorMessage && (
-          <p className="errorText">
+          <p className={styles.errorText}>
             {errorMessage}
+          </p>
+        )
+      }
+      {
+        successMessage && (
+          <p className={styles.successText}>
+            {successMessage}
           </p>
         )
       }
@@ -86,5 +126,4 @@ const RecuperarContraseña = () => {
     </AuthLayout>
   );
 };
-
 export default RecuperarContraseña;

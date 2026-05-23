@@ -1,0 +1,25 @@
+.contenido_central{
+    display: flex;
+    gap: 0px;
+    justify-content: space-between;
+}
+.contenido_posts{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 65%;
+}
+.dashboard_encabezado{
+    position: sticky;
+    top: 0; 
+    left: 0;
+    z-index: 99999;
+}
+.btn_ordenar{
+    cursor: pointer;
+    border: 2px solid black;
+    width: 15%;
+    font-size: 14px;
+    align-self: flex-end;
+    border-radius: 10px;
+}

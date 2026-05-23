@@ -9,6 +9,7 @@
     color: black;
     font-size: 1rem;
     border-bottom: 1px solid black;
+    z-index: 1000;
 }
 .sub_bloque{
     display: flex;
@@ -42,4 +43,11 @@
 .boton_encabezado:active {
   background-color: gray;
   transform: scale(0.99);
+}
+
+.menu_perfil{
+    position: absolute;
+    top: 60px;
+    right: 0;
+    z-index: 1000;
 }

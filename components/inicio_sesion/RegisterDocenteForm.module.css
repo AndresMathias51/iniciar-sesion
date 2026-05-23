@@ -1,0 +1,23 @@
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputGroup input,
+.inputGroup select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.iniciarSesionTexto {
+    color: blue;
+}
+.errorText{
+    color: var(--error);
+}
+
+.successText{
+    color: var(--success);
+}

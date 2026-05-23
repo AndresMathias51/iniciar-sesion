@@ -1,0 +1,36 @@
+.buttons_section{
+margin-top:20px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.btn_primary{
+    padding:10px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:17px;
+    background:var(--btn-primary);
+    color:white;
+}
+
+.btn_secondary{
+    padding:10px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:17px;
+    background:var(--btn-secondary);
+    color:white;
+}
+
+.btn_danger{
+    padding:10px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:17px;
+    background:var(--btn-danger);
+    color:white;
+}
