@@ -57,78 +57,81 @@ export default function Form_tema({
   }
 
   return (
-    <form className={styles.formTema} onSubmit={handleSubmit}>
-      <div className={formShared.formRow}>
-        <label className={formShared.formLabel}>Categoría</label>
-        <select
-          className={styles.formSelect}
-          value={categoriaId}
-          onChange={(e) => onChangeCategoriaId(e.target.value)}
-        >
-          {categorias.length === 0 ? (
-            <option value="">Primero crea una categoría</option>
-          ) : (
-            <>
-              {/* OJO: si quieres que el usuario pueda “des-seleccionar”, agrega una opción vacía */}
-              {categorias.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.nombre}
-                </option>
-              ))}
-            </>
+    <div>
+      <h2>Agregar tema</h2>
+      <form className={styles.formTema} onSubmit={handleSubmit}>
+        <div className={formShared.formRow}>
+          <label className={formShared.formLabel}>Categoría</label>
+          <select
+            className={styles.formSelect}
+            value={categoriaId}
+            onChange={(e) => onChangeCategoriaId(e.target.value)}
+          >
+            {categorias.length === 0 ? (
+              <option value="">Primero crea una categoría</option>
+            ) : (
+              <>
+                {/* OJO: si quieres que el usuario pueda “des-seleccionar”, agrega una opción vacía */}
+                {categorias.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.nombre}
+                  </option>
+                ))}
+              </>
+            )}
+          </select>
+
+          {categoriaSeleccionada && (
+            <p className={styles.formHintSmall}>
+              Temas para: <strong>{categoriaSeleccionada.nombre}</strong>
+            </p>
           )}
-        </select>
+        </div>
 
-        {categoriaSeleccionada && (
-          <p className={styles.formHintSmall}>
-            Temas para: <strong>{categoriaSeleccionada.nombre}</strong>
-          </p>
+        <div className={formShared.formRow}>
+          <label className={formShared.formLabel}>Título del tema</label>
+          <input
+            className={formShared.formInput}
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+            placeholder="Ej: Trabajo Práctico 1"
+            disabled={!canCreate}
+          />
+        </div>
+
+        <div className={formShared.formRow}>
+          <label className={formShared.formLabel}>Descripción</label>
+          <textarea
+            className={formShared.formInput}
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            placeholder="Descripción breve"
+            rows={2}
+            disabled={!canCreate}
+          />
+        </div>
+
+        <div className={formShared.formRow}>
+          <label className={formShared.formLabel}>Imagen (URL) (opcional)</label>
+          <input
+            className={formShared.formInput}
+            value={imagenUrl}
+            onChange={(e) => setImagenUrl(e.target.value)}
+            placeholder="https://..."
+            disabled={!canCreate}
+          />
+        </div>
+
+        <div className={formShared.formActions}>
+          <button className={formShared.btnPrimary} type="submit" disabled={!canCreate}>
+            Crear tema
+          </button>
+        </div>
+
+        {!canCreate && (
+          <p className={formShared.formHint}>* Debes tener al menos una categoría.</p>
         )}
-      </div>
-
-      <div className={formShared.formRow}>
-        <label className={formShared.formLabel}>Título del tema</label>
-        <input
-          className={formShared.formInput}
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
-          placeholder="Ej: Trabajo Práctico 1"
-          disabled={!canCreate}
-        />
-      </div>
-
-      <div className={formShared.formRow}>
-        <label className={formShared.formLabel}>Descripción</label>
-        <textarea
-          className={formShared.formInput}
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
-          placeholder="Descripción breve"
-          rows={2}
-          disabled={!canCreate}
-        />
-      </div>
-
-      <div className={formShared.formRow}>
-        <label className={formShared.formLabel}>Imagen (URL) (opcional)</label>
-        <input
-          className={formShared.formInput}
-          value={imagenUrl}
-          onChange={(e) => setImagenUrl(e.target.value)}
-          placeholder="https://..."
-          disabled={!canCreate}
-        />
-      </div>
-
-      <div className={formShared.formActions}>
-        <button className={formShared.btnPrimary} type="submit" disabled={!canCreate}>
-          Crear tema
-        </button>
-      </div>
-
-      {!canCreate && (
-        <p className={formShared.formHint}>* Debes tener al menos una categoría.</p>
-      )}
-    </form>
+      </form>
+    </div>
   );
 }

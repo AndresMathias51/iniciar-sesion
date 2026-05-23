@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 
+
 import type { TemaPorCategoria } from "./types_estadisticas";
+
 import VentanaCategoria from "@/components/estadisticas/moderacion/Ventana_categoria";
+import Form_categoria from "@/components/admin_materia/Form_categoria";
+
 import styles from "./Temas_Categoria.module.css";
 
 type TemasPorCategoriaListProps = {
@@ -13,10 +17,18 @@ type TemasPorCategoriaListProps = {
 export default function TemasPorCategoriaList({
   categorias,
 }: TemasPorCategoriaListProps) {
+
+ 
+
   const [categoriaSeleccionada, setCategoriaSeleccionada] =
     useState<TemaPorCategoria | null>(null);
 
-  const abrirVentanaCategoria = (categoria: TemaPorCategoria) => {
+  const [mostrarCrearCategoria, setMostrarCrearCategoria] =
+    useState(false);
+
+  const abrirVentanaCategoria = (
+    categoria: TemaPorCategoria
+  ) => {
     setCategoriaSeleccionada(categoria);
   };
 
@@ -24,10 +36,33 @@ export default function TemasPorCategoriaList({
     setCategoriaSeleccionada(null);
   };
 
+  const abrirCrearCategoria = () => {
+    setMostrarCrearCategoria(true);
+  };
+
+  const cerrarCrearCategoria = () => {
+    setMostrarCrearCategoria(false);
+  };
+
   return (
     <section className={styles.card}>
+
       <div className={styles.header}>
-        <h2 className={styles.title}>Temas por categoría</h2>
+
+        <div className={styles.titleRow}>
+          <h2 className={styles.title}>
+            Temas por categoría
+          </h2>
+
+          <button
+            type="button"
+            className={styles.addButton}
+            onClick={abrirCrearCategoria}
+          >
+            +
+          </button>
+        </div>
+
         <p className={styles.description}>
           Cantidad de temas creados en cada categoría
         </p>
@@ -35,13 +70,19 @@ export default function TemasPorCategoriaList({
 
       <div className={styles.scrollArea}>
         <ul className={styles.list}>
+
           {categorias.map((categoria) => (
-            <li key={categoria.id} className={styles.item}>
+            <li
+              key={categoria.id}
+              className={styles.item}
+            >
+
               <span className={styles.categoryName}>
                 {categoria.categoria}
               </span>
 
               <div className={styles.actions}>
+
                 <span className={styles.badge}>
                   {categoria.cantidadTemas} temas
                 </span>
@@ -49,13 +90,17 @@ export default function TemasPorCategoriaList({
                 <button
                   type="button"
                   className={styles.actionButton}
-                  onClick={() => abrirVentanaCategoria(categoria)}
+                  onClick={() =>
+                    abrirVentanaCategoria(categoria)
+                  }
                 >
-                  configurar  
+                  configurar
                 </button>
+
               </div>
             </li>
           ))}
+
         </ul>
       </div>
 
@@ -65,6 +110,32 @@ export default function TemasPorCategoriaList({
           onCerrar={cerrarVentanaCategoria}
         />
       )}
+
+      {mostrarCrearCategoria && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+
+            <button
+              className={styles.closeButton}
+              onClick={cerrarCrearCategoria}
+            >
+              ×
+            </button>
+
+            <Form_categoria
+              mode="create"
+              onCreate={(data) => {
+                console.log(data);
+                cerrarCrearCategoria();
+              }}
+              onUpdate={() => {}}
+              onCancelEdit={cerrarCrearCategoria}
+            />
+
+          </div>
+        </div>
+      )}
+
     </section>
   );
 }

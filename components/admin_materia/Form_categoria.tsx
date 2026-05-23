@@ -65,56 +65,60 @@ export default function Form_categoria({
   }
 
   return (
-    <form className={styles.formCategoria} onSubmit={handleSubmit}>
-      <div className={styles.formRow}>
-        <label className={styles.formLabel}>Nombre</label>
-        <input
-          className={styles.formInput}
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          placeholder="Ej: Unidad 1"
-        />
-      </div>
+    <div>
+      <h2>Agregar Categorías</h2>
+      <form className={styles.formCategoria} onSubmit={handleSubmit}>
+        
+        <div className={styles.formRow}>
+          <label className={styles.formLabel}>Nombre</label>
+          <input
+            className={styles.formInput}
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            placeholder="Ej: Unidad 1"
+          />
+        </div>
 
-      <div className={styles.formRow}>
-        <label className={styles.formLabel}>Descripción</label>
-        <textarea
-          className={styles.formInput}
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
-          placeholder="Descripción breve"
-          rows={2}
-        />
-      </div>
+        <div className={styles.formRow}>
+          <label className={styles.formLabel}>Descripción</label>
+          <textarea
+            className={styles.formInput}
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            placeholder="Descripción breve"
+            rows={2}
+          />
+        </div>
 
-      <div className={styles.formRow}>
-        <label className={styles.formLabel}>Imagen (URL) (opcional)</label>
-        <input
-          className={styles.formInput}
-          value={imagenUrl}
-          onChange={(e) => setImagenUrl(e.target.value)}
-          placeholder="https://..."
-        />
-      </div>
+        <div className={styles.formRow}>
+          <label className={styles.formLabel}>Imagen (URL) (opcional)</label>
+          <input
+            className={styles.formInput}
+            value={imagenUrl}
+            onChange={(e) => setImagenUrl(e.target.value)}
+            placeholder="https://..."
+          />
+        </div>
 
-      <div className={styles.formActions}>
-        {mode === "edit" ? (
-          <>
+        <div className={styles.formActions}>
+          {mode === "edit" ? (
+            <>
+              <button className={styles.btnPrimary} type="submit">
+                Guardar cambios
+              </button>
+              <button className={styles.btnSecondary} type="button" onClick={onCancelEdit}>
+                Cancelar
+              </button>
+            </>
+          ) : (
             <button className={styles.btnPrimary} type="submit">
-              Guardar cambios
+              Crear categoría
             </button>
-            <button className={styles.btnSecondary} type="button" onClick={onCancelEdit}>
-              Cancelar
-            </button>
-          </>
-        ) : (
-          <button className={styles.btnPrimary} type="submit">
-            Crear categoría
-          </button>
-        )}
-      </div>
+          )}
+        </div>
 
-      <p className={styles.formHint}>* Campos obligatorios: nombre y descripción.</p>
-    </form>
+        <p className={styles.formHint}>* Campos obligatorios: nombre y descripción.</p>
+      </form>
+    </div>
   );
 }
