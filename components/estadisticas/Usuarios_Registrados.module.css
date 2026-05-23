@@ -1,0 +1,26 @@
+.card {
+  height: 100%;
+  padding: 24px;
+  border: 1px solid #ddd6c8;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(47, 58, 61, 0.06);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FF5C1C;
+}
+
+.amount {
+  margin-top: 12px;
+  font-size: 42px;
+  font-weight: 800;
+  color: #2f3a3d; 
+}
+
+.description {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #7a746a;
+}

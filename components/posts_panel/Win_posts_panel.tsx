@@ -4,10 +4,35 @@ import { useEffect } from "react"
 import styles from "./Win_posts_panel.module.css"
 import Barra_lateral from '@/components/main_dashboard/Barra_lateral'
 import Encabezado from '@/components/main_dashboard/Encabezado'
-import Descripcion_post from './Descripcion_post'
 import Post from './Post'
+import Descripcion from "@/components/main_dashboard/Descripcion";
 import ModalEliminar from "./ModalEliminar"
-export default function Win_posts_panel() {
+type TemaType = {
+  id: number;
+  imagen: string;
+  nombre: string;
+  descripcion: string;
+};
+
+type CategoriaType = {
+  id: number;
+  nombre: string;
+  temas: TemaType[];
+};
+
+type DashboardData = {
+  encabezado: {
+    nombre: string;
+  };
+  descripcion: {
+    descripcion: string;
+  };
+  categorias: CategoriaType[];
+};
+type Props = {
+  data: DashboardData;
+};
+export default function Win_posts_panel({ data }: Props) {
 
     const [posts, setPosts] = useState<post[]>([]);
     const [ascendente, setAscendente] = useState(false);
@@ -58,11 +83,11 @@ export default function Win_posts_panel() {
     return (
         <div>
             <div className={styles.dashboard_encabezado}>
-                <Encabezado/>
+                <Encabezado nombre={data.encabezado.nombre}/>
             </div>
             <div className={styles.contenido_central}>
                 <div className={styles.contenido_posts}>
-                    <Descripcion_post/>
+                    <Descripcion descripcion={data.descripcion.descripcion}/>
                     <button
                         className={styles.btn_ordenar}
                         onClick={ordenarPorFecha}

@@ -18,8 +18,10 @@ type Usuario = {
     nombre:string;
     correo:string;
 };
-
-export default function Encabezado() {
+type Props = {
+  nombre: string;
+};
+export default function Encabezado({nombre}: Props) {
 
     const dir = "/dashboard/rata.svg";
     const dir2 = "/dashboard/perfil.svg";
@@ -128,7 +130,7 @@ export default function Encabezado() {
                 </button>
 
                 <h1 className="nombre_materia">
-                    NOMBRE MATERIA
+                    {nombre}
                 </h1>
 
             </div>

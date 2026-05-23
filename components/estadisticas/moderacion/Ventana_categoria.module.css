@@ -1,0 +1,156 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+  background-color: rgba(47, 58, 61, 0.45);
+}
+
+.modal {
+  width: 100%;
+  max-width: 620px;
+  max-height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid #ddd6c8;
+
+  background-color: #f5f5f5;
+  box-shadow: 0 20px 45px rgba(47, 58, 61, 0.25);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding-bottom: 16px;
+  border-bottom: 1px solid #b7b7b7;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #FF5C1C;
+  font-family: var(--font-exo2);
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #6b665c;
+}
+
+.closeIconButton {
+  width: 34px;
+  height: 34px;
+
+  border: none;
+  border-radius: 999px;
+
+  background-color: #e0e0e0;
+  color: #2f3a3d;
+
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.closeIconButton:hover {
+  background-color: #b7b7b7;
+}
+
+.content {
+  margin-top: 18px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background-color: #e0e0e0;
+}
+
+.content::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background-color: #b7b7b7;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.item {
+  padding: 16px;
+  border-radius: 14px;
+  background-color: #e0e0e0;
+}
+
+.topicTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2f3a3d;
+}
+
+.topicDescription {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #7a746a;
+}
+
+.emptyMessage {
+  padding: 20px;
+  border-radius: 14px;
+  background-color: #b7b7b7;
+
+  font-size: 14px;
+  color: #6b665c;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #ddd6c8;
+}
+
+.closeButton {
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 12px;
+
+  background-color: #6A994E;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  background-color: #536648;
+}

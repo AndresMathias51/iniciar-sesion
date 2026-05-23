@@ -1,0 +1,205 @@
+[
+  {
+    "id": 1,
+    "idCategoria": 1,
+    "titulo": "Introducción a la programación",
+    "descripcion": "Conceptos básicos de programación y lógica computacional."
+  },
+  {
+    "id": 2,
+    "idCategoria": 1,
+    "titulo": "Variables y tipos de datos",
+    "descripcion": "Uso de variables, constantes y tipos de datos básicos."
+  },
+  {
+    "id": 3,
+    "idCategoria": 1,
+    "titulo": "Estructuras condicionales",
+    "descripcion": "Uso de if, else y operadores lógicos."
+  },
+  {
+    "id": 4,
+    "idCategoria": 1,
+    "titulo": "Bucles y repetición",
+    "descripcion": "Uso de ciclos for, while y do while."
+  },
+  {
+    "id": 5,
+    "idCategoria": 1,
+    "titulo": "Funciones",
+    "descripcion": "Creación y reutilización de bloques de código."
+  },
+  {
+    "id": 6,
+    "idCategoria": 1,
+    "titulo": "Arreglos",
+    "descripcion": "Manejo de listas y colecciones de datos."
+  },
+  {
+    "id": 7,
+    "idCategoria": 1,
+    "titulo": "Programación orientada a objetos",
+    "descripcion": "Clases, objetos, atributos y métodos."
+  },
+  {
+    "id": 8,
+    "idCategoria": 1,
+    "titulo": "Manejo de errores",
+    "descripcion": "Control de excepciones y validación de errores."
+  },
+
+  {
+    "id": 9,
+    "idCategoria": 2,
+    "titulo": "Modelo entidad relación",
+    "descripcion": "Diseño conceptual de bases de datos."
+  },
+  {
+    "id": 10,
+    "idCategoria": 2,
+    "titulo": "Modelo relacional",
+    "descripcion": "Tablas, columnas, claves primarias y claves foráneas."
+  },
+  {
+    "id": 11,
+    "idCategoria": 2,
+    "titulo": "Consultas SQL básicas",
+    "descripcion": "Uso de SELECT, WHERE, ORDER BY y filtros."
+  },
+  {
+    "id": 12,
+    "idCategoria": 2,
+    "titulo": "Relaciones entre tablas",
+    "descripcion": "Relaciones uno a uno, uno a muchos y muchos a muchos."
+  },
+  {
+    "id": 13,
+    "idCategoria": 2,
+    "titulo": "Normalización",
+    "descripcion": "Organización eficiente de datos para evitar redundancia."
+  },
+
+  {
+    "id": 14,
+    "idCategoria": 3,
+    "titulo": "HTML semántico",
+    "descripcion": "Estructura base de páginas web con etiquetas semánticas."
+  },
+  {
+    "id": 15,
+    "idCategoria": 3,
+    "titulo": "CSS básico",
+    "descripcion": "Estilos, selectores, colores, márgenes y espaciados."
+  },
+  {
+    "id": 16,
+    "idCategoria": 3,
+    "titulo": "Flexbox",
+    "descripcion": "Distribución flexible de elementos en una interfaz."
+  },
+  {
+    "id": 17,
+    "idCategoria": 3,
+    "titulo": "CSS Grid",
+    "descripcion": "Diseño de estructuras en filas y columnas."
+  },
+  {
+    "id": 18,
+    "idCategoria": 3,
+    "titulo": "Diseño responsive",
+    "descripcion": "Adaptación de interfaces a diferentes tamaños de pantalla."
+  },
+  {
+    "id": 19,
+    "idCategoria": 3,
+    "titulo": "Componentes visuales",
+    "descripcion": "Construcción de tarjetas, botones, formularios y listas."
+  },
+
+  {
+    "id": 20,
+    "idCategoria": 4,
+    "titulo": "Conceptos de sistemas de información",
+    "descripcion": "Definición, elementos y objetivos de un sistema de información."
+  },
+  {
+    "id": 21,
+    "idCategoria": 4,
+    "titulo": "Procesos organizacionales",
+    "descripcion": "Relación entre procesos de negocio y sistemas."
+  },
+  {
+    "id": 22,
+    "idCategoria": 4,
+    "titulo": "Tipos de sistemas",
+    "descripcion": "Sistemas transaccionales, gerenciales y estratégicos."
+  },
+  {
+    "id": 23,
+    "idCategoria": 4,
+    "titulo": "Requerimientos del sistema",
+    "descripcion": "Identificación de necesidades funcionales y no funcionales."
+  },
+
+  {
+    "id": 24,
+    "idCategoria": 5,
+    "titulo": "Capas de arquitectura",
+    "descripcion": "Organización de un sistema en capas lógicas."
+  },
+  {
+    "id": 25,
+    "idCategoria": 5,
+    "titulo": "Arquitectura cliente-servidor",
+    "descripcion": "Comunicación entre cliente, servidor y base de datos."
+  },
+  {
+    "id": 26,
+    "idCategoria": 5,
+    "titulo": "Arquitectura MVC",
+    "descripcion": "Separación entre modelo, vista y controlador."
+  },
+  {
+    "id": 27,
+    "idCategoria": 5,
+    "titulo": "APIs REST",
+    "descripcion": "Diseño de endpoints para comunicación entre sistemas."
+  },
+  {
+    "id": 28,
+    "idCategoria": 5,
+    "titulo": "Servicios",
+    "descripcion": "Separación de lógica de negocio mediante servicios."
+  },
+  {
+    "id": 29,
+    "idCategoria": 5,
+    "titulo": "Escalabilidad",
+    "descripcion": "Capacidad del sistema para crecer y soportar más carga."
+  },
+  {
+    "id": 30,
+    "idCategoria": 5,
+    "titulo": "Mantenibilidad",
+    "descripcion": "Buenas prácticas para facilitar cambios futuros."
+  },
+
+  {
+    "id": 31,
+    "idCategoria": 6,
+    "titulo": "Conceptos básicos de redes",
+    "descripcion": "Dispositivos, medios de transmisión y comunicación."
+  },
+  {
+    "id": 32,
+    "idCategoria": 6,
+    "titulo": "Modelo OSI",
+    "descripcion": "Capas del modelo OSI y sus funciones principales."
+  },
+  {
+    "id": 33,
+    "idCategoria": 6,
+    "titulo": "Direcciones IP",
+    "descripcion": "Uso de IPv4, máscaras de red y segmentación básica."
+  }
+]
