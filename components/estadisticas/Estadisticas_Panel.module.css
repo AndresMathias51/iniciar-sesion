@@ -1,0 +1,74 @@
+.page {
+  min-height: 100vh;
+  padding: 32px 24px;
+  background-color: transparent;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  font-family: var(--font-exo2);
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #FF5C1C;
+  letter-spacing: 4px;
+}
+
+.description {
+  margin-top: 8px;
+  font-size: 15px;
+  color: #6b665c;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.usersCard,
+.categoriesCard,
+.chartCard,
+.studentsCard {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .usersCard {
+    grid-column: span 1;
+  }
+
+  .categoriesCard {
+    grid-column: span 2;
+  }
+
+  .chartCard {
+    grid-column: span 3;
+  }
+
+  .studentsCard {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 24px 16px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+}
