@@ -2,8 +2,9 @@
     display: flex;
     justify-content: space-between;
     padding-right: 5px;
-    gap: 0px;
-
+    gap: 5px;
+    height: 100%;
+    
 }
 .bloque_iz{
     display: flex;
@@ -11,16 +12,29 @@
     color: #FFA71D;
     font-weight: 500;
     font-size: 1.2rem;
+    max-width: 60%;
+    text-align:left;
+    height: 100%;
   }
 .bloque_der{
     display: flex;
     align-items: center;
     gap: 10px;
+    max-width: 40%;
+    padding: 4px;
+}
+.descripcion_tema{
     font-size: 0.9rem;
     font-weight: 200;
+    overflow: hidden;
+    text-align: justify;
+    max-height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .bloque_ico{
-    background-color: #848F9B;
+    background-color: #ebebeb;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,16 +43,16 @@
     min-width: 80px;
 }
 .ico_tema{
-    filter: brightness(0) invert(1);
+    filter: brightness(0) saturate(100%) invert(20%) sepia(21%) saturate(319%) hue-rotate(142deg) brightness(93%) contrast(89%);
 }
 .boton {
   border-radius: 5px;
   overflow: hidden;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  min-height: 35px;
+  height: 35px;
   border-bottom: 1px solid #E0E0E0;
-
+  
 }
 .boton:hover {
   background-color: lightgray;
@@ -47,4 +61,10 @@
 .boton:active {
   background-color: gray;
   transform: scale(0.99);
+}
+
+@media (max-width: 480px) {
+  .bloque_der {
+    display: none;
+  }
 }
