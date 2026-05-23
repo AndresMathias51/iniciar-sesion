@@ -27,3 +27,17 @@ export type EstadisticasData = {
   publicacionesPorSemana: PublicacionSemana[];
   temasPorCategoria: TemaPorCategoria[];
 };
+
+// moderacion
+export type UsuarioEliminar = {
+  id: number;
+  nombre: string;
+  email: string;
+};
+
+export type TemaCategoriaDetalle = {
+  id: number;
+  idCategoria: number;
+  titulo: string;
+  descripcion: string;
+};

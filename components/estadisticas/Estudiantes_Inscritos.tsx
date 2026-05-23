@@ -1,4 +1,9 @@
+"use client";
+
+import { useState } from "react";
+
 import type { EstudianteInscrito } from "./types_estadisticas";
+import Confirmar_eliminar_usuario from "@/components/estadisticas/moderacion/Confirmar_eliminar_usuario";
 import styles from "./Estudiantes_Inscritos.module.css";
 
 type EstudiantesInscritosListProps = {
@@ -8,6 +13,27 @@ type EstudiantesInscritosListProps = {
 export default function EstudiantesInscritosList({
   estudiantes,
 }: EstudiantesInscritosListProps) {
+  const [estudianteSeleccionado, setEstudianteSeleccionado] =
+    useState<EstudianteInscrito | null>(null);
+
+  const abrirModalEliminar = (estudiante: EstudianteInscrito) => {
+    setEstudianteSeleccionado(estudiante);
+  };
+
+  const cerrarModalEliminar = () => {
+    setEstudianteSeleccionado(null);
+  };
+
+  const aceptarEliminarEstudiante = (estudiante: EstudianteInscrito) => {
+    console.log("Estudiante seleccionado para eliminar:", estudiante);
+
+    // Aquí irá el procedimiento real más adelante.
+    // Ejemplo futuro:
+    // await eliminarEstudiante(estudiante.id);
+
+    setEstudianteSeleccionado(null);
+  };
+
   return (
     <section className={styles.card}>
       <div className={styles.header}>
@@ -26,11 +52,29 @@ export default function EstudiantesInscritosList({
                 <p className={styles.studentEmail}>{estudiante.email}</p>
               </div>
 
-              <span className={styles.badge}>Estudiante</span>
+              <div>
+                <span className={styles.badge}>Estudiante</span>
+
+                <button
+                  type="button"
+                  className={styles.deleteButton}
+                  onClick={() => abrirModalEliminar(estudiante)}
+                >
+                  Eliminar Estudiante
+                </button>
+              </div>
             </li>
           ))}
         </ul>
       </div>
+
+      {estudianteSeleccionado && (
+        <Confirmar_eliminar_usuario
+          estudiante={estudianteSeleccionado}
+          onCancelar={cerrarModalEliminar}
+          onAceptar={aceptarEliminarEstudiante}
+        />
+      )}
     </section>
   );
 }

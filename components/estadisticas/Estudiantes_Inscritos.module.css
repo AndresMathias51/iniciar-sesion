@@ -76,9 +76,19 @@
 .badge {
   flex-shrink: 0;
   padding: 6px 12px;
-  border-radius: 999px; 
-  background-color: #ebebeb;
   font-size: 12px;
   font-weight: 600;
   color: #3c4446;
+}
+.deleteButton{
+  flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px; 
+  background-color: #e63946;
+  color: #fff;
+}
+.deleteButton:hover {
+  background-color: #c8313d;
 }
