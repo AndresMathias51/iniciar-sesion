@@ -1,5 +1,5 @@
 .bloque_des{
-    background-color: #E0E0E0;
+    background-color: #f5f5f5;
     max-width: 1000px;
     margin-top: 20px;   
     display: flex;
@@ -7,9 +7,10 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 0px 10px 10px 0px;
+    min-height: 6rem;
 }
 .sujetador_des{
-    background-color: #1E1E1E;
+    background-color: #2f3a3d;
     border-radius: 0px 10px 10px 0px;
     width: 60px;
     height: 80%;
