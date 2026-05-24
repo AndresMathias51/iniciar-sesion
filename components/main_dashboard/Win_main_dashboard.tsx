@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 import Encabezado from "@/components/main_dashboard/Encabezado";
 
@@ -15,6 +15,7 @@ import Win_posts_panel from "@/components/posts_panel/Win_posts_panel";
 import BarraBusqueda from "@/components/busqueda/BarraBusqueda";
 
 import FrameResultados from "@/components/busqueda/FrameResultados";
+import EditorCMS from "@/components/posts_panel/EditorCMS";
 
 import { generarSugerenciasBusqueda } from "@/components/busqueda/busqueda.helpers";
 
@@ -74,7 +75,44 @@ export default function Win_main_dashboard({
 
   const [temaSeleccionado, setTemaSeleccionado] =
     useState<number | null>(null);
+  const [modoEditor, setModoEditor] =
+    useState(false);
 
+  const [postEditar, setPostEditar] =
+    useState<Publicacion | null>(null);
+
+  const [usuarioActual, setUsuarioActual] =
+    useState<any>(null);
+  useEffect(() => {
+
+    const obtenerUsuario = async () => {
+
+      try {
+
+        const response = await fetch(
+          "/api/auth/me"
+        );
+
+        if(!response.ok){
+          setUsuarioActual(null);
+          return;
+        }
+
+        const data = await response.json();
+
+        setUsuarioActual(data.usuario);
+
+      } catch {
+
+        setUsuarioActual(null);
+
+      }
+
+    };
+
+    obtenerUsuario();
+
+  }, []);
   const {
     publicaciones,
     setPublicaciones,
@@ -168,16 +206,58 @@ export default function Win_main_dashboard({
               }}
             />
 
-          ) : temaSeleccionado !== null ? (
+          ) : modoEditor ? (
 
-            <Win_posts_panel
+  <EditorCMS
+
+    temaSeleccionado={temaSeleccionado!}
+
+    usuario={usuarioActual}
+
+    postEditar={postEditar}
+
+    onCancelar={() => {
+
+      setModoEditor(false);
+
+      setPostEditar(null);
+
+    }}
+
+  />
+
+) : temaSeleccionado !== null ? (
+
+  <Win_posts_panel
+
     descripcion={data.descripcion.descripcion}
+
     temaSeleccionado={temaSeleccionado}
 
     volverCategorias={() =>
-        setTemaSeleccionado(null)
+      setTemaSeleccionado(null)
     }
-/>
+
+    usuarioActual={usuarioActual}
+
+    onCrearPost={() => {
+
+      setPostEditar(null);
+
+      setModoEditor(true);
+
+    }}
+
+    onEditarPost={(post) => {
+
+      setPostEditar(post);
+
+      setModoEditor(true);
+
+    }}
+
+  />
+
 
           ) : (
 

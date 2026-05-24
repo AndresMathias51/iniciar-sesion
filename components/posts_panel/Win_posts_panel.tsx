@@ -11,15 +11,26 @@ import ModalEliminar from "./ModalEliminar";
 import type { Publicacion } from "@/components/busqueda/types";
 
 type Props = {
-  descripcion: string;
-  temaSeleccionado: number;
-  volverCategorias: () => void;
+  descripcion:string;
+
+  temaSeleccionado:number;
+
+  volverCategorias:() => void;
+
+  usuarioActual:any;
+
+  onCrearPost:() => void;
+
+  onEditarPost:(post:Publicacion)=>void;
 };
 
 export default function Win_posts_panel({
   descripcion,
   temaSeleccionado,
-  volverCategorias
+  volverCategorias,
+  usuarioActual,
+  onCrearPost,
+  onEditarPost
 }: Props) {
   const [posts, setPosts] = useState<Publicacion[]>([]);
   const [ascendente, setAscendente] = useState(false);
@@ -40,16 +51,79 @@ export default function Win_posts_panel({
     setIdEliminar(null);
   };
 
-  const confirmarEliminar = () => {
-    if (idEliminar === null) return;
+  const confirmarEliminar = async () => {
 
-    const nuevosPosts = posts.filter(
-      (post) => post.id !== idEliminar
+  if(idEliminar === null) return;
+
+  try{
+
+    // =========================
+    // BUSCAR POST
+    // =========================
+
+    const postEliminar =
+      posts.find(
+        (post)=>post.id === idEliminar
+      );
+
+    if(!postEliminar) return;
+
+    // =========================
+    // BACKEND
+    // =========================
+
+    const response = await fetch(
+      "/api/posts/delete",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+          id:idEliminar,
+
+          correo:postEliminar.correo
+
+        })
+      }
     );
 
+    const data =
+      await response.json();
+
+    if(!response.ok){
+
+      alert(data.message);
+
+      return;
+
+    }
+
+    // =========================
+    // ELIMINAR VISUALMENTE
+    // =========================
+
+    const nuevosPosts =
+      posts.filter(
+        (post)=>post.id !== idEliminar
+      );
+
     setPosts(nuevosPosts);
+
     cerrarModal();
-  };
+
+  }catch(error){
+
+    console.log(error);
+
+    alert("Error al eliminar");
+
+  }
+
+};
 
   useEffect(() => {
     const obtenerPosts = async () => {
@@ -116,7 +190,18 @@ export default function Win_posts_panel({
             >
               ← Volver
             </button>
+            {
+              usuarioActual && (
 
+                <button
+                  className={styles.btn_ordenar}
+                  onClick={onCrearPost}
+                >
+                  + Subir Post
+                </button>
+
+              )
+            }
             <button
               className={styles.btn_ordenar}
               onClick={ordenarPorFecha}
@@ -149,7 +234,9 @@ export default function Win_posts_panel({
               <Post
                 key={post.id}
                 post={post}
+                usuarioActual={usuarioActual}
                 onEliminar={abrirModalEliminar}
+                onEditar={onEditarPost}
               />
             ))}
         </div>

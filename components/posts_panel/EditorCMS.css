@@ -1,0 +1,229 @@
+.cms-container {
+  background: #111827;
+  min-height: 100vh;
+  padding: 40px;
+  font-family: Inter, sans-serif;
+}
+
+.cms-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* TITULO PRINCIPAL */
+
+.cms-title {
+  font-size: 38px;
+  font-weight: bold;
+  color: #FFA71D;
+  margin-bottom: 10px;
+}
+
+/* SUBTITULO */
+
+.cms-subtitle {
+  color: #9CA3AF;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+/* CARD */
+
+.cms-card {
+  background: #1F2937;
+  padding: 30px;
+  border-radius: 18px;
+  border: 1px solid #2d3239;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+/* TITULO CARD */
+
+.cms-card-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+.cms-input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  background: #111827;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* CONTENEDOR EDITOR */
+
+.cms-editor {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #374151;
+}
+
+/* BOTON */
+
+.cms-button {
+  margin-top: 25px;
+  padding: 14px 24px;
+  background: #FFA71D;
+  color: #111827;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cms-button:hover {
+  opacity: 0.9;
+}
+
+/* ========================= */
+/* TOAST UI */
+/* ========================= */
+
+.toastui-editor-defaultUI {
+  border: none !important;
+  background: #111827 !important;
+}
+
+/* TOOLBAR */
+
+.toastui-editor-toolbar {
+  background: #1F2937 !important;
+  border-bottom: 1px solid #374151 !important;
+}
+
+/* ICONOS */
+
+.toastui-editor-toolbar-icons {
+  filter: invert(1);
+}
+
+/* AREA EDITOR */
+
+.toastui-editor-md-container,
+.toastui-editor-ww-container {
+  background: #111827 !important;
+}
+
+/* TEXTO GENERAL */
+
+.toastui-editor-contents {
+  color: #FFFFFF !important;
+  font-size: 16px !important;
+}
+
+/* WYSIWYG */
+
+.ProseMirror {
+  color: #FFFFFF !important;
+  background: #111827 !important;
+  min-height: 500px;
+  padding: 20px;
+}
+
+/* PARRAFOS */
+
+.ProseMirror p,
+.toastui-editor-contents p {
+  color: #FFFFFF !important;
+}
+
+/* LISTAS */
+
+.ProseMirror li,
+.toastui-editor-contents li {
+  color: #E5E7EB !important;
+}
+
+/* HEADINGS */
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.toastui-editor-contents h1,
+.toastui-editor-contents h2,
+.toastui-editor-contents h3,
+.toastui-editor-contents h4 {
+  color: #FFA71D !important;
+  font-weight: bold;
+}
+
+/* LINKS */
+
+.ProseMirror a,
+.toastui-editor-contents a {
+  color: #60A5FA !important;
+}
+
+/* PLACEHOLDER */
+
+.ProseMirror p.is-empty::before {
+  color: #6B7280 !important;
+}
+
+/* TABLAS */
+
+.toastui-editor-contents table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.toastui-editor-contents table th,
+.toastui-editor-contents table td {
+  border: 1px solid #374151;
+  padding: 10px;
+  color: white !important;
+}
+
+/* SCROLL */
+
+.toastui-editor-ww-container::-webkit-scrollbar,
+.toastui-editor-md-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.toastui-editor-ww-container::-webkit-scrollbar-thumb,
+.toastui-editor-md-container::-webkit-scrollbar-thumb {
+  background: #4B5563;
+  border-radius: 10px;
+}
+
+/* ========================= */
+/* OCULTAR WRITE / PREVIEW */
+/* ========================= */
+
+.toastui-editor-tabs {
+  display: none !important;
+}
+
+.toastui-editor-md-tab-container {
+  display: none !important;
+}
+
+/* OCULTAR PREVIEW PANEL */
+
+.toastui-editor-md-preview {
+  display: none !important;
+}
+
+/* HACER QUE EL EDITOR USE TODO EL ANCHO */
+
+.toastui-editor-md-container {
+  width: 100% !important;
+}
+.cancelar{
+  margin-left:10px;
+  background:#374151;
+  color:white;
+}

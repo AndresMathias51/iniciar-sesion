@@ -1,10 +1,11 @@
 export type Publicacion = {
-  id: number;
-  autor: string;
-  fecha: string;
-  titulo: string;
-  id_tema: number;
-  contenido: string;
+  id:number;
+  autor:string;
+  correo:string;
+  fecha:string;
+  titulo:string;
+  id_tema:number;
+  contenido:string;
 };
 
 export type Tema = {

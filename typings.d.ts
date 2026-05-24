@@ -6,8 +6,10 @@ type contenidoPost = {
 type post = {
     id:number;
     autor:string;
+    correo:string;
     fecha:string;
     titulo:string;
+    id_tema:number;
     contenido:string;
 };
 

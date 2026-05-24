@@ -11,6 +11,7 @@ export async function GET() {
         {
             id:1,
             autor:"Andres Mathias",
+            correo:"andresmathias09877@gmail.com",
             fecha:"01-05-2026",
             titulo:"Introducción a la programación",
             id_tema:1,
@@ -30,6 +31,7 @@ La programación permite resolver problemas mediante algoritmos.
         {
             id:2,
             autor:"Carlos",
+            correo:"carlos@gmail.com",
             fecha:"02-05-2026",
             titulo:"Variables y tipos de datos",
             id_tema:2,
@@ -50,6 +52,7 @@ La programación permite resolver problemas mediante algoritmos.
         {
             id:3,
             autor:"Lucia",
+            correo:"lucia@gmail.com",
             fecha:"03-05-2026",
             titulo:"Estructuras condicionales",
             id_tema:3,
@@ -71,6 +74,7 @@ Uso de:
         {
             id:4,
             autor:"Miguel",
+            correo:"miguel@gmail.com",
             fecha:"04-05-2026",
             titulo:"Bucles y repetición",
             id_tema:4,
@@ -90,6 +94,7 @@ Uso de:
         {
             id:5,
             autor:"Fernanda",
+            correo:"fernanda@gmail.com",
             fecha:"05-05-2026",
             titulo:"Funciones",
             id_tema:5,
@@ -109,6 +114,7 @@ function saludar(){}
         {
             id:6,
             autor:"Andres Mathias",
+            correo:"andresmathias09877@gmail.com",
             fecha:"06-05-2026",
             titulo:"Arreglos",
             id_tema:6,
@@ -127,6 +133,7 @@ Los arreglos almacenan múltiples datos.
         {
             id:7,
             autor:"Carlos",
+            correo:"carlos@gmail.com",
             fecha:"07-05-2026",
             titulo:"Programación orientada a objetos",
             id_tema:7,
@@ -146,6 +153,7 @@ Los arreglos almacenan múltiples datos.
         {
             id:8,
             autor:"Lucia",
+            correo:"lucia@gmail.com",
             fecha:"08-05-2026",
             titulo:"Manejo de errores",
             id_tema:8,
@@ -167,6 +175,7 @@ Uso de try y catch.
         {
             id:9,
             autor:"Miguel",
+            correo:"miguel@gmail.com",
             fecha:"09-05-2026",
             titulo:"Modelo entidad relación",
             id_tema:9,
@@ -185,6 +194,7 @@ Permite diseñar bases de datos.
         {
             id:10,
             autor:"Fernanda",
+            correo:"fernanda@gmail.com",
             fecha:"10-05-2026",
             titulo:"Modelo relacional",
             id_tema:10,
@@ -202,6 +212,7 @@ Uso de tablas y registros.
         {
             id:11,
             autor:"Andres Mathias",
+            correo:"andresmathias09877@gmail.com",
             fecha:"11-05-2026",
             titulo:"Consultas SQL básicas",
             id_tema:11,
@@ -219,6 +230,7 @@ SELECT * FROM usuarios;
         {
             id:12,
             autor:"Carlos",
+            correo:"carlos@gmail.com",
             fecha:"12-05-2026",
             titulo:"Relaciones entre tablas",
             id_tema:12,
@@ -236,6 +248,7 @@ SELECT * FROM usuarios;
         {
             id:13,
             autor:"Lucia",
+            correo:"lucia@gmail.com",
             fecha:"13-05-2026",
             titulo:"Normalización",
             id_tema:13,
@@ -259,6 +272,7 @@ Evita redundancia de datos.
         {
             id:14,
             autor:"Miguel",
+            correo:"miguel@gmail.com",
             fecha:"14-05-2026",
             titulo:"HTML semántico",
             id_tema:14,
@@ -276,6 +290,7 @@ Evita redundancia de datos.
         {
             id:15,
             autor:"Fernanda",
+            correo:"fernanda@gmail.com",
             fecha:"15-05-2026",
             titulo:"CSS básico",
             id_tema:15,
@@ -295,6 +310,7 @@ Uso de:
         {
             id:16,
             autor:"Andres Mathias",
+            correo:"andresmathias09877@gmail.com",
             fecha:"16-05-2026",
             titulo:"Flexbox",
             id_tema:16,
@@ -312,6 +328,7 @@ Permite alinear elementos fácilmente.
         {
             id:17,
             autor:"Carlos",
+            correo:"carlos@gmail.com",
             fecha:"17-05-2026",
             titulo:"CSS Grid",
             id_tema:17,
@@ -327,6 +344,7 @@ Organiza elementos en filas y columnas.
         {
             id:18,
             autor:"Lucia",
+            correo:"lucia@gmail.com",
             fecha:"18-05-2026",
             titulo:"Diseño responsive",
             id_tema:18,
@@ -342,6 +360,7 @@ Adaptación a móviles y tablets.
         {
             id:19,
             autor:"Miguel",
+            correo:"miguel@gmail.com",
             fecha:"19-05-2026",
             titulo:"Componentes visuales",
             id_tema:19,
@@ -363,6 +382,7 @@ Adaptación a móviles y tablets.
         {
             id:20,
             autor:"Fernanda",
+            correo:"fernanda@gmail.com",
             fecha:"20-05-2026",
             titulo:"Conceptos de sistemas de información",
             id_tema:20,
@@ -378,6 +398,7 @@ Procesan información organizacional.
         {
             id:21,
             autor:"Andres Mathias",
+            correo:"andresmathias09877@gmail.com",
             fecha:"21-05-2026",
             titulo:"Procesos organizacionales",
             id_tema:21,
@@ -393,6 +414,7 @@ Relacionan actividades empresariales.
         {
             id:22,
             autor:"Carlos",
+            correo:"carlos@gmail.com",
             fecha:"22-05-2026",
             titulo:"Tipos de sistemas",
             id_tema:22,
@@ -410,6 +432,7 @@ Relacionan actividades empresariales.
         {
             id:23,
             autor:"Lucia",
+            correo:"lucia@gmail.com",
             fecha:"23-05-2026",
             titulo:"Requerimientos del sistema",
             id_tema:23,
@@ -430,6 +453,7 @@ Relacionan actividades empresariales.
         {
             id:24,
             autor:"Miguel",
+            correo:"miguel@gmail.com",
             fecha:"24-05-2026",
             titulo:"Capas de arquitectura",
             id_tema:24,
@@ -447,6 +471,7 @@ Relacionan actividades empresariales.
         {
             id:25,
             autor:"Fernanda",
+            correo:"fernanda@gmail.com",
             fecha:"25-05-2026",
             titulo:"Arquitectura cliente-servidor",
             id_tema:25,
@@ -462,6 +487,7 @@ Comunicación entre frontend y backend.
         {
             id:26,
             autor:"Andres Mathias",
+            correo:"andresmathias09877@gmail.com",
             fecha:"26-05-2026",
             titulo:"Arquitectura MVC",
             id_tema:26,
@@ -479,6 +505,7 @@ Comunicación entre frontend y backend.
         {
             id:27,
             autor:"Carlos",
+            correo:"carlos@gmail.com",
             fecha:"27-05-2026",
             titulo:"APIs REST",
             id_tema:27,
@@ -499,6 +526,7 @@ Métodos HTTP:
         {
             id:28,
             autor:"Lucia",
+            correo:"lucia@gmail.com",
             fecha:"28-05-2026",
             titulo:"Servicios",
             id_tema:28,
@@ -514,6 +542,7 @@ Separan lógica de negocio.
         {
             id:29,
             autor:"Miguel",
+            correo:"miguel@gmail.com",
             fecha:"29-05-2026",
             titulo:"Escalabilidad",
             id_tema:29,
@@ -529,6 +558,7 @@ Capacidad de crecer.
         {
             id:30,
             autor:"Fernanda",
+            correo:"fernanda@gmail.com",
             fecha:"30-05-2026",
             titulo:"Mantenibilidad",
             id_tema:30,
@@ -548,6 +578,7 @@ Facilidad para modificar sistemas.
         {
             id:31,
             autor:"Andres Mathias",
+            correo:"andresmathias09877@gmail.com",
             fecha:"31-05-2026",
             titulo:"Conceptos básicos de redes",
             id_tema:31,
@@ -563,6 +594,7 @@ Permiten compartir información.
         {
             id:32,
             autor:"Carlos",
+            correo:"carlos@gmail.com",
             fecha:"01-06-2026",
             titulo:"Modelo OSI",
             id_tema:32,
@@ -578,6 +610,7 @@ Tiene 7 capas.
         {
             id:33,
             autor:"Lucia",
+            correo:"lucia@gmail.com",
             fecha:"02-06-2026",
             titulo:"Direcciones IP",
             id_tema:33,
