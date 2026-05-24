@@ -5,42 +5,38 @@ import type { Categoria } from "./Categoria_admin";
 import type { Tema } from "./Tema_admin";
 
 import styles from "./Form_tema.module.css";
-import formShared from "./Form_categoria.module.css"; // reutilizamos clases comunes
+import formShared from "./Form_categoria.module.css";
 
 type FormValue = Omit<Tema, "id">;
 
 type Props = {
   categorias: Categoria[];
-  categoriaId: string;
-  onChangeCategoriaId: (id: string) => void;
+  categoriaId: string; // categoria activa
   onCreate: (data: FormValue) => void;
 };
 
-export default function Form_tema({
-  categorias,
-  categoriaId,
-  onChangeCategoriaId,
-  onCreate,
-}: Props) {
-  const canCreate = categorias.length > 0 && !!categoriaId;
+export default function Form_tema({ categorias, categoriaId, onCreate }: Props) {
+  const hasCategorias = categorias.length > 0;
+  const hasCategoriaActiva = !!categoriaId;
+  const canCreate = hasCategorias && hasCategoriaActiva;
 
-  const categoriaSeleccionada = useMemo(
-    () => categorias.find((c) => c.id === categoriaId),
-    [categorias, categoriaId]
-  );
+  const categoriaNombre = useMemo(() => {
+    if (!categoriaId) return "";
+    return categorias.find((c) => c.id === categoriaId)?.nombre ?? "";
+  }, [categorias, categoriaId]);
 
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [imagenUrl, setImagenUrl] = useState("");
 
+  // Ya NO limpiamos al cambiar categoriaId porque te puede borrar lo que estabas escribiendo.
+  // Si quieres limpiar igual, dímelo y lo reactivamos.
   useEffect(() => {
-    setTitulo("");
-    setDescripcion("");
-    setImagenUrl("");
+    // no-op
   }, [categoriaId]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
     if (!canCreate) return;
     if (!titulo.trim() || !descripcion.trim()) return;
 
@@ -48,90 +44,63 @@ export default function Form_tema({
       categoriaId,
       titulo: titulo.trim(),
       descripcion: descripcion.trim(),
-      imagenUrl: imagenUrl.trim() || undefined,
+      imagenUrl: undefined,
     });
 
     setTitulo("");
     setDescripcion("");
-    setImagenUrl("");
   }
 
   return (
-    <div>
-      <h2>Agregar tema</h2>
-      <form className={styles.formTema} onSubmit={handleSubmit}>
-        <div className={formShared.formRow}>
-          <label className={formShared.formLabel}>Categoría</label>
-          <select
-            className={styles.formSelect}
-            value={categoriaId}
-            onChange={(e) => onChangeCategoriaId(e.target.value)}
-          >
-            {categorias.length === 0 ? (
-              <option value="">Primero crea una categoría</option>
-            ) : (
-              <>
-                {/* OJO: si quieres que el usuario pueda “des-seleccionar”, agrega una opción vacía */}
-                {categorias.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.nombre}
-                  </option>
-                ))}
-              </>
-            )}
-          </select>
+    <form className={styles.formTema} onSubmit={handleSubmit}>
+      <h2 className={styles.sectionTitle}>Agregar tema</h2>
 
-          {categoriaSeleccionada && (
-            <p className={styles.formHintSmall}>
-              Temas para: <strong>{categoriaSeleccionada.nombre}</strong>
-            </p>
-          )}
+      {!canCreate && (
+        <div className={styles.notice}>
+          {!hasCategorias
+            ? "Primero crea una categoría para poder crear temas."
+            : "Selecciona una categoría para poder crear temas."}
         </div>
+      )}
 
-        <div className={formShared.formRow}>
-          <label className={formShared.formLabel}>Título del tema</label>
-          <input
-            className={formShared.formInput}
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            placeholder="Ej: Trabajo Práctico 1"
-            disabled={!canCreate}
-          />
-        </div>
+      {canCreate && categoriaNombre && (
+        <p className={styles.activeCategoria}>
+          Creando tema en: <strong>{categoriaNombre}</strong>
+        </p>
+      )}
 
-        <div className={formShared.formRow}>
-          <label className={formShared.formLabel}>Descripción</label>
-          <textarea
-            className={formShared.formInput}
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
-            placeholder="Descripción breve"
-            rows={2}
-            disabled={!canCreate}
-          />
-        </div>
+      <div className={formShared.formRow}>
+        <label className={formShared.formLabel}>Título del tema</label>
+        <input
+          className={formShared.formInput}
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+          placeholder="Ej: Trabajo Práctico 1"
+          /* IMPORTANTE: ya no lo deshabilitamos para que puedas escribir */
+        />
+      </div>
 
-        <div className={formShared.formRow}>
-          <label className={formShared.formLabel}>Imagen (URL) (opcional)</label>
-          <input
-            className={formShared.formInput}
-            value={imagenUrl}
-            onChange={(e) => setImagenUrl(e.target.value)}
-            placeholder="https://..."
-            disabled={!canCreate}
-          />
-        </div>
+      <div className={formShared.formRow}>
+        <label className={formShared.formLabel}>Descripción</label>
+        <textarea
+          className={formShared.formInput}
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+          placeholder="Descripción breve"
+          rows={2}
+          /* IMPORTANTE: ya no lo deshabilitamos para que puedas escribir */
+        />
+      </div>
 
-        <div className={formShared.formActions}>
-          <button className={formShared.btnPrimary} type="submit" disabled={!canCreate}>
-            Crear tema
-          </button>
-        </div>
+      <div className={formShared.formActions}>
+        <button className={formShared.btnPrimary} type="submit" disabled={!canCreate}>
+          Crear tema
+        </button>
+      </div>
 
-        {!canCreate && (
-          <p className={formShared.formHint}>* Debes tener al menos una categoría.</p>
-        )}
-      </form>
-    </div>
+      {!canCreate && (
+        <p className={formShared.formHint}>* Debes tener al menos una categoría.</p>
+      )}
+    </form>
   );
 }
