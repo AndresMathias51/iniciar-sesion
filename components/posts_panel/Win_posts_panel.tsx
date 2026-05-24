@@ -25,3 +25,5 @@ export default function Win_posts_panel() {
     </div>
   )
 }
+
+
