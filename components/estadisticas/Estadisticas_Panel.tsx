@@ -14,7 +14,7 @@ type EstadisticasPanelProps = {
 export default function EstadisticasPanel({ data }: EstadisticasPanelProps) {
   return (
     <main className={styles.page}>
-      <Encabezado nombre="hola"/>
+      <Encabezado nombre=""/>
       <div className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>Panel de estadísticas</h1>

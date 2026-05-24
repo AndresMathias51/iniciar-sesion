@@ -3,6 +3,7 @@ export type Publicacion = {
   autor: string;
   fecha: string;
   titulo: string;
+  id_tema: number;
   contenido: string;
 };
 

@@ -1,9 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
+
 import Categoria from "@/components/main_dashboard/Categoria";
+
 import styles from "./FrameResultados.module.css";
-import type { Categoria as CategoriaType, Publicacion } from "./types";
+
+import type {
+  Categoria as CategoriaType,
+  Publicacion
+} from "./types";
 
 type FrameResultadosProps = {
   busqueda: string;
@@ -11,6 +17,8 @@ type FrameResultadosProps = {
   categorias?: CategoriaType[];
   mostrarTabs?: boolean;
   tabInicial?: "publicaciones" | "temasCategorias";
+
+  onSeleccionarTema: (id: number) => void;
 };
 
 type TabActiva = "publicaciones" | "temasCategorias";
@@ -20,7 +28,8 @@ export default function FrameResultados({
   publicaciones = [],
   categorias = [],
   mostrarTabs = true,
-  tabInicial = "publicaciones"
+  tabInicial = "publicaciones",
+  onSeleccionarTema
 }: FrameResultadosProps) {
   const [tabActiva, setTabActiva] = useState<TabActiva>(tabInicial);
 
@@ -41,7 +50,8 @@ export default function FrameResultados({
 
     return categorias
       .map((categoria) => {
-        const coincideCategoria = categoria.nombre.toLowerCase().includes(texto);
+        const coincideCategoria =
+          categoria.nombre.toLowerCase().includes(texto);
 
         const temasFiltrados = categoria.temas.filter(
           (tema) =>
@@ -79,7 +89,9 @@ export default function FrameResultados({
             <button
               type="button"
               className={
-                tabActiva === "publicaciones" ? styles.tabActiva : styles.tab
+                tabActiva === "publicaciones"
+                  ? styles.tabActiva
+                  : styles.tab
               }
               onClick={() => setTabActiva("publicaciones")}
             >
@@ -89,7 +101,9 @@ export default function FrameResultados({
             <button
               type="button"
               className={
-                tabActiva === "temasCategorias" ? styles.tabActiva : styles.tab
+                tabActiva === "temasCategorias"
+                  ? styles.tabActiva
+                  : styles.tab
               }
               onClick={() => setTabActiva("temasCategorias")}
             >
@@ -109,7 +123,10 @@ export default function FrameResultados({
           {publicacionesFiltradas.length > 0 ? (
             <div className={styles.listaPublicaciones}>
               {publicacionesFiltradas.map((publicacion) => (
-                <article key={publicacion.id} className={styles.cardPublicacion}>
+                <article
+                  key={publicacion.id}
+                  className={styles.cardPublicacion}
+                >
                   <div className={styles.metaPublicacion}>
                     <span>{publicacion.autor}</span>
                     <span>{publicacion.fecha}</span>
@@ -149,6 +166,7 @@ export default function FrameResultados({
                   id={categoria.id}
                   nombre={categoria.nombre}
                   temas={categoria.temas}
+                  onSeleccionarTema={onSeleccionarTema}
                 />
               ))}
             </div>

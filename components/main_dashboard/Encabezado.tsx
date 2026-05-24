@@ -108,23 +108,25 @@ export default function Encabezado({ nombre, barraBusqueda }: Props) {
     return (
         <div className="bloque">
             <div className="sub_bloque">
-                <button className="boton_encabezado">
-                    <Image
-                        className="imagen"
-                        src={dir}
-                        alt=""
-                        width={50}
-                        height={50}
-                    />
-                </button>
+                <Link href='/dashboard'>
+                    <button className="boton_encabezado">
+                        <Image
+                            className="imagen"
+                            src={dir}
+                            alt=""
+                            width={50}
+                            height={50}
+                            />
+                    </button>
+                </Link>
                 <h1 className="nombre_materia">
                     {nombre}
                 </h1>
             </div>
             {barraBusqueda}
             <Link href='/estadisticas'>
-                <button>
-                    ESTADISTICA
+                <button className="nombre_materia boton_estadistica">
+                    ESTADISTICAS
                 </button>
             </Link>
             <div

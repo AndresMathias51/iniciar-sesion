@@ -147,6 +147,11 @@ export default function Win_main_dashboard({
               busqueda={busquedaConfirmada}
               publicaciones={publicaciones}
               categorias={categorias}
+              onSeleccionarTema={(id) => {
+                setTemaSeleccionado(id);
+                setBusquedaConfirmada("");
+                setTextoBusqueda("");
+              }}
             />
 
           ) : temaSeleccionado !== null ? (
