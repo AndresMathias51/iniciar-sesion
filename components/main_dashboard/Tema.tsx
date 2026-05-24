@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import "./Tema.css";
+import Link from "next/link";
 
 type Props = {
   id: number;
@@ -21,7 +22,7 @@ export default function Tema({ id, imagen, nombre, descripcion }: Props) {
               alt={nombre}
               width={30}
               height={30}
-            />
+              />
           </div>
 
           <h3>{nombre}</h3>

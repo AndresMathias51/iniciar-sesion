@@ -6,6 +6,7 @@ import React, {
     useState
 } from "react";
 import PerfilMenu from "@/components/perfil/PerfilMenu"
+import Link from 'next/link'
 import Image from "next/image";
 import "./Encabezado.css";
 
@@ -106,11 +107,8 @@ export default function Encabezado({ nombre, barraBusqueda }: Props) {
 
     return (
         <div className="bloque">
-
             <div className="sub_bloque">
-
                 <button className="boton_encabezado">
-
                     <Image
                         className="imagen"
                         src={dir}
@@ -118,17 +116,17 @@ export default function Encabezado({ nombre, barraBusqueda }: Props) {
                         width={50}
                         height={50}
                     />
-
                 </button>
-
                 <h1 className="nombre_materia">
                     {nombre}
                 </h1>
-
             </div>
-
             {barraBusqueda}
-
+            <Link href='/estadisticas'>
+                <button>
+                    ESTADISTICA
+                </button>
+            </Link>
             <div
                 className="sub_bloque"
                 ref={menuRef}

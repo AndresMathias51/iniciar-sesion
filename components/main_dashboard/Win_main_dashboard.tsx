@@ -6,7 +6,7 @@ import Encabezado from "@/components/main_dashboard/Encabezado";
 import Descripcion from "@/components/main_dashboard/Descripcion";
 import Categoria from "@/components/main_dashboard/Categoria";
 import Barra_lateral from "./Barra_lateral";
-
+import Win_posts_panel from "@/components/posts_panel/Win_posts_panel";
 import BarraBusqueda from "@/components/busqueda/BarraBusqueda";
 import FrameResultados from "@/components/busqueda/FrameResultados";
 import { generarSugerenciasBusqueda } from "@/components/busqueda/busqueda.helpers";
@@ -119,7 +119,6 @@ export default function Win_main_dashboard({ data }: Props) {
             </>
           )}
         </div>
-
         <Barra_lateral />
       </div>
     </div>
