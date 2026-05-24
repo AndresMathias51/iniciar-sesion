@@ -1,0 +1,238 @@
+/* ===== Título del bloque ===== */
+.sectionTitle{
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--title-primary);
+}
+
+/* ===== Contenedor del form ===== */
+.formCategoria{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 14px;
+  border-radius: 12px;
+
+  border: 1px solid var(--frame-border);
+  background: var(--frame-secondary);
+}
+
+/* ===== Filas ===== */
+.formRow{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ===== Labels ===== */
+.formLabel{
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ===== Inputs/Textarea ===== */
+.formInput{
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 12px 12px;
+  border-radius: 12px;
+
+  border: 1px solid var(--frame-border);
+  background: var(--background-soft);
+  color: var(--title-primary);
+
+  font-size: 14px;
+}
+
+.formInput::placeholder{
+  color: var(--text-muted);
+}
+
+.formInput:hover{
+  background: var(--frame-secondary-alt);
+}
+
+.formInput:focus{
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(217, 145, 82, 0.22);
+}
+
+/* ===== Acciones ===== */
+.formActions{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 4px;
+}
+
+.btnPrimary{
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 106, 0, .35);
+
+  background: rgba(255, 106, 0, 0.10);
+  color: var(--title-primary);
+
+  font-weight: 800;
+  cursor: pointer;
+
+  transition: background .12s ease, border-color .12s ease, transform .12s ease;
+}
+
+.btnPrimary:hover{
+  background: rgba(255, 106, 0, 0.14);
+  border-color: rgba(255, 106, 0, .45);
+}
+
+.btnPrimary:active{
+  transform: translateY(1px);
+}
+
+.btnSecondary{
+  padding: 12px 14px;
+  border-radius: 12px;
+
+  border: 1px solid var(--frame-border);
+  background: var(--frame-secondary);
+  color: var(--title-primary);
+
+  font-weight: 800;
+  cursor: pointer;
+
+  transition: background .12s ease, border-color .12s ease, transform .12s ease;
+}
+
+.btnSecondary:hover{
+  background: var(--background-soft);
+}
+
+.btnSecondary:active{
+  transform: translateY(1px);
+}
+
+/* ===== Hints ===== */
+.formHint{
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  opacity: 0.9;
+}
+
+.formHintSmall{
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+/* ===== Dropdown icon select (vertical, sin nombres) ===== */
+.iconSelectWrap{
+  position: relative;
+}
+
+.iconSelectButton{
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 12px 12px;
+  border-radius: 12px;
+
+  border: 1px solid var(--frame-border);
+  background: var(--background-soft);
+  color: var(--title-primary);
+
+  cursor: pointer;
+}
+
+.iconSelectButton:hover{
+  background: var(--frame-secondary-alt);
+}
+
+.iconSelectOpen{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(217, 145, 82, 0.22);
+}
+
+.iconSelectValue{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.iconPlaceholder{
+  color: var(--text-muted);
+}
+
+.iconChevron{
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1;
+}
+
+
+/* Dropdown adaptativo al contenedor (ideal para modals) */
+.iconDropdown{
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;          /* <-- CLAVE: mismo ancho que el botón */
+  z-index: 20;
+
+  padding: 8px;
+  background: var(--frame-secondary);
+  border: 1px solid var(--frame-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(17,24,39,.10);
+
+  display: flex;
+  flex-direction: row;   /* si los quieres en fila */
+  gap: 8px;
+  justify-content: flex-start;
+
+  overflow-x: auto;      /* <-- si no entra, hace scroll horizontal */
+  overflow-y: hidden;
+}
+.iconDropdown::-webkit-scrollbar{ height: 8px; }
+.iconDropdown::-webkit-scrollbar-thumb{
+  background: rgba(17,24,39,.18);
+  border-radius: 999px;
+}
+.iconDropdownItem{
+  width: 100%;
+  height: 44px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+  border: 1px solid transparent;
+
+  background: transparent;
+  cursor: pointer;
+}
+
+.iconDropdownItem:hover{
+  background: var(--background-soft);
+}
+
+.iconDropdownItemSelected{
+  border-color: rgba(255, 106, 0, .35);
+  background: rgba(255, 106, 0, 0.10);
+}
+
+.iconNone{
+  font-weight: 900;
+  color: var(--text-muted);
+}

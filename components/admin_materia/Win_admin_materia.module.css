@@ -1,0 +1,155 @@
+.div_admin_materia{
+  background-color: var(--am-bg);
+}
+
+.admin_encabezado{
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: var(--am-surface);
+}
+
+.contenido_central_admin{
+  display: flex;
+  gap: 0px;
+  justify-content: space-between;
+  background-color: #F4F6F8;
+  position: relative;
+
+  /* NUEVO: hace que el fondo gris baje hasta el final de la pantalla */
+  min-height: calc(100vh - 72px); /* ajusta 72px al alto real de tu encabezado */
+}
+
+.contenido_admin{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 65%;
+  padding: 20px;
+  box-sizing: border-box;
+
+  /* overlay local */
+  position: relative;
+  z-index: 2;
+}
+
+.adminMateriaCentro{
+  flex: 1;
+  display: grid;
+  column-gap: 50px;
+  row-gap: 20px;
+
+  /* overlay */
+  position: relative;
+  z-index: 2;
+}
+
+.adminMateriaCentro1{
+  grid-template-columns: 1fr;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.adminMateriaCentro2{
+  grid-template-columns: 1fr 1fr;
+}
+
+.adminMateriaCol{
+  background: var(--am-surface);
+  border: 1px solid var(--am-border);
+  box-shadow: var(--am-shadow);
+  border-radius: 12px;
+  padding: 16px;
+  box-sizing: border-box;
+
+  /* CLAVE para scroll interno en la lista */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.adminMateriaTitle{
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--am-accent);
+}
+
+.adminMateriaList{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+
+  max-height: 210px;   /* igual que tu ejemplo */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+}
+
+.adminMateriaList::-webkit-scrollbar{
+  width: 8px;
+}
+
+.adminMateriaList::-webkit-scrollbar-track{
+  border-radius: 999px;
+  background-color: #e0e0e0;
+}
+
+.adminMateriaList::-webkit-scrollbar-thumb{
+  border-radius: 999px;
+  background-color: #b7b7b7;
+}
+
+.adminMateriaLateral{
+  width: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.adminMateriaEmpty{
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+/* Capa para detectar click afuera (local, si la usas) */
+.clickOutsideOverlay{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: transparent;
+}
+
+/* Overlay global: cubre centro + lateral */
+.clickOutsideOverlayGlobal{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: transparent;
+}
+
+/* Asegurar que el contenido esté por encima del overlay */
+.contenido_admin,
+.adminMateriaLateral{
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 1100px) {
+  .contenido_central_admin{
+    flex-direction: column;
+  }
+
+  .contenido_admin{
+    width: 100%;
+  }
+
+  .adminMateriaCentro2{
+    grid-template-columns: 1fr;
+  }
+
+  .adminMateriaLateral{
+    width: 100%;
+  }
+}
