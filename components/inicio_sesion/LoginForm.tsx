@@ -36,7 +36,7 @@ const LoginForm = () => {
 
     router.refresh();
 
-    router.push("/posts");
+    router.push("/dashboard");
 
   }
   async function login() {
@@ -89,7 +89,7 @@ const LoginForm = () => {
 
       router.refresh();
 
-      router.push("/posts");
+      router.push("/dashboard");
 
     } catch(error){
 
