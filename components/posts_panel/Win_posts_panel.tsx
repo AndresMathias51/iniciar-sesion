@@ -1,156 +1,165 @@
-"use client"
+"use client";
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import styles from "./Win_posts_panel.module.css";
-import Post from './Post';
+
+import Post from "./Post";
 import Descripcion from "@/components/main_dashboard/Descripcion";
 import ModalEliminar from "./ModalEliminar";
 
-type Props= {
-    descripcion: string;
-    temaSeleccionado:number;
-    volverCategorias:() => void;
-}
+import type { Publicacion } from "@/components/busqueda/types";
+
+type Props = {
+  descripcion: string;
+  temaSeleccionado: number;
+  volverCategorias: () => void;
+};
 
 export default function Win_posts_panel({
-    descripcion,
-    temaSeleccionado,
-    volverCategorias
-}:Props) {
+  descripcion,
+  temaSeleccionado,
+  volverCategorias
+}: Props) {
+  const [posts, setPosts] = useState<Publicacion[]>([]);
+  const [ascendente, setAscendente] = useState(false);
 
-    const [posts, setPosts] = useState<post[]>([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    const [ascendente, setAscendente] = useState(false);
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [idEliminar, setIdEliminar] = useState<number | null>(null);
 
-    const [mostrarModal, setMostrarModal] = useState(false);
+  const abrirModalEliminar = (id: number) => {
+    setMostrarModal(true);
+    setIdEliminar(id);
+  };
 
-    const [idEliminar, setIdEliminar] =
-        useState<number | null>(null);
+  const cerrarModal = () => {
+    setMostrarModal(false);
+    setIdEliminar(null);
+  };
 
-    const abrirModalEliminar = (id:number) => {
+  const confirmarEliminar = () => {
+    if (idEliminar === null) return;
 
-        setMostrarModal(true);
+    const nuevosPosts = posts.filter(
+      (post) => post.id !== idEliminar
+    );
 
-        setIdEliminar(id);
-    };
+    setPosts(nuevosPosts);
+    cerrarModal();
+  };
 
-    const cerrarModal = () => {
+  useEffect(() => {
+    const obtenerPosts = async () => {
+      try {
+        setCargando(true);
+        setError(null);
 
-        setMostrarModal(false);
-
-        setIdEliminar(null);
-    };
-
-    const confirmarEliminar = () => {
-
-        const nuevosPosts = posts.filter(
-            post => post.id_tema !== idEliminar
-        );
-
-        setPosts(nuevosPosts);
-
-        cerrarModal();
-    };
-
-    useEffect(() => {
-
-        const obtenerPosts = async () => {
-
-            const response =
-                await fetch("/api/posts");
-
-            const data = await response.json();
-
-            setPosts(data);
-        };
-
-        obtenerPosts();
-
-    }, []);
-
-    const ordenarPorFecha = () => {
-
-        const postsOrdenados =
-            [...posts].sort((a, b) => {
-
-            const [diaA, mesA, anioA] =
-                a.fecha.split("-");
-
-            const [diaB, mesB, anioB] =
-                b.fecha.split("-");
-
-            const fechaA =
-                new Date(`${anioA}-${mesA}-${diaA}`);
-
-            const fechaB =
-                new Date(`${anioB}-${mesB}-${diaB}`);
-
-            return ascendente
-                ? fechaA.getTime() - fechaB.getTime()
-                : fechaB.getTime() - fechaA.getTime();
+        const response = await fetch("/api/posts", {
+          cache: "no-store"
         });
 
-        setPosts(postsOrdenados);
+        if (!response.ok) {
+          throw new Error("No se pudieron cargar las publicaciones");
+        }
 
-        setAscendente(!ascendente);
+        const data: Publicacion[] = await response.json();
+
+        setPosts(data);
+      } catch (error) {
+        setError(
+          error instanceof Error
+            ? error.message
+            : "Error desconocido al cargar publicaciones"
+        );
+      } finally {
+        setCargando(false);
+      }
     };
 
-    // =========================
-    // FILTRAR POSTS
-    // =========================
+    obtenerPosts();
+  }, []);
 
-    const postsFiltrados = posts.filter(
-        post => post.id_tema === temaSeleccionado
-    );
+  const ordenarPorFecha = () => {
+    const postsOrdenados = [...posts].sort((a, b) => {
+      const [diaA, mesA, anioA] = a.fecha.split("-");
+      const [diaB, mesB, anioB] = b.fecha.split("-");
 
-    return (
+      const fechaA = new Date(`${anioA}-${mesA}-${diaA}`);
+      const fechaB = new Date(`${anioB}-${mesB}-${diaB}`);
 
-        <div>
+      return ascendente
+        ? fechaA.getTime() - fechaB.getTime()
+        : fechaB.getTime() - fechaA.getTime();
+    });
 
-            <div className={styles.contenido_central}>
+    setPosts(postsOrdenados);
+    setAscendente(!ascendente);
+  };
 
-                <div className={styles.contenido_posts}>
+  const postsFiltrados = posts.filter(
+    (post) => post.id_tema === temaSeleccionado
+  );
 
-                    <Descripcion descripcion={descripcion}/>
-                    <div className={styles.bloque_botones}>
+  return (
+    <div>
+      <div className={styles.contenido_central}>
+        <div className={styles.contenido_posts}>
+          <Descripcion descripcion={descripcion} />
 
-    <button
-        className={styles.btn_ordenar}
-        onClick={volverCategorias}
-    >
-        ← Volver
-    </button>
+          <div className={styles.bloque_botones}>
+            <button
+              className={styles.btn_ordenar}
+              onClick={volverCategorias}
+            >
+              ← Volver
+            </button>
 
-    <button
-        className={styles.btn_ordenar}
-        onClick={ordenarPorFecha}
-    >
-        Ordenar por fecha {ascendente ? "↑" : "↓"}
-    </button>
+            <button
+              className={styles.btn_ordenar}
+              onClick={ordenarPorFecha}
+            >
+              Ordenar por fecha {ascendente ? "↑" : "↓"}
+            </button>
+          </div>
 
-</div>
+          {cargando && (
+            <p className={styles.mensaje_estado}>
+              Cargando publicaciones...
+            </p>
+          )}
 
-                    {postsFiltrados.map(post => (
+          {error && (
+            <p className={styles.mensaje_estado}>
+              {error}
+            </p>
+          )}
 
-                        <Post
-                            key={post.id}
-                            post={post}
-                            onEliminar={abrirModalEliminar}
-                        />
+          {!cargando && !error && postsFiltrados.length === 0 && (
+            <p className={styles.mensaje_estado}>
+              No hay publicaciones registradas para este tema.
+            </p>
+          )}
 
-                    ))}
-
-                </div>
-
-            </div>
-
-            <ModalEliminar
-                visible={mostrarModal}
-                onClose={cerrarModal}
-                onConfirmar={confirmarEliminar}
-            />
-
+          {!cargando &&
+            !error &&
+            postsFiltrados.map((post) => (
+              <Post
+                key={post.id}
+                post={post}
+                onEliminar={abrirModalEliminar}
+              />
+            ))}
         </div>
-    );
+      </div>
+
+      <ModalEliminar
+        visible={mostrarModal}
+        onClose={cerrarModal}
+        onConfirmar={confirmarEliminar}
+      />
+    </div>
+  );
 }

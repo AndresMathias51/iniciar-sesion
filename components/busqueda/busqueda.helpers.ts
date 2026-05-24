@@ -38,7 +38,6 @@ export function generarSugerenciasBusqueda({
     .flatMap((categoria) =>
       categoria.temas.map((tema) => ({
         ...tema,
-        categoriaId: categoria.id,
         categoriaNombre: categoria.nombre
       }))
     )
@@ -56,7 +55,9 @@ export function generarSugerenciasBusqueda({
     }));
 
   const sugerenciasCategorias = categorias
-    .filter((categoria) => categoria.nombre.toLowerCase().includes(texto))
+    .filter((categoria) =>
+      categoria.nombre.toLowerCase().includes(texto)
+    )
     .map((categoria) => ({
       id: `categoria-${categoria.id}`,
       tipo: "Categoría",

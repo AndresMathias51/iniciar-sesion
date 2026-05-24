@@ -1,11 +1,8 @@
 "use client";
 
 import Image from "next/image";
-
 import ReactMarkdown from "react-markdown";
-
 import remarkGfm from "remark-gfm";
-
 import styles from "./Post.module.css";
 
 import type { Publicacion } from "@/components/busqueda/types";

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import Categoria from "@/components/main_dashboard/Categoria";
+import Post from "@/components/posts_panel/Post";
 
 import styles from "./FrameResultados.module.css";
 
@@ -18,10 +19,12 @@ type FrameResultadosProps = {
   mostrarTabs?: boolean;
   tabInicial?: "publicaciones" | "temasCategorias";
 
+  cargandoPublicaciones?: boolean;
+  errorPublicaciones?: string | null;
+
+  onEliminarPost?: (id: number) => void;
   onSeleccionarTema: (id: number) => void;
 };
-
-type TabActiva = "publicaciones" | "temasCategorias";
 
 export default function FrameResultados({
   busqueda,
@@ -29,10 +32,11 @@ export default function FrameResultados({
   categorias = [],
   mostrarTabs = true,
   tabInicial = "publicaciones",
+  cargandoPublicaciones = false,
+  errorPublicaciones = null,
+  onEliminarPost = () => {},
   onSeleccionarTema
 }: FrameResultadosProps) {
-  const [tabActiva, setTabActiva] = useState<TabActiva>(tabInicial);
-
   const texto = busqueda.trim().toLowerCase();
 
   const publicacionesFiltradas = useMemo(() => {
@@ -72,11 +76,16 @@ export default function FrameResultados({
     0
   );
 
+  const [tabActiva, setTabActiva] = useState<
+    "publicaciones" | "temasCategorias"
+  >(tabInicial);
+
   return (
     <section className={styles.frameResultados}>
       <div className={styles.superior}>
         <div>
           <h2>Resultados</h2>
+
           <p>
             {busqueda
               ? `Búsqueda actual: "${busqueda}"`
@@ -120,34 +129,39 @@ export default function FrameResultados({
             <span>publicaciones encontradas</span>
           </div>
 
-          {publicacionesFiltradas.length > 0 ? (
-            <div className={styles.listaPublicaciones}>
-              {publicacionesFiltradas.map((publicacion) => (
-                <article
-                  key={publicacion.id}
-                  className={styles.cardPublicacion}
-                >
-                  <div className={styles.metaPublicacion}>
-                    <span>{publicacion.autor}</span>
-                    <span>{publicacion.fecha}</span>
-                  </div>
-
-                  <h3>{publicacion.titulo}</h3>
-
-                  <p>
-                    {limitarTexto(
-                      limpiarMarkdown(publicacion.contenido),
-                      190
-                    )}
-                  </p>
-                </article>
-              ))}
-            </div>
-          ) : (
+          {cargandoPublicaciones && (
             <p className={styles.sinResultados}>
-              No se encontraron publicaciones para esta búsqueda.
+              Cargando publicaciones...
             </p>
           )}
+
+          {errorPublicaciones && (
+            <p className={styles.sinResultados}>
+              {errorPublicaciones}
+            </p>
+          )}
+
+          {!cargandoPublicaciones &&
+            !errorPublicaciones &&
+            publicacionesFiltradas.length > 0 && (
+              <div className={styles.listaPublicaciones}>
+                {publicacionesFiltradas.map((publicacion) => (
+                  <Post
+                    key={publicacion.id}
+                    post={publicacion}
+                    onEliminar={onEliminarPost}
+                  />
+                ))}
+              </div>
+            )}
+
+          {!cargandoPublicaciones &&
+            !errorPublicaciones &&
+            publicacionesFiltradas.length === 0 && (
+              <p className={styles.sinResultados}>
+                No se encontraron publicaciones para esta búsqueda.
+              </p>
+            )}
         </div>
       )}
 
@@ -179,17 +193,4 @@ export default function FrameResultados({
       )}
     </section>
   );
-}
-
-function limpiarMarkdown(texto: string) {
-  return texto
-    .replace(/!\[.*?\]\(.*?\)/g, "")
-    .replace(/[#>*_~`-]/g, "")
-    .replace(/\n+/g, " ")
-    .trim();
-}
-
-function limitarTexto(texto: string, limite: number) {
-  if (texto.length <= limite) return texto;
-  return `${texto.slice(0, limite)}...`;
 }

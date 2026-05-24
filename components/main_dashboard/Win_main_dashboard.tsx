@@ -18,7 +18,7 @@ import FrameResultados from "@/components/busqueda/FrameResultados";
 
 import { generarSugerenciasBusqueda } from "@/components/busqueda/busqueda.helpers";
 
-import publicacionesData from "@/components/busqueda/ejemplo.json";
+import { usePublicacionesBusqueda } from "@/components/busqueda/usePublicacionesBusqueda";
 
 import type {
   Categoria as CategoriaBusqueda,
@@ -73,8 +73,12 @@ export default function Win_main_dashboard({
   const [temaSeleccionado, setTemaSeleccionado] =
     useState<number | null>(null);
 
-  const publicaciones =
-    publicacionesData as Publicacion[];
+  const {
+    publicaciones,
+    setPublicaciones,
+    cargando,
+    error
+  } = usePublicacionesBusqueda();
 
   const categorias =
     data.categorias as CategoriaBusqueda[];
@@ -103,6 +107,11 @@ export default function Win_main_dashboard({
     setBusquedaConfirmada(valorLimpio);
   }
 
+  function eliminarPost(id: number) {
+    setPublicaciones((postsActuales) =>
+      postsActuales.filter((post) => post.id !== id)
+    );
+  }
   const hayBusquedaConfirmada =
     busquedaConfirmada.trim().length > 0;
 
@@ -147,6 +156,9 @@ export default function Win_main_dashboard({
               busqueda={busquedaConfirmada}
               publicaciones={publicaciones}
               categorias={categorias}
+              cargandoPublicaciones={cargando}
+              errorPublicaciones={error}
+              onEliminarPost={eliminarPost}
               onSeleccionarTema={(id) => {
                 setTemaSeleccionado(id);
                 setBusquedaConfirmada("");
