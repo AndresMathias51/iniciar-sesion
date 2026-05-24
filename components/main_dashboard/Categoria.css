@@ -16,7 +16,7 @@
 }
 .bloque_temas{
     padding: 10px;
-    max-height: 210px;
+    max-height: 220px;
     content: '';
     display: flex;
     flex-direction: column;

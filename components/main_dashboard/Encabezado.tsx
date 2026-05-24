@@ -5,33 +5,25 @@ import React, {
     useRef,
     useState
 } from "react";
-
+import PerfilMenu from "@/components/perfil/PerfilMenu"
 import Image from "next/image";
-
-import Barra_buscar from "./Barra_buscar";
-
-import PerfilMenu from "@/components/perfil/PerfilMenu";
-
-import "./Encabezado.css"
+import "./Encabezado.css";
 
 type Usuario = {
     nombre:string;
     correo:string;
 };
 type Props = {
-  nombre: string;
+    nombre: string;
+    barraBusqueda?: React.ReactNode;
 };
-export default function Encabezado({nombre}: Props) {
 
+export default function Encabezado({ nombre, barraBusqueda }: Props) {
     const dir = "/dashboard/rata.svg";
     const dir2 = "/dashboard/perfil.svg";
-
     const [usuario,setUsuario] = useState<Usuario | null>(null);
-
     const [mostrarMenu,setMostrarMenu] = useState(false);
-
     const menuRef = useRef<HTMLDivElement>(null);
-
     // =========================
     // OBTENER SESIÓN
     // =========================
@@ -135,7 +127,7 @@ export default function Encabezado({nombre}: Props) {
 
             </div>
 
-            <Barra_buscar/>
+            {barraBusqueda}
 
             <div
                 className="sub_bloque"
