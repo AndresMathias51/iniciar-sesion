@@ -2,14 +2,14 @@
 
 import React from "react";
 import Image from "next/image";
-import Barra_buscar from "./Barra_buscar";
 import "./Encabezado.css";
 
 type Props = {
   nombre: string;
+  barraBusqueda?: React.ReactNode;
 };
 
-export default function Encabezado({ nombre }: Props) {
+export default function Encabezado({ nombre, barraBusqueda }: Props) {
   const dir = "/dashboard/rata.svg";
   const dir2 = "/dashboard/perfil.svg";
 
@@ -23,7 +23,7 @@ export default function Encabezado({ nombre }: Props) {
         <h1 className="nombre_materia">{nombre}</h1>
       </div>
 
-      <Barra_buscar />
+      {barraBusqueda}
 
       <div className="sub_bloque">
         <h2>Invitado</h2>
