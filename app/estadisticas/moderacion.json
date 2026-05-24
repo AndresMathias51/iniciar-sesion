@@ -201,5 +201,11 @@
     "idCategoria": 6,
     "titulo": "Direcciones IP",
     "descripcion": "Uso de IPv4, máscaras de red y segmentación básica."
+  },
+  {
+    "id": 34,
+    "idCategoria": 1,
+    "titulo": "Base de datos abc",
+    "descripcion": "Uso de IPv4, máscaras de red y segmentación básica."
   }
 ]
