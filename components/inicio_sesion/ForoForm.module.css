@@ -1,0 +1,35 @@
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.inputDescriptionGroup{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align:left;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  height: 253px;
+}
+.inputGroup input,
+.inputGroup select,
+.inputDescriptionGroup input,
+.inputDescriptionGroup select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.iniciarSesionTexto {
+    color: blue;
+}
+
+.errorText{
+    color: var(--error);
+}
+
+.successText{
+    color: var(--success);
+}

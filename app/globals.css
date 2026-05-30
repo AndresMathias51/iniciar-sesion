@@ -139,30 +139,3 @@ body {
   padding: 0;
   font-family: var(--font-inter);
 }
-
-.inputGroup {
-  display: flex;
-  flex-direction: column;
-
-  gap: 8px;
-}
-
-.inputGroup input,
-.inputGroup select {
-  padding: 12px;
-
-  border: 1px solid #ccc;
-
-  border-radius: 8px;
-}
-
-
-
-
-
-.roleButtons {
-  display: flex;
-  flex-direction: column;
-
-  gap: 20px;
-}

@@ -1,0 +1,268 @@
+.post_card{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    overflow: hidden;
+
+    background-color: white;
+
+    border-radius: 10px;
+
+    border: 1px solid #d9d9d9;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+    margin-bottom: 20px;
+}
+
+.encabezado_post{
+    display: flex;
+
+    gap: 20px;
+
+    background-color: white;
+
+    color: #1E1E1E;
+
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid #2B4C68;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.encabezado_iz{
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+
+    font-size: 15px;
+}
+
+.encabezo_der{
+    font-weight: 300;
+
+    font-size: 12px;
+
+    color: gray;
+}
+
+.titulo_post{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+
+    color: #1E1E1E;
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+.contenido_post{
+    padding: 15px;
+
+    color: #1E1E1E;
+
+    overflow-wrap: break-word;
+
+    line-height: 1.7;
+}
+
+/* ========================= */
+/* TEXTO */
+/* ========================= */
+
+.contenido_post p{
+    margin: 10px 0;
+}
+
+/* ========================= */
+/* TITULOS */
+/* ========================= */
+
+.contenido_post h1{
+    font-size: 32px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.contenido_post h2{
+    font-size: 26px;
+    margin-top: 18px;
+    margin-bottom: 10px;
+}
+
+.contenido_post h3{
+    font-size: 22px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+/* ========================= */
+/* IMAGENES */
+/* ========================= */
+
+.contenido_post img{
+    max-width: 100%;
+
+    height: auto;
+
+    border-radius: 10px;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    display: block;
+}
+
+/* ========================= */
+/* LISTAS */
+/* ========================= */
+
+.contenido_post ul,
+.contenido_post ol{
+    padding-left: 30px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.contenido_post li{
+    margin-bottom: 5px;
+}
+
+/* ========================= */
+/* BLOCKQUOTE */
+/* ========================= */
+
+.contenido_post blockquote{
+    border-left: 4px solid #2B4C68;
+
+    padding-left: 15px;
+
+    color: gray;
+
+    margin: 15px 0;
+
+    font-style: italic;
+}
+
+/* ========================= */
+/* LINEA */
+/* ========================= */
+
+.contenido_post hr{
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    border: none;
+
+    border-top: 1px solid #ccc;
+}
+
+/* ========================= */
+/* CODIGO */
+/* ========================= */
+
+.contenido_post code{
+    background-color: #f4f4f4;
+
+    padding: 2px 6px;
+
+    border-radius: 5px;
+
+    font-size: 14px;
+}
+
+.contenido_post pre{
+    background-color: #f4f4f4;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    overflow-x: auto;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+/* ========================= */
+/* LINKS */
+/* ========================= */
+
+.contenido_post a{
+    color: #2B4C68;
+
+    text-decoration: underline;
+}
+
+/* ========================= */
+/* BOTONES */
+/* ========================= */
+
+.botones_post{
+    width: fit-content;
+
+    display: flex;
+
+    gap: 10px;
+
+    align-self: flex-end;
+
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.btn_editar{
+    font-size: 12px;
+
+    border: none;
+
+    cursor: pointer;
+
+    padding: 6px 14px;
+
+    border-radius: 10px;
+
+    background-color: #2B4C68;
+
+    color: white;
+
+    transition: 0.2s;
+}
+
+.btn_editar:hover{
+    opacity: 0.85;
+}
+
+.btn_eliminar{
+    font-size: 12px;
+
+    border: none;
+
+    cursor: pointer;
+
+    padding: 6px 14px;
+
+    border-radius: 10px;
+
+    background-color: #d9534f;
+
+    color: white;
+
+    transition: 0.2s;
+}
+
+.btn_eliminar:hover{
+    opacity: 0.85;
+}

@@ -1,0 +1,41 @@
+.contenido_central{
+    display: flex;
+    gap: 0px;
+    justify-content: space-between;
+}
+.contenido_posts{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+.dashboard_encabezado{
+    position: sticky;
+    top: 0; 
+    left: 0;
+    z-index: 99999;
+}
+.bloque_botones{
+    display:flex;
+    gap:10px;
+    margin-bottom:10px;
+    justify-content: space-between;
+    padding-left: 20px;
+}
+.btn_ordenar{
+    cursor: pointer;
+    border: 2px solid black;
+    width: 15%;
+    font-size: 14px;
+    align-self: flex-end;
+    border-radius: 10px;
+}
+.mensaje_estado {
+  padding: 15px;
+  background-color: #ebebeb;
+  border-left: 5px solid #ffa71d;
+  border-radius: 5px;
+  color: #2f3a3d;
+  font-family: var(--font-exo2);
+  font-weight: 200;
+}

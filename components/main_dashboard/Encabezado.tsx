@@ -1,37 +1,171 @@
-"use client";
+"use client"
 
-import React from "react";
+import React, {
+    useEffect,
+    useRef,
+    useState
+} from "react";
+import PerfilMenu from "@/components/perfil/PerfilMenu"
+import Link from 'next/link'
 import Image from "next/image";
 import "./Encabezado.css";
 
+type Usuario = {
+    nombre:string;
+    correo:string;
+};
 type Props = {
-  nombre: string;
-  barraBusqueda?: React.ReactNode;
+    nombre: string;
+    barraBusqueda?: React.ReactNode;
 };
 
 export default function Encabezado({ nombre, barraBusqueda }: Props) {
-  const dir = "/dashboard/rata.svg";
-  const dir2 = "/dashboard/perfil.svg";
+    const dir = "/dashboard/rata.svg";
+    const dir2 = "/dashboard/perfil.svg";
+    const [usuario,setUsuario] = useState<Usuario | null>(null);
+    const [mostrarMenu,setMostrarMenu] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+    // =========================
+    // OBTENER SESIÓN
+    // =========================
+    async function obtenerSesion(){
 
-  return (
-    <div className="bloque">
-      <div className="sub_bloque">
-        <button className="boton_encabezado">
-          <Image className="imagen" src={dir} alt="" width={50} height={50} />
-        </button>
+        try {
 
-        <h1 className="nombre_materia">{nombre}</h1>
-      </div>
+            const response = await fetch(
+                "/api/auth/me"
+            );
 
-      {barraBusqueda}
+            const data = await response.json();
 
-      <div className="sub_bloque">
-        <h2>Invitado</h2>
+            if(data.success){
 
-        <button className="boton_encabezado">
-          <Image className="imagen" src={dir2} alt="" width={40} height={40} />
-        </button>
-      </div>
-    </div>
-  );
+                setUsuario(data.usuario);
+
+            }else{
+
+                setUsuario(null);
+
+            }
+
+        } catch(error){
+
+            console.log(error);
+
+            setUsuario(null);
+
+        }
+
+    }
+
+    // =========================
+    // CARGAR SESIÓN
+    // =========================
+    useEffect(() => {
+
+        obtenerSesion();
+
+    }, []);
+
+    // =========================
+    // CERRAR MENÚ AL HACER CLICK FUERA
+    // =========================
+    useEffect(() => {
+
+        function handleClickOutside(
+            event: MouseEvent
+        ){
+
+            if(
+                menuRef.current &&
+                !menuRef.current.contains(
+                    event.target as Node
+                )
+            ){
+
+                setMostrarMenu(false);
+
+            }
+
+        }
+
+        document.addEventListener(
+            "mousedown",
+            handleClickOutside
+        );
+
+        return () => {
+
+            document.removeEventListener(
+                "mousedown",
+                handleClickOutside
+            );
+
+        };
+
+    }, []);
+
+    return (
+        <div className="bloque">
+            <div className="sub_bloque">
+                <Link href='/dashboard'>
+                    <button className="boton_encabezado">
+                        <Image
+                            className="imagen"
+                            src={dir}
+                            alt=""
+                            width={50}
+                            height={50}
+                            />
+                    </button>
+                </Link>
+                <h1 className="nombre_materia">
+                    {nombre}
+                </h1>
+            </div>
+            {barraBusqueda}
+            <Link href='/estadisticas'>
+                <button className="nombre_materia boton_estadistica">
+                    ESTADISTICAS
+                </button>
+            </Link>
+            <div
+                className="sub_bloque"
+                ref={menuRef}
+            >
+                <h2>
+                    {
+                        usuario
+                        ? usuario.nombre
+                        : "Invitado"
+                    }
+                </h2>
+                <button
+                    className="boton_encabezado"
+                    onClick={() =>
+                        setMostrarMenu(
+                            !mostrarMenu
+                        )
+                    }
+                >
+                    <Image
+                        className="imagen"
+                        src={dir2}
+                        alt=""
+                        width={40}
+                        height={40}
+                    />
+                </button>
+                {
+                    mostrarMenu && (
+                        <div className="menu_perfil">
+                            <PerfilMenu/>
+                        </div>
+                    )
+                }
+
+            </div>
+
+        </div>
+    );
 }

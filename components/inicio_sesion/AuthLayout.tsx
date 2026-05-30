@@ -1,4 +1,4 @@
-import "@/components/inicio_sesion/AuthLayout.css"
+import styles from "@/components/inicio_sesion/AuthLayout.module.css"
 
 type Props = {
   title: string;
@@ -7,9 +7,9 @@ type Props = {
 
 const AuthLayout = ({ title, children }: Props) => {
   return (
-    <main className="authPage">
-      <div className="authContainer">
-        <h1 className="tituloAuth">{title}</h1>
+    <main className={styles.authPage}>
+      <div className={styles.authContainer}>
+        <h1 className={styles.tituloAuth}>{title}</h1>
         {children}
       </div>
     </main>
