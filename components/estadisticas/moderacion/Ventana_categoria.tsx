@@ -6,8 +6,6 @@ import styles from "./Ventana_categoria.module.css";
 import type { TemaPorCategoria, TemaCategoriaDetalle } from "@/components/estadisticas/types_estadisticas";
 
 import Form_tema from "@/components/admin_materia/Form_tema";
-
-// Tus temas de prueba (JSON) — aquí ya están todos los temas por idCategoria
 import temasCategoriaJson from "@/app/estadisticas/moderacion.json";
 
 type VentanaCategoriaProps = {
@@ -25,10 +23,15 @@ const temasCategoria = temasCategoriaJson as TemaCategoriaDetalle[];
 export default function VentanaCategoria({ categoria, onCerrar }: VentanaCategoriaProps) {
   const [mostrarCrearTema, setMostrarCrearTema] = useState(false);
 
-  const temasFiltrados = useMemo(
-    () => temasCategoria.filter((tema) => tema.idCategoria === categoria.id),
-    [categoria.id]
-  );
+  // Copia local (el JSON no se puede modificar desde el browser)
+  const [temasLocal, setTemasLocal] = useState<TemaCategoriaDetalle[]>(temasCategoria);
+
+  // Confirmación eliminar
+  const [temaAEliminar, setTemaAEliminar] = useState<TemaCategoriaDetalle | null>(null);
+
+  const temasFiltrados = useMemo(() => {
+    return temasLocal.filter((tema) => tema.idCategoria === categoria.id);
+  }, [temasLocal, categoria.id]);
 
   const miniCategorias: MiniCategoria[] = useMemo(() => {
     return [
@@ -44,9 +47,22 @@ export default function VentanaCategoria({ categoria, onCerrar }: VentanaCategor
   const abrirCrearTema = () => setMostrarCrearTema(true);
   const cerrarCrearTema = () => setMostrarCrearTema(false);
 
+  const pedirConfirmacionEliminar = (tema: TemaCategoriaDetalle) => {
+    setTemaAEliminar(tema);
+  };
+
+  const cancelarEliminar = () => setTemaAEliminar(null);
+
+  const confirmarEliminar = () => {
+    if (!temaAEliminar) return;
+
+    setTemasLocal((prev) => prev.filter((t) => t.id !== temaAEliminar.id));
+    setTemaAEliminar(null);
+  };
+
   return (
     <div className={styles.overlay}>
-      {/* Modal principal: lista de temas */}
+      {/* ================= Modal principal: lista de temas ================= */}
       {!mostrarCrearTema && (
         <div className={styles.modal}>
           <div className={styles.header}>
@@ -65,7 +81,20 @@ export default function VentanaCategoria({ categoria, onCerrar }: VentanaCategor
               <ul className={styles.list}>
                 {temasFiltrados.map((tema) => (
                   <li key={tema.id} className={styles.item}>
-                    <h3 className={styles.topicTitle}>{tema.titulo}</h3>
+                    <div className={styles.itemTop}>
+                      <h3 className={styles.topicTitle}>{tema.titulo}</h3>
+
+                      <button
+                        type="button"
+                        className={styles.trashButton}
+                        onClick={() => pedirConfirmacionEliminar(tema)}
+                        aria-label="Eliminar tema"
+                        title="Eliminar"
+                      >
+                        🗑
+                      </button>
+                    </div>
+
                     <p className={styles.topicDescription}>{tema.descripcion}</p>
                   </li>
                 ))}
@@ -87,7 +116,7 @@ export default function VentanaCategoria({ categoria, onCerrar }: VentanaCategor
         </div>
       )}
 
-      {/* Modal secundario: SOLO Form_tema (tapa completamente al anterior) */}
+      {/* ================= Modal secundario: SOLO Form_tema ================= */}
       {mostrarCrearTema && (
         <div className={styles.createTemaModal}>
           <div className={styles.createTemaHeader}>
@@ -103,7 +132,19 @@ export default function VentanaCategoria({ categoria, onCerrar }: VentanaCategor
               categorias={miniCategorias as unknown as any[]}
               categoriaId={categoriaIdForFormTema}
               onCreate={(temaData) => {
-                console.log("Crear tema:", temaData);
+                // Demo: lo agregamos al estado local para verlo al volver
+                const nextId = Math.max(0, ...temasLocal.map((t) => t.id)) + 1;
+
+                setTemasLocal((prev) => [
+                  ...prev,
+                  {
+                    id: nextId,
+                    idCategoria: categoria.id,
+                    titulo: temaData.titulo,
+                    descripcion: temaData.descripcion,
+                  } as TemaCategoriaDetalle,
+                ]);
+
                 cerrarCrearTema();
               }}
             />
@@ -113,6 +154,36 @@ export default function VentanaCategoria({ categoria, onCerrar }: VentanaCategor
             <button type="button" className={styles.closeButton} onClick={cerrarCrearTema}>
               Volver
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* ================= Confirmación eliminar (modal encima) ================= */}
+      {temaAEliminar && (
+        <div className={styles.confirmOverlay} role="dialog" aria-modal="true">
+          <div className={styles.confirmModal}>
+            <h3 className={styles.confirmTitle}>Confirmar eliminación</h3>
+            <p className={styles.confirmText}>
+              ¿Estás seguro de que deseas eliminar el siguiente tema?
+            </p>
+
+            <div className={styles.confirmBox}>
+              <div className={styles.confirmRow}>
+                <strong>Título:</strong> <span>{temaAEliminar.titulo}</span>
+              </div>
+              <div className={styles.confirmRow}>
+                <strong>Descripción:</strong> <span>{temaAEliminar.descripcion}</span>
+              </div>
+            </div>
+
+            <div className={styles.confirmActions}>
+              <button type="button" className={styles.confirmCancel} onClick={cancelarEliminar}>
+                Cancelar
+              </button>
+              <button type="button" className={styles.confirmAccept} onClick={confirmarEliminar}>
+                Aceptar
+              </button>
+            </div>
           </div>
         </div>
       )}
