@@ -1,8 +1,8 @@
 'use client';
 
 import { useMemo, useState } from "react";
-import Encabezado from "@/components/main_dashboard/Encabezado";
-import Barra_lateral from "@/components/main_dashboard/Barra_lateral";
+//import Encabezado from "@/components/main_dashboard/Encabezado";
+//import Barra_lateral from "@/components/main_dashboard/Barra_lateral";
 import Toast from "./Toast";
 
 import Categoria_admin, { Categoria } from "./Categoria_admin";
@@ -106,9 +106,7 @@ export default function Win_admin_materia() {
 
   return (
     <div className={styles.div_admin_materia}>
-      <div className={styles.admin_encabezado}>
-        <Encabezado />
-      </div>
+     
 
       <div className={styles.contenido_central_admin}>
         <div className={styles.contenido_admin}>
@@ -185,9 +183,6 @@ export default function Win_admin_materia() {
           </div>
         </div>
 
-        <div className={styles.adminMateriaLateral}>
-          <Barra_lateral />
-        </div>
       </div>
 
       <Toast
