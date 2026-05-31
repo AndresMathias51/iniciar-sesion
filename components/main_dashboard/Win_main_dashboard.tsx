@@ -1,7 +1,31 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
 import Encabezado from "@/components/main_dashboard/Encabezado";
+
 import Descripcion from "@/components/main_dashboard/Descripcion";
+
 import Categoria from "@/components/main_dashboard/Categoria";
+
 import Barra_lateral from "./Barra_lateral";
+
+import Win_posts_panel from "@/components/posts_panel/Win_posts_panel";
+
+import BarraBusqueda from "@/components/busqueda/BarraBusqueda";
+
+import FrameResultados from "@/components/busqueda/FrameResultados";
+
+import { generarSugerenciasBusqueda } from "@/components/busqueda/busqueda.helpers";
+
+import { usePublicacionesBusqueda } from "@/components/busqueda/usePublicacionesBusqueda";
+
+
+
+import type {
+  Categoria as CategoriaBusqueda,
+  Publicacion
+} from "@/components/busqueda/types";
 
 import "./Win_main_dashboard.css";
 
@@ -22,9 +46,11 @@ type DashboardData = {
   encabezado: {
     nombre: string;
   };
+
   descripcion: {
     descripcion: string;
   };
+
   categorias: CategoriaType[];
 };
 
@@ -32,29 +58,160 @@ type Props = {
   data: DashboardData;
 };
 
-export default function Win_main_dashboard({ data }: Props) {
+export default function Win_main_dashboard({
+  data
+}: Props) {
+
+  const [textoBusqueda, setTextoBusqueda] =
+    useState("");
+
+  const [busquedaConfirmada, setBusquedaConfirmada] =
+    useState("");
+
+  // =========================
+  // TEMA SELECCIONADO
+  // =========================
+
+  const [temaSeleccionado, setTemaSeleccionado] =
+    useState<number | null>(null);
+
+  const {
+    publicaciones,
+    setPublicaciones,
+    cargando,
+    error
+  } = usePublicacionesBusqueda();
+
+  const categorias =
+    data.categorias as CategoriaBusqueda[];
+
+  const sugerencias = useMemo(() => {
+
+    return generarSugerenciasBusqueda({
+      textoBusqueda,
+      publicaciones,
+      categorias,
+      limite: 8
+    });
+
+  }, [
+    textoBusqueda,
+    publicaciones,
+    categorias
+  ]);
+
+  function confirmarBusqueda(valor: string) {
+
+    const valorLimpio = valor.trim();
+
+    if (!valorLimpio) return;
+
+    setBusquedaConfirmada(valorLimpio);
+  }
+
+  function eliminarPost(id: number) {
+    setPublicaciones((postsActuales) =>
+      postsActuales.filter((post) => post.id !== id)
+    );
+  }
+  const hayBusquedaConfirmada =
+    busquedaConfirmada.trim().length > 0;
+
   return (
+
     <div className="div_main_dashboard">
+
       <div className="dashboard_encabezado">
-        <Encabezado nombre={data.encabezado.nombre} />
+
+        <Encabezado
+          nombre={data.encabezado.nombre}
+
+          barraBusqueda={
+            <BarraBusqueda
+              valor={textoBusqueda}
+              sugerencias={sugerencias}
+              placeholder="Buscar publicaciones, autores, temas o categorías..."
+
+              onChange={(valor) => {
+
+                setTextoBusqueda(valor);
+
+                if (valor.trim() === "") {
+                  setBusquedaConfirmada("");
+                }
+              }}
+
+              onBuscar={confirmarBusqueda}
+            />
+          }
+        />
+
       </div>
 
       <div className="contenido_central">
-        <div className="contenido_categorias">
-          <Descripcion descripcion={data.descripcion.descripcion} />
 
-          {data.categorias.map((categoria) => (
-            <Categoria
-              key={categoria.id}
-              id={categoria.id}
-              nombre={categoria.nombre}
-              temas={categoria.temas}
+        <div className="contenido_categorias">
+
+          {hayBusquedaConfirmada ? (
+
+            <FrameResultados
+              busqueda={busquedaConfirmada}
+              publicaciones={publicaciones}
+              categorias={categorias}
+              cargandoPublicaciones={cargando}
+              errorPublicaciones={error}
+              onEliminarPost={eliminarPost}
+              onSeleccionarTema={(id) => {
+                setTemaSeleccionado(id);
+                setBusquedaConfirmada("");
+                setTextoBusqueda("");
+              }}
             />
-          ))}
+
+          ) : temaSeleccionado !== null ? (
+
+            <Win_posts_panel
+    descripcion={data.descripcion.descripcion}
+    temaSeleccionado={temaSeleccionado}
+
+    volverCategorias={() =>
+        setTemaSeleccionado(null)
+    }
+/>
+
+          ) : (
+
+            <>
+
+              <Descripcion
+                descripcion={data.descripcion.descripcion}
+              />
+
+              {data.categorias.map((categoria) => (
+
+                <Categoria
+                  key={categoria.id}
+                  id={categoria.id}
+                  nombre={categoria.nombre}
+                  temas={categoria.temas}
+
+                  onSeleccionarTema={
+                    setTemaSeleccionado
+                  }
+                />
+
+              ))}
+
+            </>
+
+          )}
+
         </div>
 
         <Barra_lateral />
+
       </div>
+
     </div>
   );
 }

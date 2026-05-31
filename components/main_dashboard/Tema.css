@@ -4,8 +4,8 @@
     padding-right: 5px;
     gap: 5px;
     height: 100%;
-    
 }
+
 .bloque_iz{
     display: flex;
     gap: 20px;
@@ -50,7 +50,7 @@
   overflow: hidden;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  height: 35px;
+  min-height: 30px;
   border-bottom: 1px solid #E0E0E0;
   
 }

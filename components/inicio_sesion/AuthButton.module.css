@@ -1,0 +1,13 @@
+.authButton {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #FFA71D;
+    color: black;
+    cursor: pointer;
+}
+
+.authButton:hover {
+    background: #FF971D;
+    transform: scale(1.03);
+}

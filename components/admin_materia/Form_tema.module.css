@@ -1,0 +1,33 @@
+.formTema{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 14px;
+  border-radius: 12px;
+
+  border: 1px solid var(--frame-border);
+  background: var(--frame-secondary);
+}
+
+.sectionTitle{
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--title-primary);
+}
+
+.notice{
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px dashed rgba(217, 145, 82, 0.55);
+  background: rgba(217, 145, 82, 0.10);
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.activeCategoria{
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}

@@ -10,6 +10,7 @@
     flex-direction: column;
     gap: 20px;
     width: 65%;
+    padding-bottom: 50px;
 }
 .dashboard_encabezado{
     position: fixed;

@@ -1,0 +1,36 @@
+/* ModalEliminar.css */
+
+.overlay_modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal_eliminar{
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 350px;
+}
+
+.botones_modal{
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn_cancelar,
+.btn_confirmar{
+    padding: 8px 14px;
+    border: 2px solid black;
+    border-radius: 6px;
+    cursor: pointer;
+}

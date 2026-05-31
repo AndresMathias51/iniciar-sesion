@@ -1,0 +1,45 @@
+.temaAdminButton{
+  width: 100%;
+  text-align: left;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 12px;
+  border-radius: 12px;
+
+  background: var(--am-item-bg, #f3f4f6);
+  border: 1px solid var(--am-border, rgba(17,24,39,.12));
+
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.temaAdminButton:hover{
+  background: var(--am-item-bg-hover, #eef2f7);
+}
+
+.temaAdminButton:focus{
+  outline: none;
+  border-color: rgba(255, 106, 0, .55);
+  box-shadow: 0 0 0 3px var(--am-ring, rgba(255,106,0,.25));
+}
+
+.temaAdminTitulo{
+  margin: 0;
+  font-size: 15px;
+  color: var(--am-text, #111827);
+}
+
+.temaAdminDesc{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--am-muted, rgba(17,24,39,.65));
+}
+
+.temaAdminActions{
+  display: flex;
+  gap: 8px;
+}

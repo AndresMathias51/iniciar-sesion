@@ -14,15 +14,14 @@ type EstadisticasPanelProps = {
 export default function EstadisticasPanel({ data }: EstadisticasPanelProps) {
   return (
     <main className={styles.page}>
+      <Encabezado nombre=""/>
       <div className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>Panel de estadísticas</h1>
-
           <p className={styles.description}>
             Resumen general dase usuarios, estudiantes, publicaciones y temas de la materia.
           </p>
         </header>
-
         <section className={styles.grid}>
           <div className={styles.usersCard}>
             <UsuariosRegistradosCard usuarios={data.usuariosRegistrados} />

@@ -1,5 +1,5 @@
 .cms-container {
-  background: #111827;
+  background: #f6f7f8;
   min-height: 100vh;
   padding: 40px;
   font-family: Inter, sans-serif;
@@ -22,7 +22,7 @@
 /* SUBTITULO */
 
 .cms-subtitle {
-  color: #9CA3AF;
+  color: #000000;
   margin-bottom: 30px;
   font-size: 16px;
 }
@@ -30,7 +30,7 @@
 /* CARD */
 
 .cms-card {
-  background: #1F2937;
+  background: #ffffff;
   padding: 30px;
   border-radius: 18px;
   border: 1px solid #2d3239;
@@ -42,7 +42,7 @@
 .cms-card-title {
   font-size: 24px;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #000000;
   margin-bottom: 20px;
 }
 
@@ -51,8 +51,8 @@
   padding: 15px;
   margin-bottom: 25px;
   border-radius: 10px;
-  border: 1px solid #ffffff;
-  background: #111827;
+  border: 1px solid #000000;
+  background: #949494;
   color: white;
   font-size: 16px;
   outline: none;
@@ -73,7 +73,7 @@
   margin-top: 25px;
   padding: 14px 24px;
   background: #FFA71D;
-  color: #111827;
+  color: #ececec;
   border: none;
   border-radius: 10px;
   font-weight: bold;
@@ -92,13 +92,13 @@
 
 .toastui-editor-defaultUI {
   border: none !important;
-  background: #111827 !important;
+  background: #c5c5c5 !important;
 }
 
 /* TOOLBAR */
 
 .toastui-editor-toolbar {
-  background: #1F2937 !important;
+  background: #7a7a7a !important;
   border-bottom: 1px solid #374151 !important;
 }
 
@@ -112,7 +112,7 @@
 
 .toastui-editor-md-container,
 .toastui-editor-ww-container {
-  background: #111827 !important;
+  background: #fe0000 !important;
 }
 
 /* TEXTO GENERAL */
@@ -126,7 +126,7 @@
 
 .ProseMirror {
   color: #FFFFFF !important;
-  background: #111827 !important;
+  background: #8b8b8b !important;
   min-height: 500px;
   padding: 20px;
 }

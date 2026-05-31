@@ -77,7 +77,7 @@
   color: #2f3a3d;
 }
 
-/*boton*/
+/* botones fila derecha */
 .actions {
   display: flex;
   align-items: center;
@@ -86,13 +86,10 @@
 
 .actionButton {
   padding: 6px 12px;
-
   border: none;
   border-radius: 999px;
-
   background-color: #70FF1C;
   color: #2f3a3d;
-
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -100,4 +97,185 @@
 
 .actionButton:hover {
   background-color: #65eb18;
+}
+
+/* row del titulo y el + */
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.addButton {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.addButton:hover {
+  transform: scale(1.05);
+  background: #1d4ed8;
+}
+
+/* ===== Modal base ===== */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modalContent {
+  position: relative;
+  width: 90%;
+  max-width: 760px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: #e5e5e5;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+/* ===== Modal configurar: títulos ===== */
+.modalTitle {
+  margin: 0 40px 6px 0;
+  font-size: 34px;
+  font-weight: 800;
+  color: #FF5C1C;
+}
+
+.modalSubtitle {
+  margin: 0 0 14px 0;
+  font-size: 15px;
+  color: #7a746a;
+}
+
+/* ===== Caja con lista de temas ===== */
+.temasBox {
+  border-top: 1px solid rgba(47, 58, 61, 0.18);
+  border-bottom: 1px solid rgba(47, 58, 61, 0.18);
+  padding: 16px 0;
+  margin: 10px 0 16px;
+}
+
+.emptyText {
+  margin: 0;
+  color: #7a746a;
+  font-size: 14px;
+}
+
+.temasList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  max-height: 360px;
+  overflow: auto;
+  padding-right: 8px;
+}
+
+.temasList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.temasList::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background-color: #e0e0e0;
+}
+
+.temasList::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background-color: #b7b7b7;
+}
+
+.temaItem {
+  background: #e6e6e6;
+  border-radius: 18px;
+  padding: 18px 20px;
+}
+
+.temaTitulo {
+  font-size: 20px;
+  font-weight: 800;
+  color: #2f3a3d;
+  margin-bottom: 6px;
+}
+
+.temaDesc {
+  font-size: 14px;
+  color: #5b5b5b;
+}
+
+/* ===== Botones del modal ===== */
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.primaryAction {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 18px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primaryAction:hover {
+  background: #1d4ed8;
+}
+
+.secondaryAction {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 18px;
+  background: #6b8f3b;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.secondaryAction:hover {
+  background: #5f7f34;
+}
+
+/* ===== Modal crear tema (tapa todo, tamaño más grande) ===== */
+.innerContent {
+  position: relative;
+  width: min(920px, calc(100vw - 40px));
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
 }

@@ -1,4 +1,4 @@
-import "@/components/inicio_sesion/AuthButton.css"
+import styles from "@/components/inicio_sesion/AuthButton.module.css"
 
 type Props = {
   text: string;
@@ -7,7 +7,7 @@ type Props = {
 
 const AuthButton = ({ text, onClick}: Props) => {
   return (
-    <button className="authButton" onClick={onClick}>
+    <button className={styles.authButton} onClick={onClick}>
       {text}
     </button>
   );
