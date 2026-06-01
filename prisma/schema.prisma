@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model categoria {
+  id         Int     @id @default(autoincrement())
+  nombre     String  @db.VarChar(100)
+  id_materia Int
+  materia    materia @relation(fields: [id_materia], references: [id], onDelete: Cascade, map: "fk_categoria_materia")
+  tema       tema[]
+}
+
+model materia {
+  id          Int         @id @default(autoincrement())
+  nombre      String      @db.VarChar(150)
+  descripcion String
+  categoria   categoria[]
+}
+
+model tema {
+  id           Int       @id @default(autoincrement())
+  nombre       String    @db.VarChar(150)
+  imagen       String    @db.VarChar(255)
+  descripcion  String
+  id_categoria Int
+  categoria    categoria @relation(fields: [id_categoria], references: [id], onDelete: Cascade, map: "fk_tema_categoria")
+}

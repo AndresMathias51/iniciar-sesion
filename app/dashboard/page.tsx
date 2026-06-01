@@ -1,7 +1,7 @@
 import Win_main_dashboard from "@/components/main_dashboard/Win_main_dashboard";
 
 async function getDashboardData() {
-  const res = await fetch("http://localhost:3000/api/dashboard", {
+  const res = await fetch("http://localhost:3000/api/dashboard?idMateria=1", {
     cache: "no-store",
   });
 
