@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useMemo, useState } from "react";
+import Image from "next/image";
 import type { Categoria } from "./Categoria_admin";
 import type { Tema } from "./Tema_admin";
 
@@ -11,9 +12,16 @@ type FormValue = Omit<Tema, "id">;
 
 type Props = {
   categorias: Categoria[];
-  categoriaId: string; // categoria activa
+  categoriaId: string;
   onCreate: (data: FormValue) => void;
 };
+
+const ICONS = [
+  { value: "/ico_pc.svg" },
+  { value: "/ico_conf.svg" },
+  { value: "/ico_internet.svg" },
+  { value: "/ico_bug.svg" },
+];
 
 export default function Form_tema({ categorias, categoriaId, onCreate }: Props) {
   const hasCategorias = categorias.length > 0;
@@ -27,12 +35,28 @@ export default function Form_tema({ categorias, categoriaId, onCreate }: Props) 
 
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [imagenUrl, setImagenUrl] = useState("");
 
-  // Ya NO limpiamos al cambiar categoriaId porque te puede borrar lo que estabas escribiendo.
-  // Si quieres limpiar igual, dímelo y lo reactivamos.
+  const [iconOpen, setIconOpen] = useState(false);
+  const iconWrapRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     // no-op
   }, [categoriaId]);
+
+  // Cierra dropdown al hacer click fuera
+  useEffect(() => {
+    function onDocMouseDown(e: MouseEvent) {
+      if (!iconOpen) return;
+      const el = iconWrapRef.current;
+      if (!el) return;
+      if (e.target instanceof Node && !el.contains(e.target)) setIconOpen(false);
+    }
+    document.addEventListener("mousedown", onDocMouseDown);
+    return () => document.removeEventListener("mousedown", onDocMouseDown);
+  }, [iconOpen]);
+
+  const selectedIcon = ICONS.find((i) => i.value === imagenUrl);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -44,11 +68,13 @@ export default function Form_tema({ categorias, categoriaId, onCreate }: Props) 
       categoriaId,
       titulo: titulo.trim(),
       descripcion: descripcion.trim(),
-      imagenUrl: undefined,
+      imagenUrl: imagenUrl.trim() || undefined,
     });
 
     setTitulo("");
     setDescripcion("");
+    setImagenUrl("");
+    setIconOpen(false);
   }
 
   return (
@@ -76,7 +102,6 @@ export default function Form_tema({ categorias, categoriaId, onCreate }: Props) 
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
           placeholder="Ej: Trabajo Práctico 1"
-          /* IMPORTANTE: ya no lo deshabilitamos para que puedas escribir */
         />
       </div>
 
@@ -88,10 +113,77 @@ export default function Form_tema({ categorias, categoriaId, onCreate }: Props) 
           onChange={(e) => setDescripcion(e.target.value)}
           placeholder="Descripción breve"
           rows={2}
-          /* IMPORTANTE: ya no lo deshabilitamos para que puedas escribir */
         />
       </div>
 
+      {/* ===== SELECTOR DE ICONOS ===== */}
+      <div className={formShared.formRow}>
+        <label className={formShared.formLabel}>Icono (opcional)</label>
+
+        <div className={formShared.iconSelectWrap} ref={iconWrapRef}>
+          <button
+            type="button"
+            className={`${formShared.iconSelectButton} ${iconOpen ? formShared.iconSelectOpen : ""}`}
+            onClick={() => setIconOpen((v) => !v)}
+            aria-haspopup="listbox"
+            aria-expanded={iconOpen}
+            title="Seleccionar icono"
+            disabled={!canCreate}
+          >
+            <span className={formShared.iconSelectValue}>
+              {selectedIcon ? (
+                <Image src={selectedIcon.value} alt="icono" width={18} height={18} />
+              ) : (
+                <span className={formShared.iconPlaceholder}>Selecciona un icono</span>
+              )}
+            </span>
+
+            <span className={formShared.iconChevron}>▾</span>
+          </button>
+
+          {iconOpen && (
+            <div className={formShared.iconDropdown} role="listbox">
+              {/* Sin icono */}
+              <button
+                type="button"
+                className={`${formShared.iconDropdownItem} ${!imagenUrl ? formShared.iconDropdownItemSelected : ""}`}
+                onClick={() => {
+                  setImagenUrl("");
+                  setIconOpen(false);
+                }}
+                title="Sin icono"
+              >
+                <span className={formShared.iconNone}>—</span>
+              </button>
+
+              {/* Iconos disponibles */}
+              {ICONS.map((ico) => {
+                const selected = imagenUrl === ico.value;
+                return (
+                  <button
+                    key={ico.value}
+                    type="button"
+                    className={`${formShared.iconDropdownItem} ${selected ? formShared.iconDropdownItemSelected : ""}`}
+                    onClick={() => {
+                      setImagenUrl(ico.value);
+                      setIconOpen(false);
+                    }}
+                    title={ico.value.replace("/", "").replace(".svg", "")}
+                  >
+                    <Image src={ico.value} alt="icono" width={20} height={20} />
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        <p className={formShared.formHintSmall}>
+          {imagenUrl ? `Seleccionado: ${imagenUrl}` : "Sin icono seleccionado"}
+        </p>
+      </div>
+
+      {/* ===== BOTONES ===== */}
       <div className={formShared.formActions}>
         <button className={formShared.btnPrimary} type="submit" disabled={!canCreate}>
           Crear tema
