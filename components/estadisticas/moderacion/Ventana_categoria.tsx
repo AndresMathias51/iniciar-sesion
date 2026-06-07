@@ -87,6 +87,44 @@ export default function VentanaCategoria({
   const abrirCrearTema = () => setMostrarCrearTema(true);
   const cerrarCrearTema = () => setMostrarCrearTema(false);
 
+  async function crearTemaEnBD(temaData: {
+    categoriaId: string;
+    titulo: string;
+    descripcion: string;
+    imagenUrl?: string;
+  }) {
+    try {
+      setErrorTemas(null);
+
+      const res = await fetch(API_TEMAS, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          titulo: temaData.titulo,
+          descripcion: temaData.descripcion,
+          categoriaId: temaData.categoriaId,
+          imagenUrl: temaData.imagenUrl,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error ?? "No se pudo crear el tema.");
+      }
+
+      const nuevoTema = (await res.json()) as TemaCategoriaDetalle;
+
+      setTemasCategoria((prevTemas) => [...prevTemas, nuevoTema]);
+
+      cerrarCrearTema();
+    } catch (error) {
+      console.error("Error al crear tema:", error);
+      setErrorTemas("No se pudo crear el tema.");
+    }
+  }
+
   return (
     <div className={styles.overlay}>
       {!mostrarCrearTema && (
@@ -169,10 +207,7 @@ export default function VentanaCategoria({
             <Form_tema
               categorias={miniCategorias as unknown as any[]}
               categoriaId={categoriaIdForFormTema}
-              onCreate={(temaData) => {
-                console.log("Crear tema:", temaData);
-                cerrarCrearTema();
-              }}
+              onCreate={crearTemaEnBD}
             />
           </div>
 
