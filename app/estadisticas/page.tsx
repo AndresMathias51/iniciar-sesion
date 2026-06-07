@@ -1,6 +1,4 @@
 import EstadisticasPanel from "@/components/estadisticas/Estadisticas_Panel";
-import type { EstadisticasData } from "@/components/estadisticas/types_estadisticas";
-
 
 async function getEstadisticasData() {
   const res = await fetch("http://localhost:3000/api/estadisticas", {
@@ -14,9 +12,12 @@ async function getEstadisticasData() {
   return res.json();
 }
 
-const estadisticas = await getEstadisticasData();
-const data = estadisticas as EstadisticasData;
+export default async function EstadisticasPage() {
+  const estadisticaData = await getEstadisticasData();
 
-export default function EstadisticasPage() {
-  return <EstadisticasPanel data={data} />;
+  return (
+    <main className="authPage"> 
+      <EstadisticasPanel data={estadisticaData} />
+    </main>
+  );
 }

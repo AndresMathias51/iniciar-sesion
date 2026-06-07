@@ -34,8 +34,6 @@ export default function TemasPorCategoriaList({ categorias }: TemasPorCategoriaL
       <div className={styles.header}>
         <div className={styles.titleRow}>
           <h2 className={styles.title}>Temas por categoría</h2>
-
-          {/* BOTÓN + (crear categoría) */}
           <button type="button" className={styles.addButton} onClick={abrirCrearCategoria}>
             +
           </button>

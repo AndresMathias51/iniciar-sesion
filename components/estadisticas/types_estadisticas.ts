@@ -11,7 +11,7 @@ export type EstudianteInscrito = {
 };
 
 export type PublicacionSemana = {
-  semana: string;
+  categoria: string;
   cantidad: number;
 };
 
@@ -24,7 +24,7 @@ export type TemaPorCategoria = {
 export type EstadisticasData = {
   usuariosRegistrados: UsuariosRegistrados;
   estudiantesInscritos: EstudianteInscrito[];
-  publicacionesPorSemana: PublicacionSemana[];
+  publicacionesPorcategoria: PublicacionSemana[];
   temasPorCategoria: TemaPorCategoria[];
 };
 

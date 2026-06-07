@@ -23,9 +23,9 @@ export default function PublicacionesSemanaChart({
   return (
     <section className={styles.card}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Publicaciones por semana</h2>
+        <h2 className={styles.title}>Publicaciones por categoría</h2>
         <p className={styles.description}>
-          Cantidad de publicaciones realizadas semanalmente
+          Cantidad de publicaciones realizadas por categoría
         </p>
       </div>
 
@@ -33,7 +33,7 @@ export default function PublicacionesSemanaChart({
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={publicaciones}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="semana" />
+            <XAxis dataKey="categoria" />
             <YAxis allowDecimals={false} />
             <Tooltip />
             <Bar

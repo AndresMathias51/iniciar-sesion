@@ -1,14 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./Ventana_categoria.module.css";
 
-import type { TemaPorCategoria, TemaCategoriaDetalle } from "@/components/estadisticas/types_estadisticas";
+import type {
+  TemaPorCategoria,
+  TemaCategoriaDetalle,
+} from "@/components/estadisticas/types_estadisticas";
 
 import Form_tema from "@/components/admin_materia/Form_tema";
-
-// Tus temas de prueba (JSON) — aquí ya están todos los temas por idCategoria
-import temasCategoriaJson from "@/app/estadisticas/moderacion.json";
 
 type VentanaCategoriaProps = {
   categoria: TemaPorCategoria;
@@ -20,14 +20,57 @@ type MiniCategoria = {
   nombre: string;
 };
 
-const temasCategoria = temasCategoriaJson as TemaCategoriaDetalle[];
+const API_TEMAS = "/api/moderacion";
 
-export default function VentanaCategoria({ categoria, onCerrar }: VentanaCategoriaProps) {
+export default function VentanaCategoria({
+  categoria,
+  onCerrar,
+}: VentanaCategoriaProps) {
   const [mostrarCrearTema, setMostrarCrearTema] = useState(false);
+  const [temasCategoria, setTemasCategoria] = useState<TemaCategoriaDetalle[]>([]);
+  const [cargandoTemas, setCargandoTemas] = useState(true);
+  const [errorTemas, setErrorTemas] = useState<string | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function cargarTemas() {
+      try {
+        setCargandoTemas(true);
+        setErrorTemas(null);
+
+        const res = await fetch(API_TEMAS, {
+          cache: "no-store",
+          signal: controller.signal,
+        });
+
+        if (!res.ok) {
+          throw new Error("No se pudieron obtener los temas.");
+        }
+
+        const data = (await res.json()) as TemaCategoriaDetalle[];
+
+        setTemasCategoria(Array.isArray(data) ? data : []);
+      } catch (error) {
+        if ((error as Error).name !== "AbortError") {
+          console.error("Error al cargar temas:", error);
+          setErrorTemas("No se pudieron cargar los temas.");
+        }
+      } finally {
+        setCargandoTemas(false);
+      }
+    }
+
+    cargarTemas();
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   const temasFiltrados = useMemo(
     () => temasCategoria.filter((tema) => tema.idCategoria === categoria.id),
-    [categoria.id]
+    [temasCategoria, categoria.id]
   );
 
   const miniCategorias: MiniCategoria[] = useMemo(() => {
@@ -46,54 +89,78 @@ export default function VentanaCategoria({ categoria, onCerrar }: VentanaCategor
 
   return (
     <div className={styles.overlay}>
-      {/* Modal principal: lista de temas */}
       {!mostrarCrearTema && (
         <div className={styles.modal}>
           <div className={styles.header}>
             <div>
               <h2 className={styles.title}>{categoria.categoria}</h2>
-              <p className={styles.subtitle}>Temas registrados en esta categoría</p>
+              <p className={styles.subtitle}>
+                Temas registrados en esta categoría
+              </p>
             </div>
 
-            <button type="button" className={styles.closeIconButton} onClick={onCerrar}>
+            <button
+              type="button"
+              className={styles.closeIconButton}
+              onClick={onCerrar}
+            >
               ×
             </button>
           </div>
 
           <div className={styles.content}>
-            {temasFiltrados.length > 0 ? (
+            {cargandoTemas ? (
+              <p className={styles.emptyMessage}>Cargando temas...</p>
+            ) : errorTemas ? (
+              <p className={styles.emptyMessage}>{errorTemas}</p>
+            ) : temasFiltrados.length > 0 ? (
               <ul className={styles.list}>
                 {temasFiltrados.map((tema) => (
                   <li key={tema.id} className={styles.item}>
                     <h3 className={styles.topicTitle}>{tema.titulo}</h3>
-                    <p className={styles.topicDescription}>{tema.descripcion}</p>
+                    <p className={styles.topicDescription}>
+                      {tema.descripcion}
+                    </p>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className={styles.emptyMessage}>No existen temas registrados para esta categoría.</p>
+              <p className={styles.emptyMessage}>
+                No existen temas registrados para esta categoría.
+              </p>
             )}
           </div>
 
           <div className={styles.footer}>
-            <button type="button" className={styles.primaryButton} onClick={abrirCrearTema}>
+            <button
+              type="button"
+              className={styles.primaryButton}
+              onClick={abrirCrearTema}
+            >
               Crear tema
             </button>
 
-            <button type="button" className={styles.closeButton} onClick={onCerrar}>
+            <button
+              type="button"
+              className={styles.closeButton}
+              onClick={onCerrar}
+            >
               Cerrar
             </button>
           </div>
         </div>
       )}
 
-      {/* Modal secundario: SOLO Form_tema (tapa completamente al anterior) */}
       {mostrarCrearTema && (
         <div className={styles.createTemaModal}>
           <div className={styles.createTemaHeader}>
             <h3 className={styles.createTemaTitle}>Agregar tema</h3>
 
-            <button type="button" className={styles.closeIconButton} onClick={cerrarCrearTema}>
+            <button
+              type="button"
+              className={styles.closeIconButton}
+              onClick={cerrarCrearTema}
+            >
               ×
             </button>
           </div>
@@ -110,7 +177,11 @@ export default function VentanaCategoria({ categoria, onCerrar }: VentanaCategor
           </div>
 
           <div className={styles.footer}>
-            <button type="button" className={styles.closeButton} onClick={cerrarCrearTema}>
+            <button
+              type="button"
+              className={styles.closeButton}
+              onClick={cerrarCrearTema}
+            >
               Volver
             </button>
           </div>
