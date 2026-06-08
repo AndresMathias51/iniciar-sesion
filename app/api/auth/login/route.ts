@@ -2,29 +2,22 @@ import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 
-export async function POST(req:Request){
-
-  try{
-
+export async function POST(req: Request) {
+  try {
     const body = await req.json();
 
-    const {
-      correo,
-      password
-    } = body;
+    const { correo, password } = body;
 
-    if(!correo || !password){
-
+    if (!correo || !password) {
       return Response.json(
         {
-          success:false,
-          message:"Debe llenar todos los campos"
+          success: false,
+          message: "Debe llenar todos los campos",
         },
         {
-          status:400
+          status: 400,
         }
       );
-
     }
 
     const usuario = await prisma.usuario.findUnique({
@@ -36,38 +29,54 @@ export async function POST(req:Request){
       },
     });
 
-    if(!usuario){
-
+    if (!usuario) {
       return Response.json(
         {
-          success:false,
-          message:"No existe una cuenta"
+          success: false,
+          message: "No existe una cuenta",
         },
         {
-          status:404
+          status: 404,
         }
       );
-
     }
 
-    const passwordCorrecta =
-      await bcrypt.compare(
-        password,
-        usuario.password
-      );
+    const passwordCorrecta = await bcrypt.compare(
+      password,
+      usuario.password
+    );
 
-    if(!passwordCorrecta){
-
+    if (!passwordCorrecta) {
       return Response.json(
         {
-          success:false,
-          message:"Contraseña incorrecta"
+          success: false,
+          message: "Contraseña incorrecta",
         },
         {
-          status:401
+          status: 401,
         }
       );
+    }
 
+    // =========================
+    // VALIDAR ROL PERMITIDO
+    // Solo docente y estudiante
+    // =========================
+
+    const nivelRol = usuario.rol_usuario_rolTorol.nivel;
+
+    const rolesPermitidos = [1, 2];
+
+    if (!rolesPermitidos.includes(nivelRol)) {
+      return Response.json(
+        {
+          success: false,
+          message: "Esta cuenta no tiene permiso para iniciar sesión",
+        },
+        {
+          status: 403,
+        }
+      );
     }
 
     // =========================
@@ -83,13 +92,13 @@ export async function POST(req:Request){
         nombre: usuario.nombre,
         correo: usuario.correo,
         rol: usuario.rol_usuario_rolTorol.nombre_rol,
-        nivel: usuario.rol_usuario_rolTorol.nivel
+        nivel: usuario.rol_usuario_rolTorol.nivel,
       }),
       {
         httpOnly: true,
         secure: false,
         path: "/",
-        maxAge: 60 * 60 * 24
+        maxAge: 60 * 60 * 24,
       }
     );
 
@@ -101,24 +110,20 @@ export async function POST(req:Request){
         nombre: usuario.nombre,
         correo: usuario.correo,
         rol: usuario.rol_usuario_rolTorol.nombre_rol,
-        nivel: usuario.rol_usuario_rolTorol.nivel
-      }
+        nivel: usuario.rol_usuario_rolTorol.nivel,
+      },
     });
-
-  }catch(error){
-
+  } catch (error) {
     console.log(error);
 
     return Response.json(
       {
-        success:false,
-        message:"Error interno"
+        success: false,
+        message: "Error interno",
       },
       {
-        status:500
+        status: 500,
       }
     );
-
   }
-
 }
