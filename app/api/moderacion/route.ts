@@ -20,6 +20,12 @@ type CrearTemaBody = {
   imagen?: string;
 };
 
+type BorrarTemaRespuesta = {
+  eliminado: boolean;
+  mensaje: string;
+  tema?: TemaPorCategoria;
+};
+
 export async function GET() {
   try {
     const resultado = await prisma.$queryRaw<
@@ -47,14 +53,7 @@ export async function POST(request: Request) {
 
     const titulo = String(body.titulo ?? body.nombre ?? "").trim();
     const descripcion = String(body.descripcion ?? "").trim();
-
     const idCategoria = Number(body.idCategoria ?? body.categoriaId);
-
-    /*
-      Tu tabla tema tiene imagen VARCHAR(255) NOT NULL.
-      Como tu Form_tema actualmente no selecciona imagen,
-      usamos una imagen por defecto.
-    */
     const imagen = String(body.imagen ?? body.imagenUrl ?? "/ico_pc.svg").trim();
 
     if (!titulo || !descripcion || !idCategoria || Number.isNaN(idCategoria)) {
@@ -101,6 +100,62 @@ export async function POST(request: Request) {
     return NextResponse.json(nuevoTema[0], { status: 201 });
   } catch (error) {
     console.error("Error al crear tema:", error);
+
+    return NextResponse.json(
+      { error: "Error interno del servidor." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+
+    const tipo = searchParams.get("tipo");
+    const id = searchParams.get("id");
+
+    if (tipo !== "tema") {
+      return NextResponse.json(
+        { error: "Tipo de eliminación no soportado por ahora." },
+        { status: 400 }
+      );
+    }
+
+    const idTema = Number(id);
+
+    if (!idTema || Number.isNaN(idTema)) {
+      return NextResponse.json(
+        { error: "El id del tema no es válido." },
+        { status: 400 }
+      );
+    }
+
+    const resultado = await prisma.$queryRaw<
+      { data: BorrarTemaRespuesta | null }[]
+    >`
+      SELECT borrar_tema_json(${idTema}) AS data;
+    `;
+
+    const data = resultado[0]?.data;
+
+    if (!data) {
+      return NextResponse.json(
+        { error: "No se pudo procesar la eliminación." },
+        { status: 500 }
+      );
+    }
+
+    if (!data.eliminado) {
+      return NextResponse.json(
+        { error: data.mensaje },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Error al eliminar tema:", error);
 
     return NextResponse.json(
       { error: "Error interno del servidor." },

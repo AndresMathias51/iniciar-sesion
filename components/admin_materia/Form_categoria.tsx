@@ -207,6 +207,7 @@ export default function Form_categoria({
                         setIconOpen(false);
                       }}
                       title={ico.value.replace("/", "").replace(".svg", "")}
+                      disabled={enviando}
                     >
                       <Image
                         src={ico.value}
