@@ -7,20 +7,31 @@ import styles from "./Post.module.css";
 
 import type { Publicacion } from "@/components/busqueda/types";
 
-
 type Props = {
   post: Publicacion;
-
-  usuarioActual:any;
-
-  onEliminar:(id:number)=>void;
-
-  onEditar:(post:Publicacion)=>void;
+  usuarioActual: any;
+  onEliminar: (id: number) => void;
+  onEditar: (post: Publicacion) => void;
 };
-const Post = ({ post, usuarioActual, onEliminar, onEditar }: Props) => {
+
+const Post = ({
+  post,
+  usuarioActual,
+  onEliminar,
+  onEditar
+}: Props) => {
+
+  const esAutor =
+    usuarioActual?.id === post.id_autor;
+
+  const esDocente =
+    usuarioActual?.nivel === 1;
+
   return (
     <div className={styles.post_card}>
+
       <div className={styles.encabezado_post}>
+
         <div className={styles.encabezado_iz}>
           <Image
             src="/dashboard/perfil.svg"
@@ -35,13 +46,16 @@ const Post = ({ post, usuarioActual, onEliminar, onEditar }: Props) => {
         <div className={styles.encabezado_der}>
           <span>{post.fecha}</span>
         </div>
+
       </div>
 
-      {post.titulo && (
-        <h2 className={styles.titulo_post}>
-          {post.titulo}
-        </h2>
-      )}
+      {
+        post.titulo && (
+          <h2 className={styles.titulo_post}>
+            {post.titulo}
+          </h2>
+        )
+      }
 
       <div className={styles.contenido_post}>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -49,23 +63,34 @@ const Post = ({ post, usuarioActual, onEliminar, onEditar }: Props) => {
         </ReactMarkdown>
       </div>
 
-      {usuarioActual?.correo === post.correo && (
-        <div className={styles.botones_post}>
-          <button
-  className={styles.btn_editar}
-  onClick={() => onEditar(post)}
->
-  Editar
-</button>
+      {
+        (esAutor || esDocente) && (
+          <div className={styles.botones_post}>
 
-          <button
-            className={styles.btn_eliminar}
-            onClick={() => onEliminar(post.id)}
-          >
-            Eliminar
-          </button>
-        </div>
-      )}
+            {/* Solo el dueño puede editar */}
+            {
+              esAutor && (
+                <button
+                  className={styles.btn_editar}
+                  onClick={() => onEditar(post)}
+                >
+                  Editar
+                </button>
+              )
+            }
+
+            {/* Dueño y docente pueden eliminar */}
+            <button
+              className={styles.btn_eliminar}
+              onClick={() => onEliminar(post.id)}
+            >
+              Eliminar
+            </button>
+
+          </div>
+        )
+      }
+
     </div>
   );
 };

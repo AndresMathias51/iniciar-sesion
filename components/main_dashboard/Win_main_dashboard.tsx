@@ -288,7 +288,7 @@ export default function Win_main_dashboard({
 
         </div>
 
-        <Barra_lateral />
+        {/* <Barra_lateral /> */}
 
       </div>
 

@@ -88,17 +88,9 @@ const guardarArticulo = async () => {
 
   if(!response.ok){
 
-    alert("Error");
-
     return;
 
   }
-
-  alert(
-    postEditar
-      ? "Post actualizado"
-      : "Post creado"
-  );
 
   onCancelar();
 
@@ -185,19 +177,20 @@ const guardarArticulo = async () => {
             />
 
           </div>
+            
+                  <button
+                    onClick={guardarArticulo}
+                    className="cms-button"
+                  >
+                    Guardar Artículo
+                  </button>
+                  <button
+          onClick={onCancelar}
+          className="cms-button cancelar"
+        >
+          Cancelar
+        </button> 
 
-          <button
-            onClick={guardarArticulo}
-            className="cms-button"
-          >
-            💾 Guardar Artículo
-          </button>
-          <button
-  onClick={onCancelar}
-  className="cms-button cancelar"
->
-  Cancelar
-</button> 
         </div>
 
       </div>

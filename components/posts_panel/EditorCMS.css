@@ -1,5 +1,5 @@
 .cms-container {
-  background: #111827;
+  background: white;
   min-height: 100vh;
   padding: 40px;
   font-family: Inter, sans-serif;
@@ -22,7 +22,7 @@
 /* SUBTITULO */
 
 .cms-subtitle {
-  color: #9CA3AF;
+  color: #000000;
   margin-bottom: 30px;
   font-size: 16px;
 }
@@ -30,11 +30,11 @@
 /* CARD */
 
 .cms-card {
-  background: #1F2937;
+  background: #ffffff;
   padding: 30px;
   border-radius: 18px;
   border: 1px solid #2d3239;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
 }
 
 /* TITULO CARD */
@@ -42,7 +42,7 @@
 .cms-card-title {
   font-size: 24px;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #000000;
   margin-bottom: 20px;
 }
 
@@ -51,9 +51,9 @@
   padding: 15px;
   margin-bottom: 25px;
   border-radius: 10px;
-  border: 1px solid #ffffff;
-  background: #111827;
-  color: white;
+  border: 1px solid #000000;
+  background: white;
+  color: black;
   font-size: 16px;
   outline: none;
   box-sizing: border-box;
@@ -73,13 +73,14 @@
   margin-top: 25px;
   padding: 14px 24px;
   background: #FFA71D;
-  color: #111827;
+  color: #ececec;
   border: none;
   border-radius: 10px;
   font-weight: bold;
   font-size: 15px;
   cursor: pointer;
   transition: 0.3s;
+  margin-right: 20px;
 }
 
 .cms-button:hover {
@@ -92,13 +93,13 @@
 
 .toastui-editor-defaultUI {
   border: none !important;
-  background: #111827 !important;
+  background: #c5c5c5 !important;
 }
 
 /* TOOLBAR */
 
 .toastui-editor-toolbar {
-  background: #1F2937 !important;
+  background: #7a7a7a !important;
   border-bottom: 1px solid #374151 !important;
 }
 
@@ -112,7 +113,7 @@
 
 .toastui-editor-md-container,
 .toastui-editor-ww-container {
-  background: #111827 !important;
+  background: #fe0000 !important;
 }
 
 /* TEXTO GENERAL */
@@ -125,8 +126,8 @@
 /* WYSIWYG */
 
 .ProseMirror {
-  color: #FFFFFF !important;
-  background: #111827 !important;
+  color: black !important;
+  background: white !important;
   min-height: 500px;
   padding: 20px;
 }
@@ -135,14 +136,14 @@
 
 .ProseMirror p,
 .toastui-editor-contents p {
-  color: #FFFFFF !important;
+  color: black !important;
 }
 
 /* LISTAS */
 
 .ProseMirror li,
 .toastui-editor-contents li {
-  color: #E5E7EB !important;
+  color: black !important;
 }
 
 /* HEADINGS */
@@ -183,7 +184,7 @@
 .toastui-editor-contents table td {
   border: 1px solid #374151;
   padding: 10px;
-  color: white !important;
+  color: black !important;
 }
 
 /* SCROLL */
@@ -195,7 +196,7 @@
 
 .toastui-editor-ww-container::-webkit-scrollbar-thumb,
 .toastui-editor-md-container::-webkit-scrollbar-thumb {
-  background: #4B5563;
+  background: white;
   border-radius: 10px;
 }
 
@@ -221,9 +222,4 @@
 
 .toastui-editor-md-container {
   width: 100% !important;
-}
-.cancelar{
-  margin-left:10px;
-  background:#374151;
-  color:white;
 }

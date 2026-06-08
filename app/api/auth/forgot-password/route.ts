@@ -1,19 +1,10 @@
 import nodemailer from "nodemailer";
+import { prisma } from "@/lib/prisma";
 type Usuario = {
   id: number,
   correo: string
 };
 // SIMULACIÓN BASE DATOS
-const usuariosDB: Usuario[] = [
-  {
-    id: 1,
-    correo: "andresmathias09877@gmail.com"
-  },
-  {
-    id: 2,
-    correo: "carlos@gmail.com"
-  }
-];
 // SIMULACIÓN CÓDIGOS
 export const codigosRecuperacion = new Map();
 export async function POST(req: Request) {
@@ -37,9 +28,11 @@ export async function POST(req: Request) {
     // =========================
     // VERIFICAR USUARIO
     // =========================
-    const usuario = usuariosDB.find(
-      user => user.correo === correo
-    );
+    const usuario = await prisma.usuario.findUnique({
+      where: {
+        correo
+      }
+    });
     if(!usuario){
       return Response.json(
         {

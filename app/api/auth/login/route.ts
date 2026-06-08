@@ -1,24 +1,6 @@
 import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
-
-type Usuario = {
-  id:number,
-  nombre:string,
-  correo:string,
-  passwordHash:string
-};
-
-const usuariosDB: Usuario[] = [
-  {
-    id:1,
-    nombre:"Andres",
-    correo:"andresmathias09877@gmail.com",
-    passwordHash: await bcrypt.hash(
-      "123456",
-      10
-    )
-  }
-];
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req:Request){
 
@@ -45,9 +27,14 @@ export async function POST(req:Request){
 
     }
 
-    const usuario = usuariosDB.find(
-      user => user.correo === correo
-    );
+    const usuario = await prisma.usuario.findUnique({
+      where: {
+        correo,
+      },
+      include: {
+        rol_usuario_rolTorol: true,
+      },
+    });
 
     if(!usuario){
 
@@ -66,7 +53,7 @@ export async function POST(req:Request){
     const passwordCorrecta =
       await bcrypt.compare(
         password,
-        usuario.passwordHash
+        usuario.password
       );
 
     if(!passwordCorrecta){
@@ -94,24 +81,27 @@ export async function POST(req:Request){
       JSON.stringify({
         id: usuario.id,
         nombre: usuario.nombre,
-        correo: usuario.correo
+        correo: usuario.correo,
+        rol: usuario.rol_usuario_rolTorol.nombre_rol,
+        nivel: usuario.rol_usuario_rolTorol.nivel
       }),
       {
-        httpOnly:true,
-        secure:false,
-        path:"/",
-        maxAge:60 * 60 * 24
+        httpOnly: true,
+        secure: false,
+        path: "/",
+        maxAge: 60 * 60 * 24
       }
     );
 
     return Response.json({
-      success:true,
-      message:"Inicio exitoso",
-
-      usuario:{
+      success: true,
+      message: "Inicio exitoso",
+      usuario: {
         id: usuario.id,
         nombre: usuario.nombre,
-        correo: usuario.correo
+        correo: usuario.correo,
+        rol: usuario.rol_usuario_rolTorol.nombre_rol,
+        nivel: usuario.rol_usuario_rolTorol.nivel
       }
     });
 

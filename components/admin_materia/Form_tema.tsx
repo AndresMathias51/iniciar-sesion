@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { Categoria } from "./Categoria_admin";
 import type { Tema } from "./Tema_admin";
 
@@ -11,8 +11,8 @@ type FormValue = Omit<Tema, "id">;
 
 type Props = {
   categorias: Categoria[];
-  categoriaId: string; // categoria activa
-  onCreate: (data: FormValue) => void;
+  categoriaId: string;
+  onCreate: (data: FormValue) => void | Promise<void>;
 };
 
 export default function Form_tema({ categorias, categoriaId, onCreate }: Props) {
@@ -20,35 +20,48 @@ export default function Form_tema({ categorias, categoriaId, onCreate }: Props) 
   const hasCategoriaActiva = !!categoriaId;
   const canCreate = hasCategorias && hasCategoriaActiva;
 
+  const [titulo, setTitulo] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [enviando, setEnviando] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const categoriaNombre = useMemo(() => {
     if (!categoriaId) return "";
     return categorias.find((c) => c.id === categoriaId)?.nombre ?? "";
   }, [categorias, categoriaId]);
 
-  const [titulo, setTitulo] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-
-  // Ya NO limpiamos al cambiar categoriaId porque te puede borrar lo que estabas escribiendo.
-  // Si quieres limpiar igual, dímelo y lo reactivamos.
-  useEffect(() => {
-    // no-op
-  }, [categoriaId]);
-
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     if (!canCreate) return;
-    if (!titulo.trim() || !descripcion.trim()) return;
 
-    onCreate({
-      categoriaId,
-      titulo: titulo.trim(),
-      descripcion: descripcion.trim(),
-      imagenUrl: undefined,
-    });
+    const tituloLimpio = titulo.trim();
+    const descripcionLimpia = descripcion.trim();
 
-    setTitulo("");
-    setDescripcion("");
+    if (!tituloLimpio || !descripcionLimpia) {
+      setError("Debes llenar el título y la descripción.");
+      return;
+    }
+
+    try {
+      setEnviando(true);
+      setError(null);
+
+      await onCreate({
+        categoriaId,
+        titulo: tituloLimpio,
+        descripcion: descripcionLimpia,
+        imagenUrl: "/ico_pc.svg",
+      });
+
+      setTitulo("");
+      setDescripcion("");
+    } catch (error) {
+      console.error("Error al crear tema:", error);
+      setError("No se pudo crear el tema.");
+    } finally {
+      setEnviando(false);
+    }
   }
 
   return (
@@ -76,7 +89,7 @@ export default function Form_tema({ categorias, categoriaId, onCreate }: Props) 
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
           placeholder="Ej: Trabajo Práctico 1"
-          /* IMPORTANTE: ya no lo deshabilitamos para que puedas escribir */
+          disabled={enviando}
         />
       </div>
 
@@ -88,18 +101,26 @@ export default function Form_tema({ categorias, categoriaId, onCreate }: Props) 
           onChange={(e) => setDescripcion(e.target.value)}
           placeholder="Descripción breve"
           rows={2}
-          /* IMPORTANTE: ya no lo deshabilitamos para que puedas escribir */
+          disabled={enviando}
         />
       </div>
 
+      {error && <p className={formShared.formHint}>{error}</p>}
+
       <div className={formShared.formActions}>
-        <button className={formShared.btnPrimary} type="submit" disabled={!canCreate}>
-          Crear tema
+        <button
+          className={formShared.btnPrimary}
+          type="submit"
+          disabled={!canCreate || enviando}
+        >
+          {enviando ? "Creando..." : "Crear tema"}
         </button>
       </div>
 
       {!canCreate && (
-        <p className={formShared.formHint}>* Debes tener al menos una categoría.</p>
+        <p className={formShared.formHint}>
+          * Debes tener al menos una categoría.
+        </p>
       )}
     </form>
   );

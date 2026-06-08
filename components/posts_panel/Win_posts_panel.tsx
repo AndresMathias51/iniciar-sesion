@@ -83,9 +83,7 @@ export default function Win_posts_panel({
 
         body:JSON.stringify({
 
-          id:idEliminar,
-
-          correo:postEliminar.correo
+          id:idEliminar
 
         })
       }
@@ -157,21 +155,26 @@ export default function Win_posts_panel({
   }, []);
 
   const ordenarPorFecha = () => {
-    const postsOrdenados = [...posts].sort((a, b) => {
-      const [diaA, mesA, anioA] = a.fecha.split("-");
-      const [diaB, mesB, anioB] = b.fecha.split("-");
 
-      const fechaA = new Date(`${anioA}-${mesA}-${diaA}`);
-      const fechaB = new Date(`${anioB}-${mesB}-${diaB}`);
+  const postsOrdenados = [...posts].sort((a,b) => {
 
-      return ascendente
-        ? fechaA.getTime() - fechaB.getTime()
-        : fechaB.getTime() - fechaA.getTime();
-    });
+    const fechaA =
+      new Date(a.fecha).getTime();
 
-    setPosts(postsOrdenados);
-    setAscendente(!ascendente);
-  };
+    const fechaB =
+      new Date(b.fecha).getTime();
+
+    return ascendente
+      ? fechaA - fechaB
+      : fechaB - fechaA;
+
+  });
+
+  setPosts(postsOrdenados);
+
+  setAscendente(!ascendente);
+
+};
 
   const postsFiltrados = posts.filter(
     (post) => post.id_tema === temaSeleccionado

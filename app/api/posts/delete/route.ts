@@ -1,14 +1,10 @@
 import { NextResponse } from "next/server";
-
 import { cookies } from "next/headers";
+import { prisma } from "@/lib/prisma";
 
-export async function POST(req:Request){
+export async function POST(req: Request) {
 
-  try{
-
-    // =========================
-    // VALIDAR SESIÓN
-    // =========================
+  try {
 
     const cookieStore =
       await cookies();
@@ -16,15 +12,15 @@ export async function POST(req:Request){
     const usuarioCookie =
       cookieStore.get("usuario");
 
-    if(!usuarioCookie){
+    if (!usuarioCookie) {
 
       return NextResponse.json(
         {
-          success:false,
-          message:"Debe iniciar sesión"
+          success: false,
+          message: "Debe iniciar sesión"
         },
         {
-          status:401
+          status: 401
         }
       );
 
@@ -33,85 +29,88 @@ export async function POST(req:Request){
     const usuario =
       JSON.parse(usuarioCookie.value);
 
-    // =========================
-    // DATOS FRONTEND
-    // =========================
+    const body =
+      await req.json();
 
-    const body = await req.json();
+    const { id } = body;
 
-    const {
-      id,
-      correo
-    } = body;
-
-    // =========================
-    // VALIDAR DUEÑO
-    // =========================
-
-    if(usuario.correo !== correo){
+    if (!id) {
 
       return NextResponse.json(
         {
-          success:false,
-          message:"No autorizado"
+          success: false,
+          message: "ID inválido"
         },
         {
-          status:403
+          status: 400
         }
       );
 
     }
 
-    // =========================
-    // VALIDAR ID
-    // =========================
+    const publicacion =
+      await prisma.publicacion.findUnique({
+        where: {
+          id
+        }
+      });
 
-    if(!id){
+    if (!publicacion) {
 
       return NextResponse.json(
         {
-          success:false,
-          message:"ID inválido"
+          success: false,
+          message: "Publicación no encontrada"
         },
         {
-          status:400
+          status: 404
         }
       );
 
     }
 
-    // =========================
-    // AQUÍ IRÍA LA BASE DE DATOS
-    // =========================
+    const esAutor =
+      usuario.id === publicacion.id_autor;
 
-    /*
-      EJEMPLO SQL:
+    const esDocente =
+      usuario.nivel === 1;
 
-      DELETE FROM posts
-      WHERE id = ?
-    */
+    if (!esAutor && !esDocente) {
 
-    console.log(
-      "POST A ELIMINAR:",
-      id
-    );
+      return NextResponse.json(
+        {
+          success: false,
+          message: "No autorizado"
+        },
+        {
+          status: 403
+        }
+      );
 
-    return NextResponse.json({
-      success:true,
-      message:"Post eliminado"
+    }
+
+    await prisma.publicacion.delete({
+      where: {
+        id
+      }
     });
 
-  }catch(error){
+    return NextResponse.json({
+      success: true,
+      message: "Publicación eliminada"
+    });
+
+  } catch (error) {
 
     console.log(error);
 
     return NextResponse.json(
       {
-        success:false,
-        message:"Error interno"
+        success: false,
+        message: "Error interno"
       },
       {
-        status:500
+        status: 500
       }
     );
 

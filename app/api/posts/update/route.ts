@@ -1,14 +1,10 @@
 import { NextResponse } from "next/server";
-
 import { cookies } from "next/headers";
+import { prisma } from "@/lib/prisma";
 
-export async function POST(req:Request){
+export async function POST(req: Request) {
 
-  try{
-
-    // =========================
-    // VALIDAR SESIÓN
-    // =========================
+  try {
 
     const cookieStore =
       await cookies();
@@ -16,15 +12,15 @@ export async function POST(req:Request){
     const usuarioCookie =
       cookieStore.get("usuario");
 
-    if(!usuarioCookie){
+    if (!usuarioCookie) {
 
       return NextResponse.json(
         {
-          success:false,
-          message:"Debe iniciar sesión"
+          success: false,
+          message: "Debe iniciar sesión"
         },
         {
-          status:401
+          status: 401
         }
       );
 
@@ -33,98 +29,103 @@ export async function POST(req:Request){
     const usuario =
       JSON.parse(usuarioCookie.value);
 
-    // =========================
-    // DATOS FRONTEND
-    // =========================
-
-    const body = await req.json();
+    const body =
+      await req.json();
 
     const {
       id,
       titulo,
-      contenido,
-      correo
+      contenido
     } = body;
 
-    // =========================
-    // VALIDAR AUTOR
-    // =========================
-
-    if(usuario.correo !== correo){
-
-      return NextResponse.json(
-        {
-          success:false,
-          message:"No autorizado"
-        },
-        {
-          status:403
-        }
-      );
-
-    }
-
-    // =========================
-    // VALIDAR CAMPOS
-    // =========================
-
-    if(
+    if (
       !id ||
       !titulo ||
       !contenido
-    ){
+    ) {
 
       return NextResponse.json(
         {
-          success:false,
-          message:"Faltan campos"
+          success: false,
+          message: "Faltan campos"
         },
         {
-          status:400
+          status: 400
         }
       );
 
     }
 
-    // =========================
-    // AQUÍ IRÍA LA BASE DE DATOS
-    // =========================
+    const publicacion =
+      await prisma.publicacion.findUnique({
+        where: {
+          id
+        }
+      });
 
-    /*
-      EJEMPLO SQL:
+    if (!publicacion) {
 
-      UPDATE posts
-      SET
-        titulo = ?,
-        contenido = ?
-      WHERE id = ?
-    */
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Publicación no encontrada"
+        },
+        {
+          status: 404
+        }
+      );
 
-    console.log(
-      "POST A ACTUALIZAR:",
-      {
-        id,
-        titulo,
-        contenido
-      }
-    );
+    }
+
+    const esAutor =
+      usuario.id === publicacion.id_autor;
+
+    const esDocente =
+      usuario.nivel === 1;
+
+    if (!esAutor && !esDocente) {
+
+      return NextResponse.json(
+        {
+          success: false,
+          message: "No autorizado"
+        },
+        {
+          status: 403
+        }
+      );
+
+    }
+
+    const publicacionActualizada =
+      await prisma.publicacion.update({
+        where: {
+          id
+        },
+        data: {
+          titulo,
+          contenido,
+          fecha: new Date()
+        }
+      });
 
     return NextResponse.json({
-      success:true,
-      message:"Post actualizado"
+      success: true,
+      message: "Publicación actualizada",
+      post: publicacionActualizada
     });
 
-  }catch(error){
+  } catch (error) {
 
     console.log(error);
 
     return NextResponse.json(
       {
-        success:false,
-        message:"Error interno"
+        success: false,
+        message: "Error interno"
       },
       {
-        status:500
+        status: 500
       }
     );
 

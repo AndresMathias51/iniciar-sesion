@@ -19,7 +19,7 @@ export default function EstadisticasPanel({ data }: EstadisticasPanelProps) {
         <header className={styles.header}>
           <h1 className={styles.title}>Panel de estadísticas</h1>
           <p className={styles.description}>
-            Resumen general dase usuarios, estudiantes, publicaciones y temas de la materia.
+            Resumen general de usuarios, estudiantes, publicaciones y temas de la materia.
           </p>
         </header>
         <section className={styles.grid}>
@@ -33,7 +33,7 @@ export default function EstadisticasPanel({ data }: EstadisticasPanelProps) {
 
           <div className={styles.chartCard}>
             <PublicacionesSemanaChart
-              publicaciones={data.publicacionesPorSemana}
+              publicaciones={data.publicacionesPorcategoria}
             />
           </div>
 

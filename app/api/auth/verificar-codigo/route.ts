@@ -43,6 +43,7 @@ export async function POST(req: Request) {
         }
       );
     }
+    codigosRecuperacion.delete(correo);
     return Response.json(
       {
         success: true,

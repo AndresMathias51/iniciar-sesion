@@ -13,6 +13,8 @@ import "./Encabezado.css";
 type Usuario = {
     nombre:string;
     correo:string;
+    rol:string;
+    nivel:number;
 };
 type Props = {
     nombre: string;
@@ -124,11 +126,15 @@ export default function Encabezado({ nombre, barraBusqueda }: Props) {
                 </h1>
             </div>
             {barraBusqueda}
-            <Link href='/estadisticas'>
-                <button className="nombre_materia boton_estadistica">
-                    ESTADISTICAS
-                </button>
-            </Link>
+            {
+                usuario?.nivel === 1 && (
+                    <Link href="/estadisticas">
+                        <button className="nombre_materia boton_estadistica">
+                            ESTADISTICAS
+                        </button>
+                    </Link>
+                )
+            }
             <div
                 className="sub_bloque"
                 ref={menuRef}

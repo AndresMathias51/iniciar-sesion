@@ -1,7 +1,6 @@
+import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
-
 import nodemailer from "nodemailer";
-
 import { cookies } from "next/headers";
 
 export async function POST(req:Request){
@@ -78,23 +77,38 @@ export async function POST(req:Request){
             }
 
             // =========================
-            // SIMULACIÓN BD
+            // BUSCAR USUARIO EN BD
             // =========================
-            const usuarioDB = {
 
-                correo:"andres@gmail.com",
+            const usuarioDB =
+                await prisma.usuario.findUnique({
+                    where:{
+                        correo
+                    }
+                });
 
-                passwordHash:
-                    await bcrypt.hash(
-                        "123456",
-                        10
-                    )
-            };
+            if(!usuarioDB){
+
+                return Response.json(
+                    {
+                        success:false,
+                        message:"Usuario no encontrado"
+                    },
+                    {
+                        status:404
+                    }
+                );
+
+            }
+
+            // =========================
+            // VALIDAR PASSWORD
+            // =========================
 
             const passwordCorrecta =
                 await bcrypt.compare(
                     password,
-                    usuarioDB.passwordHash
+                    usuarioDB.password
                 );
 
             if(!passwordCorrecta){
@@ -102,8 +116,7 @@ export async function POST(req:Request){
                 return Response.json(
                     {
                         success:false,
-                        message:
-                            "Contraseña incorrecta"
+                        message:"Contraseña incorrecta"
                     },
                     {
                         status:401

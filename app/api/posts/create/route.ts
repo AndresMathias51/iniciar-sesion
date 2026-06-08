@@ -1,14 +1,10 @@
 import { NextResponse } from "next/server";
-
 import { cookies } from "next/headers";
+import { prisma } from "@/lib/prisma";
 
-export async function POST(req:Request){
+export async function POST(req: Request) {
 
-  try{
-
-    // =========================
-    // VALIDAR SESIÓN
-    // =========================
+  try {
 
     const cookieStore =
       await cookies();
@@ -16,32 +12,25 @@ export async function POST(req:Request){
     const usuarioCookie =
       cookieStore.get("usuario");
 
-    if(!usuarioCookie){
+    if (!usuarioCookie) {
 
       return NextResponse.json(
         {
-          success:false,
-          message:"Debe iniciar sesión"
+          success: false,
+          message: "Debe iniciar sesión"
         },
         {
-          status:401
+          status: 401
         }
       );
 
     }
 
-    // =========================
-    // USUARIO LOGUEADO
-    // =========================
-
     const usuario =
       JSON.parse(usuarioCookie.value);
 
-    // =========================
-    // DATOS FRONTEND
-    // =========================
-
-    const body = await req.json();
+    const body =
+      await req.json();
 
     const {
       titulo,
@@ -49,98 +38,65 @@ export async function POST(req:Request){
       id_tema
     } = body;
 
-    // =========================
-    // VALIDAR CAMPOS
-    // =========================
-
-    if(
+    if (
       !titulo ||
       !contenido ||
       !id_tema
-    ){
+    ) {
 
       return NextResponse.json(
         {
-          success:false,
-          message:"Faltan campos"
+          success: false,
+          message: "Faltan campos"
         },
         {
-          status:400
+          status: 400
         }
       );
 
     }
 
-    // =========================
-    // OBJETO A GUARDAR
-    // =========================
+    const nuevoPost =
+      await prisma.publicacion.create({
 
-    const nuevoPost = {
+        data: {
 
-      autor:usuario.nombre,
+          autor: usuario.nombre,
 
-      correo:usuario.correo,
+          id_autor: usuario.id,
 
-      titulo,
+          titulo,
 
-      contenido,
+          contenido,
 
-      id_tema,
+          id_tema: Number(id_tema)
 
-      fecha:new Date()
-        .toLocaleDateString("es-BO")
+        }
 
-    };
-
-    // =========================
-    // AQUÍ IRÍA LA BASE DE DATOS
-    // =========================
-
-    /*
-      EJEMPLO SQL:
-
-      INSERT INTO posts
-      (
-        autor,
-        correo,
-        titulo,
-        contenido,
-        id_tema,
-        fecha
-      )
-      VALUES
-      (
-        ...datos
-      )
-    */
-
-    console.log(
-      "POST A INSERTAR:",
-      nuevoPost
-    );
+      });
 
     return NextResponse.json(
       {
-        success:true,
-        message:"Post creado correctamente",
-        post:nuevoPost
+        success: true,
+        message: "Post creado correctamente",
+        post: nuevoPost
       },
       {
-        status:201
+        status: 201
       }
     );
 
-  }catch(error){
+  } catch (error) {
 
     console.log(error);
 
     return NextResponse.json(
       {
-        success:false,
-        message:"Error interno"
+        success: false,
+        message: "Error interno"
       },
       {
-        status:500
+        status: 500
       }
     );
 

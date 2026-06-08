@@ -1,255 +1,62 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-export async function GET() {
-    const posts = {
-            "encabezado": {
-                "nombre": "PROGRAMACION III"
-            },
-            "descripcion": {
-                "descripcion": "Materia organizada en categorías temáticas relacionadas con programación, bases de datos, desarrollo web, sistemas de información, arquitectura de software y redes."
-            },
-            "categorias": [
-                {
-                "id": 1,
-                "nombre": "Programación",
-                "temas": [
-                    {
-                    "id": 1,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Introducción a la programación",
-                    "descripcion": "Conceptos básicos de programación y lógica computacional."
-                    },
-                    {
-                    "id": 2,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Variables y tipos de datos",
-                    "descripcion": "Uso de variables, constantes y tipos de datos básicos."
-                    },
-                    {
-                    "id": 3,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Estructuras condicionales",
-                    "descripcion": "Uso de if, else y operadores lógicos."
-                    },
-                    {
-                    "id": 4,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Bucles y repetición",
-                    "descripcion": "Uso de ciclos for, while y do while."
-                    },
-                    {
-                    "id": 5,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Funciones",
-                    "descripcion": "Creación y reutilización de bloques de código."
-                    },
-                    {
-                    "id": 6,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Arreglos",
-                    "descripcion": "Manejo de listas y colecciones de datos."
-                    },
-                    {
-                    "id": 7,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Programación orientada a objetos",
-                    "descripcion": "Clases, objetos, atributos y métodos."
-                    },
-                    {
-                    "id": 8,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Manejo de errores",
-                    "descripcion": "Control de excepciones y validación de errores."
-                    },
-                    {
-                    "id": 34,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Base de datos abc",
-                    "descripcion": "Uso de IPv4, máscaras de red y segmentación básica."
-                    }
-                ]
-                },
-                {
-                "id": 2,
-                "nombre": "Base de Datos",
-                "temas": [
-                    {
-                    "id": 9,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Modelo entidad relación",
-                    "descripcion": "Diseño conceptual de bases de datos."
-                    },
-                    {
-                    "id": 10,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Modelo relacional",
-                    "descripcion": "Tablas, columnas, claves primarias y claves foráneas."
-                    },
-                    {
-                    "id": 11,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Consultas SQL básicas",
-                    "descripcion": "Uso de SELECT, WHERE, ORDER BY y filtros."
-                    },
-                    {
-                    "id": 12,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Relaciones entre tablas",
-                    "descripcion": "Relaciones uno a uno, uno a muchos y muchos a muchos."
-                    },
-                    {
-                    "id": 13,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Normalización",
-                    "descripcion": "Organización eficiente de datos para evitar redundancia."
-                    }
-                ]
-                },
-                {
-                "id": 3,
-                "nombre": "Desarrollo Web",
-                "temas": [
-                    {
-                    "id": 14,
-                    "imagen": "/ico_internet.svg",
-                    "nombre": "HTML semántico",
-                    "descripcion": "Estructura base de páginas web con etiquetas semánticas."
-                    },
-                    {
-                    "id": 15,
-                    "imagen": "/ico_internet.svg",
-                    "nombre": "CSS básico",
-                    "descripcion": "Estilos, selectores, colores, márgenes y espaciados."
-                    },
-                    {
-                    "id": 16,
-                    "imagen": "/ico_internet.svg",
-                    "nombre": "Flexbox",
-                    "descripcion": "Distribución flexible de elementos en una interfaz."
-                    },
-                    {
-                    "id": 17,
-                    "imagen": "/ico_internet.svg",
-                    "nombre": "CSS Grid",
-                    "descripcion": "Diseño de estructuras en filas y columnas."
-                    },
-                    {
-                    "id": 18,
-                    "imagen": "/ico_internet.svg",
-                    "nombre": "Diseño responsive",
-                    "descripcion": "Adaptación de interfaces a diferentes tamaños de pantalla."
-                    },
-                    {
-                    "id": 19,
-                    "imagen": "/ico_internet.svg",
-                    "nombre": "Componentes visuales",
-                    "descripcion": "Construcción de tarjetas, botones, formularios y listas."
-                    }
-                ]
-                },
-                {
-                "id": 4,
-                "nombre": "Sistemas de Información",
-                "temas": [
-                    {
-                    "id": 20,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Conceptos de sistemas de información",
-                    "descripcion": "Definición, elementos y objetivos de un sistema de información."
-                    },
-                    {
-                    "id": 21,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Procesos organizacionales",
-                    "descripcion": "Relación entre procesos de negocio y sistemas."
-                    },
-                    {
-                    "id": 22,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Tipos de sistemas",
-                    "descripcion": "Sistemas transaccionales, gerenciales y estratégicos."
-                    },
-                    {
-                    "id": 23,
-                    "imagen": "/ico_pc.svg",
-                    "nombre": "Requerimientos del sistema",
-                    "descripcion": "Identificación de necesidades funcionales y no funcionales."
-                    }
-                ]
-                },
-                {
-                "id": 5,
-                "nombre": "Arquitectura de Software",
-                "temas": [
-                    {
-                    "id": 24,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Capas de arquitectura",
-                    "descripcion": "Organización de un sistema en capas lógicas."
-                    },
-                    {
-                    "id": 25,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Arquitectura cliente-servidor",
-                    "descripcion": "Comunicación entre cliente, servidor y base de datos."
-                    },
-                    {
-                    "id": 26,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Arquitectura MVC",
-                    "descripcion": "Separación entre modelo, vista y controlador."
-                    },
-                    {
-                    "id": 27,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "APIs REST",
-                    "descripcion": "Diseño de endpoints para comunicación entre sistemas."
-                    },
-                    {
-                    "id": 28,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Servicios",
-                    "descripcion": "Separación de lógica de negocio mediante servicios."
-                    },
-                    {
-                    "id": 29,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Escalabilidad",
-                    "descripcion": "Capacidad del sistema para crecer y soportar más carga."
-                    },
-                    {
-                    "id": 30,
-                    "imagen": "/ico_conf.svg",
-                    "nombre": "Mantenibilidad",
-                    "descripcion": "Buenas prácticas para facilitar cambios futuros."
-                    }
-                ]
-                },
-                {
-                "id": 6,
-                "nombre": "Redes",
-                "temas": [
-                    {
-                    "id": 31,
-                    "imagen": "/ico_internet.svg",
-                    "nombre": "Conceptos básicos de redes",
-                    "descripcion": "Dispositivos, medios de transmisión y comunicación."
-                    },
-                    {
-                    "id": 32,
-                    "imagen": "/ico_internet.svg",
-                    "nombre": "Modelo OSI",
-                    "descripcion": "Capas del modelo OSI y sus funciones principales."
-                    },
-                    {
-                    "id": 33,
-                    "imagen": "/ico_internet.svg",
-                    "nombre": "Direcciones IP",
-                    "descripcion": "Uso de IPv4, máscaras de red y segmentación básica."
-                    }
-                ]
-                }
-            ]
-        };
-    return NextResponse.json(posts);
+export const runtime = "nodejs";
+
+type DashboardMateria = {
+  encabezado: {
+    nombre: string;
+  };
+  descripcion: {
+    descripcion: string;
+  };
+  categorias: {
+    id: number;
+    nombre: string;
+    temas: {
+      id: number;
+      imagen: string;
+      nombre: string;
+      descripcion: string;
+    }[];
+  }[];
+};
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+
+    const idMateria = Number(searchParams.get("idMateria"));
+
+    if (!idMateria || Number.isNaN(idMateria)) {
+      return NextResponse.json(
+        { error: "Debe enviar un idMateria válido." },
+        { status: 400 }
+      );
+    }
+
+    const resultado = await prisma.$queryRaw<
+      { data: DashboardMateria | null }[]
+    >`
+      SELECT obtener_dashboard_materia(${idMateria}) AS data;
+    `;
+
+    const dashboard = resultado[0]?.data;
+
+    if (!dashboard) {
+      return NextResponse.json(
+        { error: "No se encontró la materia solicitada." },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(dashboard);
+  } catch (error) {
+    console.error("Error al obtener dashboard de materia:", error);
+
+    return NextResponse.json(
+      { error: "Error interno del servidor." },
+      { status: 500 }
+    );
+  }
 }

@@ -1,8 +1,10 @@
 import { cookies } from "next/headers";
+import { prisma } from "@/lib/prisma";
+import bcrypt from "bcrypt";
 
-export async function DELETE(){
+export async function DELETE() {
 
-    try{
+    try {
 
         const cookieStore =
             await cookies();
@@ -10,15 +12,15 @@ export async function DELETE(){
         const usuarioCookie =
             cookieStore.get("usuario");
 
-        if(!usuarioCookie){
+        if (!usuarioCookie) {
 
             return Response.json(
                 {
-                    success:false,
-                    message:"No hay sesión"
+                    success: false,
+                    message: "No hay sesión"
                 },
                 {
-                    status:401
+                    status: 401
                 }
             );
 
@@ -30,17 +32,38 @@ export async function DELETE(){
             );
 
         // =========================
-        // AQUÍ ELIMINARÍAS EN BD
+        // GENERAR DATOS INVÁLIDOS
         // =========================
 
-        console.log(
-            "Cuenta eliminada:",
-            usuario.correo
-        );
+        const passwordEliminada =
+            await bcrypt.hash(
+                crypto.randomUUID(),
+                10
+            );
+
+        // =========================
+        // DESACTIVAR CUENTA
+        // =========================
+
+        await prisma.usuario.update({
+            where: {
+                id: usuario.id
+            },
+            data: {
+                nombre: "Usuario eliminado",
+
+                correo:
+                    `eliminado_${usuario.id}_${Date.now()}@deleted.local`,
+
+                password:
+                    passwordEliminada
+            }
+        });
 
         // =========================
         // ELIMINAR COOKIES
         // =========================
+
         cookieStore.delete("usuario");
 
         cookieStore.delete(
@@ -49,26 +72,25 @@ export async function DELETE(){
 
         return Response.json(
             {
-                success:true,
-                message:
-                    "Cuenta eliminada"
+                success: true,
+                message: "Cuenta eliminada correctamente"
             },
             {
-                status:200
+                status: 200
             }
         );
 
-    }catch(error){
+    } catch (error) {
 
         console.log(error);
 
         return Response.json(
             {
-                success:false,
-                message:"Error interno"
+                success: false,
+                message: "Error interno"
             },
             {
-                status:500
+                status: 500
             }
         );
 

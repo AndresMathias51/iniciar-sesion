@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model categoria {
+  id          Int     @id @default(autoincrement())
+  nombre      String  @db.VarChar(100)
+  id_materia  Int
+  descripcion String?
+  imagen      String? @db.VarChar(255)
+  materia     materia @relation(fields: [id_materia], references: [id], onDelete: Cascade, map: "fk_categoria_materia")
+  tema        tema[]
+}
+
+model materia {
+  id          Int         @id @default(autoincrement())
+  nombre      String      @db.VarChar(150)
+  descripcion String
+  categoria   categoria[]
+}
+
+model tema {
+  id           Int           @id @default(autoincrement())
+  nombre       String        @db.VarChar(150)
+  imagen       String        @db.VarChar(255)
+  descripcion  String
+  id_categoria Int
+  publicacion  publicacion[]
+  categoria    categoria     @relation(fields: [id_categoria], references: [id], onDelete: Cascade, map: "fk_tema_categoria")
+}
+
+model publicacion {
+  id        Int      @id @default(autoincrement())
+  autor     String   @db.VarChar(100)
+  id_autor  Int
+  fecha     DateTime @default(now()) @db.Timestamp(6)
+  titulo    String   @db.VarChar(200)
+  id_tema   Int?
+  contenido String
+  usuario   usuario  @relation(fields: [id_autor], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_id_autor")
+  tema      tema?    @relation(fields: [id_tema], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_tema")
+}
+
+model rol {
+  id_rol                   Int       @id @default(autoincrement())
+  nivel                    Int       @unique
+  nombre_rol               String    @db.VarChar(100)
+  usuario_usuario_rolTorol usuario[] @relation("usuario_rolTorol")
+}
+
+model usuario {
+  id                   Int           @id @default(autoincrement())
+  nombre               String        @db.VarChar(100)
+  correo               String        @unique @db.VarChar(150)
+  password             String        @db.VarChar(255)
+  rol                  Int
+  publicacion          publicacion[]
+  rol_usuario_rolTorol rol           @relation("usuario_rolTorol", fields: [rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "fk_rol")
+}
