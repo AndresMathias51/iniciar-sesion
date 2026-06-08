@@ -12,7 +12,7 @@ type FormValue = {
   idMateria: string;
 };
 
-type Props = {
+type Props = {  
   mode: "create" | "edit";
   idMateria: string;
   initialValue?: Categoria;

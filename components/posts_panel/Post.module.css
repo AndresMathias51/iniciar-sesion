@@ -266,3 +266,82 @@
 .btn_eliminar:hover{
     opacity: 0.85;
 }
+
+.error_post {
+  color: #dc2626;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+.confirmOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.confirmModal {
+  width: min(420px, 90vw);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.confirmTitle {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+}
+
+.confirmText {
+  margin: 0 0 16px;
+  font-size: 0.95rem;
+}
+
+.confirmBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.confirmRow {
+  display: flex;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.confirmActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.confirmCancel,
+.confirmAccept {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.confirmCancel {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.confirmAccept {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.confirmCancel:disabled,
+.confirmAccept:disabled,
+.btn_editar:disabled,
+.btn_eliminar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

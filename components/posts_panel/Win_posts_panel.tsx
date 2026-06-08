@@ -6,22 +6,21 @@ import styles from "./Win_posts_panel.module.css";
 
 import Post from "./Post";
 import Descripcion from "@/components/main_dashboard/Descripcion";
-import ModalEliminar from "./ModalEliminar";
 
 import type { Publicacion } from "@/components/busqueda/types";
 
 type Props = {
-  descripcion:string;
+  descripcion: string;
 
-  temaSeleccionado:number;
+  temaSeleccionado: number;
 
-  volverCategorias:() => void;
+  volverCategorias: () => void;
 
-  usuarioActual:any;
+  usuarioActual: any;
 
-  onCrearPost:() => void;
+  onCrearPost: () => void;
 
-  onEditarPost:(post:Publicacion)=>void;
+  onEditarPost: (post: Publicacion) => void;
 };
 
 export default function Win_posts_panel({
@@ -30,98 +29,13 @@ export default function Win_posts_panel({
   volverCategorias,
   usuarioActual,
   onCrearPost,
-  onEditarPost
+  onEditarPost,
 }: Props) {
   const [posts, setPosts] = useState<Publicacion[]>([]);
   const [ascendente, setAscendente] = useState(false);
 
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const [mostrarModal, setMostrarModal] = useState(false);
-  const [idEliminar, setIdEliminar] = useState<number | null>(null);
-
-  const abrirModalEliminar = (id: number) => {
-    setMostrarModal(true);
-    setIdEliminar(id);
-  };
-
-  const cerrarModal = () => {
-    setMostrarModal(false);
-    setIdEliminar(null);
-  };
-
-  const confirmarEliminar = async () => {
-
-  if(idEliminar === null) return;
-
-  try{
-
-    // =========================
-    // BUSCAR POST
-    // =========================
-
-    const postEliminar =
-      posts.find(
-        (post)=>post.id === idEliminar
-      );
-
-    if(!postEliminar) return;
-
-    // =========================
-    // BACKEND
-    // =========================
-
-    const response = await fetch(
-      "/api/posts/delete",
-      {
-        method:"POST",
-
-        headers:{
-          "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-
-          id:idEliminar
-
-        })
-      }
-    );
-
-    const data =
-      await response.json();
-
-    if(!response.ok){
-
-      alert(data.message);
-
-      return;
-
-    }
-
-    // =========================
-    // ELIMINAR VISUALMENTE
-    // =========================
-
-    const nuevosPosts =
-      posts.filter(
-        (post)=>post.id !== idEliminar
-      );
-
-    setPosts(nuevosPosts);
-
-    cerrarModal();
-
-  }catch(error){
-
-    console.log(error);
-
-    alert("Error al eliminar");
-
-  }
-
-};
 
   useEffect(() => {
     const obtenerPosts = async () => {
@@ -130,7 +44,7 @@ export default function Win_posts_panel({
         setError(null);
 
         const response = await fetch("/api/posts", {
-          cache: "no-store"
+          cache: "no-store",
         });
 
         if (!response.ok) {
@@ -155,26 +69,22 @@ export default function Win_posts_panel({
   }, []);
 
   const ordenarPorFecha = () => {
+    const postsOrdenados = [...posts].sort((a, b) => {
+      const fechaA = new Date(a.fecha).getTime();
+      const fechaB = new Date(b.fecha).getTime();
 
-  const postsOrdenados = [...posts].sort((a,b) => {
+      return ascendente ? fechaA - fechaB : fechaB - fechaA;
+    });
 
-    const fechaA =
-      new Date(a.fecha).getTime();
+    setPosts(postsOrdenados);
+    setAscendente(!ascendente);
+  };
 
-    const fechaB =
-      new Date(b.fecha).getTime();
-
-    return ascendente
-      ? fechaA - fechaB
-      : fechaB - fechaA;
-
-  });
-
-  setPosts(postsOrdenados);
-
-  setAscendente(!ascendente);
-
-};
+  const eliminarPostDeLaVista = (id: number) => {
+    setPosts((postsActuales) =>
+      postsActuales.filter((post) => post.id !== id)
+    );
+  };
 
   const postsFiltrados = posts.filter(
     (post) => post.id_tema === temaSeleccionado
@@ -193,18 +103,16 @@ export default function Win_posts_panel({
             >
               ← Volver
             </button>
-            {
-              usuarioActual && (
 
-                <button
-                  className={styles.btn_ordenar}
-                  onClick={onCrearPost}
-                >
-                  + Subir Post
-                </button>
+            {usuarioActual && (
+              <button
+                className={styles.btn_ordenar}
+                onClick={onCrearPost}
+              >
+                + Subir Post
+              </button>
+            )}
 
-              )
-            }
             <button
               className={styles.btn_ordenar}
               onClick={ordenarPorFecha}
@@ -238,18 +146,12 @@ export default function Win_posts_panel({
                 key={post.id}
                 post={post}
                 usuarioActual={usuarioActual}
-                onEliminar={abrirModalEliminar}
+                onEliminar={eliminarPostDeLaVista}
                 onEditar={onEditarPost}
               />
             ))}
         </div>
       </div>
-
-      <ModalEliminar
-        visible={mostrarModal}
-        onClose={cerrarModal}
-        onConfirmar={confirmarEliminar}
-      />
     </div>
   );
 }

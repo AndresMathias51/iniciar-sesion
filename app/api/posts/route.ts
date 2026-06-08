@@ -18,7 +18,7 @@ export async function GET() {
             new Date(post.fecha)
             .toLocaleString(
                 "sv-SE",
-                {
+                {   
                 timeZone: "America/La_Paz"
                 }
             )
